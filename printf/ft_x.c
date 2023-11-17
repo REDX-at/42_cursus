@@ -6,13 +6,13 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:16:59 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/07 20:27:27 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:49:53 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	hex_len(unsigned int num)
+static int	xlen(unsigned int num)
 {
 	int	len;
 
@@ -25,12 +25,12 @@ static int	hex_len(unsigned int num)
 	return (len);
 }
 
-static void	ft_put_hex(unsigned int num, const char format)
+static void	ft_putx(unsigned int num, const char format)
 {
 	if (num >= 16)
 	{
-		ft_put_hex(num / 16, format);
-		ft_put_hex(num % 16, format);
+		ft_putx(num / 16, format);
+		ft_putx(num % 16, format);
 	}
 	else
 	{
@@ -51,6 +51,6 @@ int	ft_x(unsigned int x, const char format)
 	if (x == 0)
 		return (write(1, "0", 1));
 	else
-		ft_put_hex(x, format);
-	return (hex_len(x));
+		ft_putx(x, format);
+	return (xlen(x));
 }

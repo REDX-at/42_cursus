@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_p.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:57:07 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/09 14:57:11 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:59:18 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 static void	handle_ptr(unsigned long ptr, int *total)
 {
-	char	*result;
+	char	result[17];
 	int		i;
 
 	i = 0;
-	result = (char *)malloc(sizeof(char) * 16);
-	if (!result)
-		return ;
 	while (ptr >= 16)
 	{
 		result[i] = "0123456789abcdef"[ptr % 16];
@@ -29,12 +26,12 @@ static void	handle_ptr(unsigned long ptr, int *total)
 	}
 	if (ptr < 16)
 		result[i] = "0123456789abcdef"[ptr];
+	result[i + 1] = '\0';
 	while (i >= 0)
 	{
 		*total += ft_c(result[i]);
 		i--;
 	}
-	free(result);
 }
 
 int	ft_p(unsigned long ptr)
