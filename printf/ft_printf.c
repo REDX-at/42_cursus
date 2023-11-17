@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:33:34 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/17 10:54:03 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:09:54 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (i);
 }
-
-// int	main()
-// {  
-// 	int d = printf("%%%%%     ");
-// 	printf("\n");
-// 	int i = ft_printf("%%%%%    ");
-// 	printf("\n");
-// 	printf("Orig : %d\n", d);
-// 	printf("Mine : %d\n", i);
-// }
