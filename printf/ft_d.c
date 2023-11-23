@@ -6,11 +6,24 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:15:21 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/08 14:32:41 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:57:53 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	digcount(int n)
+{
+	int	digit;
+
+	digit = !n;
+	while (n)
+	{
+		n /= 10;
+		digit++;
+	}
+	return (digit);
+}
 
 int	bignumber(void)
 {
