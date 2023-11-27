@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:10:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/20 14:12:43 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:15:24 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 
 int		ft_c(char c);
-int		count_percent(char const *str);
 int		ft_d(int nb);
 int		ft_s(char *s);
 void	ft_u(unsigned int nb, int *i);

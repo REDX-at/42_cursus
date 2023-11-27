@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:33:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/23 10:28:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:15:35 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,41 +117,41 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-int main(void)
-{
-	int		fd;
-	char	*line;
-	int		i;
-	int		d;
+// int main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
+// 	int		d;
 
-	i = 0;
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (1);
-	}
-	d = 0;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		i++;
-		printf("---------------------------\n");
-		printf("Hawa Line %d", i);
-		d += printf(" : %s\n", line);
-		printf("---------------------------\n");
-		free(line);
-		sleep(1);
-	}
-	if (((line = get_next_line(fd)) == NULL))
-	{
-		printf("--------------------------------\n");
-		printf("-!-!-!-!-!-!-!-'0'-!-!-!-!-!-!-!-\n");
-		printf("--------------------------------\n");
-	}
-	printf("the legnht of the all line : %d", d);
-	printf(" - (4");
-	printf(" * %d", i);
-	printf(")");
-	close(fd);
-	return (0);
-}
+// 	i = 0;
+// 	fd = open("test.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return (1);
+// 	}
+// 	d = 0;
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		i++;
+// 		printf("---------------------------\n");
+// 		printf("Hawa Line %d", i);
+// 		d += printf(" : %s\n", line);
+// 		printf("---------------------------\n");
+// 		free(line);
+// 		sleep(1);
+// 	}
+// 	if (((line = get_next_line(fd)) == NULL))
+// 	{
+// 		printf("--------------------------------\n");
+// 		printf("-!-!-!-!-!-!-!-'0'-!-!-!-!-!-!-!-\n");
+// 		printf("--------------------------------\n");
+// 	}
+// 	printf("the legnht of the all line : %d", d);
+// 	printf(" - (4");
+// 	printf(" * %d", i);
+// 	printf(")");
+// 	close(fd);
+// 	return (0);
+// }

@@ -6,11 +6,17 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:15:21 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/23 15:57:53 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:15:49 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	bignumber(void)
+{
+	write(1, "-2147483648", 11);
+	return (11);
+}
 
 int	digcount(int n)
 {
@@ -23,12 +29,6 @@ int	digcount(int n)
 		digit++;
 	}
 	return (digit);
-}
-
-int	bignumber(void)
-{
-	write(1, "-2147483648", 11);
-	return (11);
 }
 
 int	ft_d(int nb)
