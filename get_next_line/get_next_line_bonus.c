@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:33:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/02 17:31:22 by aitaouss         ###   ########.fr       */
+/*   Created: 2023/11/27 15:29:55 by aitaouss          #+#    #+#             */
+/*   Updated: 2023/12/02 17:09:23 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -97,23 +97,23 @@ char	*ft_getline(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char			*line;
+	static char			*line[OPEN_MAX];
 	char				*temp;
 	char				*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd > OPEN_MAX)
 		return (NULL);
-	temp = readline(fd, line);
+	temp = readline(fd, line[fd]);
 	if (!temp)
 	{
-		if (line)
-			free(line);
-		line = NULL;
+		if (line[fd])
+			free(line[fd]);
+		line[fd] = NULL;
 		return (NULL);
 	}
-	line = temp;
-	next_line = ft_getline(line);
-	line = ft_newline(line);
+	line[fd] = temp;
+	next_line = ft_getline(line[fd]);
+	line[fd] = ft_newline(line[fd]);
 	return (next_line);
 }
 
@@ -123,7 +123,6 @@ int main()
 	int fd1 = open("test1.txt", O_CREAT | O_RDWR, 0666);
 	int fd2 = open("test2.txt", O_CREAT | O_RDWR, 0666);
 	int fd3 = open("test3.txt", O_CREAT | O_RDWR, 0666);
-	// write(fd3, "hello\n", 6);
 
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd1));

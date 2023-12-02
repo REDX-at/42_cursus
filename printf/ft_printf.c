@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:33:34 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/24 15:17:21 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:15:48 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,11 @@ int	ft_printf(const char *format, ...)
 		j++;
 	}
 	return (va_end(args), i);
+}
+
+int main()
+{
+	ft_printf("%t");
+	printf("\n");
+	printf("%t");
 }
