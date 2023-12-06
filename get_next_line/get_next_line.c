@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:33:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/02 17:31:22 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:46:59 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*readline(int fd, char *line)
 	char	*buffer;
 	ssize_t	read_bytes;
 
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	buffer = (char *)malloc((BUFFER_SIZE + 1 * sizeof(char)));
 	if (!buffer)
 		return (NULL);
 	read_bytes = 1;
@@ -27,10 +27,7 @@ char	*readline(int fd, char *line)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
+			return (free(buffer), NULL);
 		buffer[read_bytes] = '\0';
 		line = ft_strjoin(line, buffer);
 	}
@@ -101,8 +98,8 @@ char	*get_next_line(int fd)
 	char				*temp;
 	char				*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd > OPEN_MAX)
-		return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
+		return (free(line), line = 0, NULL);
 	temp = readline(fd, line);
 	if (!temp)
 	{
@@ -115,18 +112,4 @@ char	*get_next_line(int fd)
 	next_line = ft_getline(line);
 	line = ft_newline(line);
 	return (next_line);
-}
-
-int main()
-{
-	int fd = open("test.txt", O_RDONLY);
-	int fd1 = open("test1.txt", O_CREAT | O_RDWR, 0666);
-	int fd2 = open("test2.txt", O_CREAT | O_RDWR, 0666);
-	int fd3 = open("test3.txt", O_CREAT | O_RDWR, 0666);
-	// write(fd3, "hello\n", 6);
-
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd2));
-	printf("%s", get_next_line(fd));
 }

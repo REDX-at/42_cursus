@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:30:19 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/02 17:09:46 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:47:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,10 @@
 #  define BUFFER_SIZE 1024
 # endif
 # include <stdlib.h>
-# include <fcntl.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <limits.h>
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
-# endif
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *line, char *buff);

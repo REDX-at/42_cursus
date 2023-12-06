@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:08:55 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/11/27 11:42:34 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:52:42 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ char	*ft_strjoin(char *line, char *buff)
 	if (!line)
 	{
 		line = (char *)malloc(1 * sizeof(char));
-		line[0] = '\0';
+		if (line)
+			line[0] = '\0';
 	}
 	if (!line || !buff)
 		return (NULL);
