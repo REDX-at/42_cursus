@@ -6,13 +6,11 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:33:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/06 10:46:59 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:51:49 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 char	*readline(int fd, char *line)
 {
