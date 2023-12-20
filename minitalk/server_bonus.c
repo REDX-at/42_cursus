@@ -1,19 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 17:11:28 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/20 22:36:40 by aitaouss         ###   ########.fr       */
+/*   Created: 2023/12/20 20:14:05 by aitaouss          #+#    #+#             */
+/*   Updated: 2023/12/20 22:37:24 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <libc.h>
 #include "./Tools/Tools.h"
 
 void	handle_signal(int signal, siginfo_t *info, void *context)
@@ -22,6 +18,7 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	static pid_t			current_pid;
 	static pid_t			client_pid;
 	static int				i = 0;
+	static int				receive = 0;
 
 	(void)context;
 	if (!client_pid)
@@ -30,8 +27,14 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	if (current_pid != client_pid)
 	{
 		client_pid = current_pid;
+		receive = 0;
 		character = 0;
 		i = 7;
+	}
+	if (!receive)
+	{
+		kill(current_pid, SIGUSR2);
+		receive = 1;
 	}
 	if (signal == SIGUSR1)
 		character |= (0 << i);
@@ -48,34 +51,13 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 
 void	just_banner(void)
 {
-	char	*str;
-	char	*str2;
-	char	*two;
-	char	*twot;
-	char	*thre;
-	char	*thret;
-	char	*four;
-	char	*fourf;
-	char	*five;
-	char	*fivef;
-	
-	str2 = "  ______   ___       __       __ __";
-	str = "    __  ___  ____   _   __   ____ ";
-	two = "   /  |/  / /  _/  / | / /  /  _/ ";
-	twot = " /_  __/  /   |     / /      / //_/";
-	thre = "  / /|_/ /  / /   /  |/ /   / /    ";
-	thret = " / /    / /| |    / /      / ,<   ";
-	four = " / /  / / _/ /   / /|  /  _/ /    ";
-	fourf = " / /    / ___ |   / /___   / /| |  ";
-	five = "/_/  /_/ /___/  /_/ |_/  /___/    /_/  ";
-	fivef = "  /_/  |_|  /_____/  /_/ |_| ";
-	ft_printf("%s%s\n", str, str2);
-	ft_printf("%s%s\n", two, twot);
-	ft_printf("%s%s\n", thre, thret);
-	ft_printf("%s%s\n", four, fourf);
-	ft_printf("%s%s\n", five, fivef);
+	ft_printf("    __  ___  ____   _   __   ____   ______   ___       __       __ __\n");
+	ft_printf("   /  |/  / /  _/  / | / /  /  _/  /_  __/  /   |     / /      / //_/\n");
+	ft_printf("  / /|_/ /  / /   /  |/ /   / /     / /    / /| |    / /      / ,<   \n");
+	ft_printf(" / /  / / _/ /   / /|  /  _/ /     / /    / ___ |   / /___   / /| |  \n");
+	ft_printf("/_/  /_/ /___/  /_/ |_/  /___/    /_/    /_/  |_|  /_____/  /_/ |_| \n");
 	ft_printf("\n");
-	ft_printf("%s WAITING %s Minitalk Server PID : [ %d ]\n", GREEN, WHITE, getpid());
+	ft_printf("\033[30m\033[42m WAITING \033[0m \033[97mMinitalk Server PID : [ %d ]\n", getpid());
 }
 
 int	main(void)
