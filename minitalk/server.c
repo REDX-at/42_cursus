@@ -6,11 +6,18 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 17:11:28 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/22 14:59:24 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:32:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Tools/Tools.h"
+
+void	process_character(unsigned char *character, int *i)
+{
+	write(1, character, 1);
+	*character = 0;
+	*i = 7;
+}
 
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
@@ -35,11 +42,7 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 		character |= (1 << i);
 	i--;
 	if (i < 0)
-	{
-		write(1, &character, 1);
-		character = 0;
-		i = 7;
-	}
+		process_character(&character, &i);
 }
 
 void	just_banner(void)

@@ -6,47 +6,52 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:14:05 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/22 14:59:11 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:05:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Tools/Tools.h"
 
+void	process_character(unsigned char *character, int *i)
+{
+	write(1, character, 1);
+	*character = 0;
+	*i = 7;
+}
+
+void	set_back(struct variables *helps)
+{
+	helps->client_pid = helps->current_pid;
+	helps->receive = 0;
+	helps->character = 0;
+}
+
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
-	static unsigned char	character;
-	static pid_t			current_pid;
-	static pid_t			client_pid;
+	static struct variables	helps;
 	static int				i = 7;
-	static int				receive;
 
 	(void)context;
-	if (!client_pid)
-		client_pid = info->si_pid;
-	current_pid = info->si_pid;
-	if (current_pid != client_pid)
+	if (!helps.client_pid)
+		helps.client_pid = info->si_pid;
+	helps.current_pid = info->si_pid;
+	if (helps.current_pid != helps.client_pid)
 	{
-		client_pid = current_pid;
-		receive = 0;
-		character = 0;
+		set_back(&helps);
 		i = 7;
 	}
-	if (!receive)
+	if (!helps.receive)
 	{
-		kill(current_pid, SIGUSR2);
-		receive = 1;
+		kill(helps.current_pid, SIGUSR2);
+		helps.receive = 1;
 	}
 	if (signal == SIGUSR1)
-		character |= (0 << i);
+		helps.character |= (0 << i);
 	else
-		character |= (1 << i);
+		helps.character |= (1 << i);
 	i--;
 	if (i < 0)
-	{
-		write(1, &character, 1);
-		character = 0;
-		i = 7;
-	}
+		process_character(&helps.character, &i);
 }
 
 void	just_banner(void)

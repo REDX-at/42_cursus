@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:29:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/21 22:04:41 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:51:25 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ int		digcount(int n);
 int		ft_atoi(const char *str);
 int		ft_printf(const char *format, ...);
 
+typedef struct variables
+{
+	unsigned char	character;
+	pid_t			current_pid;
+	pid_t			client_pid;
+	int				receive;
+}	t_helps;
 #endif

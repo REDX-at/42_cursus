@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:44:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/22 15:04:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:13:10 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,34 @@ void	just_print_err(void)
 	pid_err = "Or PID invalide";
 	ft_printf("%s ERROR %s %s %s\n", RED, WHITE, str, pid_err);
 }
-void send_character(pid_t server_pid, unsigned char character)
-{
-    int i = 7;
-    static int deja = 0;
 
-    while (i >= 0)
-    {
-        if (((character >> i) & 1) == 0)
-        {
-            if (kill(server_pid, SIGUSR1) == -1 && deja == 0)
-            {
-                deja = 1;
-                just_print_err();
-            }
-        }
-        else
-        {
-            if (kill(server_pid, SIGUSR2) == -1 && deja == 0)
-            {
-                deja = 1;
-                just_print_err();
-            }
-        }
-        usleep(150);
-        i--;
-    }
+void	send_character(pid_t server_pid, unsigned char character)
+{
+	int			i;
+	static int	deja;
+
+	i = 7;
+	while (i >= 0)
+	{
+		if (((character >> i) & 1) == 0)
+		{
+			if (kill(server_pid, SIGUSR1) == -1 && deja == 0)
+			{
+				deja = 1;
+				just_print_err();
+			}
+		}
+		else
+		{
+			if (kill(server_pid, SIGUSR2) == -1 && deja == 0)
+			{
+				deja = 1;
+				just_print_err();
+			}
+		}
+		usleep(150);
+		i--;
+	}
 }
 
 int	main(int argc, char **argv)
