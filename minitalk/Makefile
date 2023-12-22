@@ -33,7 +33,7 @@ all: $(NAME)
 
 bonus: $(BONUS_NAME)
 clean:
-	@echo "Cleaning"
+	@echo "Cleaning √"
 	@rm -f server client client_bonus server_bonus
 	@cd ./Tools && make fclean > /dev/null
 

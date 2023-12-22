@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:29:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/20 21:53:25 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/21 22:04:41 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # define RED "\033[30m\033[101m"
 # define GREEN "\033[30m\033[42m"
 # define WHITE "\033[0m \033[97m"
+# define BLUE "\033[0m\033[94m"
+# define LIGHT_BLUE "\033[0m\033[96m"
+# define YELLOW "\033[0m\033[92m"
+# define GREEN_NEW "\033[92m"
+# define RED_NEW "\033[31m"
 
 int		ft_c(char c);
 int		ft_d(int nb);

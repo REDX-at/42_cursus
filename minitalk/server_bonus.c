@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:14:05 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/20 22:37:24 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:59:11 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
-	static unsigned char	character = 0;
+	static unsigned char	character;
 	static pid_t			current_pid;
 	static pid_t			client_pid;
-	static int				i = 0;
-	static int				receive = 0;
+	static int				i = 7;
+	static int				receive;
 
 	(void)context;
 	if (!client_pid)
@@ -51,13 +51,20 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 
 void	just_banner(void)
 {
-	ft_printf("    __  ___  ____   _   __   ____   ______   ___       __       __ __\n");
-	ft_printf("   /  |/  / /  _/  / | / /  /  _/  /_  __/  /   |     / /      / //_/\n");
-	ft_printf("  / /|_/ /  / /   /  |/ /   / /     / /    / /| |    / /      / ,<   \n");
-	ft_printf(" / /  / / _/ /   / /|  /  _/ /     / /    / ___ |   / /___   / /| |  \n");
-	ft_printf("/_/  /_/ /___/  /_/ |_/  /___/    /_/    /_/  |_|  /_____/  /_/ |_| \n");
+	char	*str;
+	char	*str2;
+
+	str2 = "---------------- ";
+	str = "Minitalk Server PID : ";
+	ft_printf("%s __  __ ___ _  _ ___   _____ _   _    _  __\n", GREEN_NEW);
+	ft_printf("%s|  \\/  |_ _| \\| |_ _| |_   _/_\\ | |  | |/ /\n", GREEN_NEW);
+	ft_printf("%s| |\\/| || || .` || |    | |/ _ \\| |__| ' < \n", GREEN_NEW);
+	ft_printf("%s|_|  |_|___|_|\\_|___|   |_/_/ \\_|____|_|\\_\\\n", GREEN_NEW);
 	ft_printf("\n");
-	ft_printf("\033[30m\033[42m WAITING \033[0m \033[97mMinitalk Server PID : [ %d ]\n", getpid());
+	ft_printf("%s%s%sR-E-D-X%s-----------------", WHITE, str2, RED_NEW, WHITE);
+	ft_printf("\n");
+	ft_printf("\n");
+	ft_printf("%s WAITING %s%s[  %d  ]\n", GREEN, WHITE, str, getpid());
 }
 
 int	main(void)
