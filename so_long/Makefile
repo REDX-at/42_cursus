@@ -2,7 +2,11 @@ NAME = so_long
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LINKER = -lmlx -framework OpenGL -framework AppKit
-SRC = so_long.c ./utils/args_handler.c ./utils/check_mapber.c
+SRC = so_long.c ./utils/args_handler.c ./utils/check_mapber.c ./utils/check_map.c \
+	./utils/get_line_double.c ./utils/get_map.c ./utils/set.c \
+	./utils/ft_strleny.c ./utils/ft_strjoiny.c ./utils/ft_strdupy.c \
+	./utils/ft_splity.c ./utils/ft_strlcpyy.c 
+
 LIBFT = ./libftt/libft.a
 OBJS = $(SRC:.c=.o)
 

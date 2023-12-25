@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:57:53 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/23 23:09:44 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/25 09:39:46 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*ft_stradd(char *str, char buff)
 	char	*retu;
 
 	i = 0;
-	retu = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
+	retu = (char *)malloc(sizeof(char) * (ft_strleny(str) + 2));
 	if (retu == NULL)
 		return (NULL);
 	while (str[i])

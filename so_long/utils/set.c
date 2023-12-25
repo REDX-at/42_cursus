@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:37:27 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/23 23:40:42 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/25 18:02:14 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void    set_content(t_cnt *content)
 
 void    set_image(t_data *data)
 {
-    data->img.height = 80;
-    data->img.width= 80;
+    data->imgs.height = 80;
+    data->imgs.width= 80;
+    data->imgs.floor = ".xpm";
+	data->imgs.wall = ".xpm";
+	data->imgs.collect = ".xpm";
+	data->imgs.player = ".xpm";
+	data->imgs.exit = ".xpm";
 }
