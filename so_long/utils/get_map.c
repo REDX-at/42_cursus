@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/25 12:16:44 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:34:59 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	**parse_map(int fd, t_data *data)
 	data->height = i;
 	if (!(ft_check_line(data->map[i - 1], data->content.wall)))
 		return (ft_free_map(data));
+	if (!(check_if_is_playable(data->map)))
+		return (NULL);
 	return (data->map);
 }
 

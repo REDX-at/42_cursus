@@ -6,18 +6,18 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/25 18:10:04 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:53:26 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "mlx.h"
 
-
 void	print_err()
 {
 	printf("%sMap Invalide %sX\n", WHITE, RED_NEW);
 }
+
 int	end(t_data *data)
 {
 	int		i;
@@ -30,18 +30,34 @@ int	end(t_data *data)
 			free(data->map[i]);
 			i++;
 		}
+		data->map[i] = NULL;
 		free(data->map);
 		mlx_destroy_image(data->mlx, data->imgs.img_floor);
+		mlx_destroy_image(data->mlx, data->imgs.img_collect);
+		mlx_destroy_image(data->mlx, data->imgs.img_wall);
+		mlx_destroy_image(data->mlx, data->imgs.img_exit);
+		mlx_destroy_image(data->mlx, data->imgs.img_player);
+		mlx_destroy_image(data->mlx, data->mlx_win);
 	}
 	mlx_destroy_window(data->mlx, data->mlx_win);
-	free(data->mlx);
 	exit(0);
 }
 
 void	*print_string(char *str)
 {
-	printf("%s%s",WHITE, str);
-	return (0);
+	ft_printf("%s%s",WHITE, str);
+	exit(EXIT_FAILURE);
+}
+void	init_variables(t_data *data)
+{
+	// data->content.exit = NULL;
+	// data->content.collect = NULL;
+	// data->content.player = NULL;
+	// data->content.wall = NULL;
+	// data->content.space = NULL;
+	data->content.count_p = 0;
+	data->content.count_e = 0;
+	data->content.count_c = 0;
 }
 int main(int argc, char **argv)
 {
@@ -64,14 +80,19 @@ int main(int argc, char **argv)
 		else
 		{
 			data.count = 0;
-			// data.mlx = mlx_init();
+			init_variables(&data);
 			set_content(&(data.content));
 			data.map = map_core(argv, &data);
-			// data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "So_long");
-    		// data.img = mlx_new_image(data.mlx, 1920, 1080);
-			// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixels, &data.line_lenght, &data.endian);
-			// mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
-			// mlx_loop(data.mlx);
+			data.mlx = mlx_init();
+			if (!data.mlx)
+				return 0;
+			char	*xpmjust = "brick.xpm";
+			data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "So_long");
+			data.img = mlx_xpm_file_to_image(data.mlx, xpmjust, &data.width, &data.height);
+			mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
+			mlx_hook(data.mlx_win, 2, 0, input_key, &data);
+			mlx_loop(data.mlx);
 		}
 	}
+	return 0;
 }

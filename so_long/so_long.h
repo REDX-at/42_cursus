@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/25 18:01:29 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/26 17:16:42 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include "mlx.h"
 # include "./libftt/libft.h"
+# include "./printf/ft_printf.h"
 # include "get_next_line/get_next_line.h"
 # include <stdlib.h>
 # include <math.h>
@@ -93,6 +94,24 @@ char	*ft_strjoiny(char const *s1, char const *s2);
 size_t	ft_strleny(const char *s);
 size_t	ft_strlcpyy(char *dest, const char *src, size_t size);
 int		end(t_data *data);
+int		ft_check_p(char **map, char p, int *row, int *col) ;
+int		check_if_is_playable(char **map);
+void	print_img(t_data *data, void *img, int x, int y);
+int		check_collect(t_data *data, char **map);
+int		input_key(int keycode, t_data *data);
+void	render_offic(t_data *data);
+
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+
+# define KEY_ESC 53
+
+# define KEY_TOP 126
+# define KEY_RIGHT 124
+# define KEY_LEFT 123
+# define KEY_BOTTOM 125
 
 # define RED "\033[30m\033[101m"
 # define GREEN "\033[30m\033[42m"

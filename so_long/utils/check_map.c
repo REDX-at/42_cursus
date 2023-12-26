@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 08:30:25 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/25 20:29:33 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:33:52 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_check_line(char *map_line, char wall)
 		if (map_line[i] != wall)
 		{
 			print_string("Error\nMap line not close\n");
-			return (0);
+			return 0;
 		}
 		i++;
 	}
@@ -119,55 +119,119 @@ int	ft_check_format(char **map)
 	return (1);
 }
 
-int ft_check_p(char **map, char p, int *row, int *col) {
-    *row = 0;
-    while (map[*row] != NULL) {
-        *col = 0;
-        while (map[*row][*col] != '\0') {
-            if (map[*row][*col] == p) {
-				printf("there is p : \n");
+
+int check_if_is_playable(char **map)
+{
+    t_data data;
+    int row, col;
+    
+	// data.width = 6;
+    if (ft_check_p(map, 'P', &row, &col))
+	{
+        if (row > 0 && row < data.width - 1 && col > 0 && col < data.width - 1)
+		{
+            if (map[row + 1][col] == '1' && map[row - 1][col] == '1' &&
+                map[row][col + 1] == '1' && map[row][col - 1] == '1')
+			{
+				print_string("Error\nThe map is not Playabale\n");
+                return 0;
+            }
+			else
+			{
                 return 1;
             }
+        }
+		else
+		{
+            return 1;
+        }
+    }
+    return 0;
+}
+int ft_check_p(char **map, char p, int *row, int *col) 
+{
+    *row = 0;
+    while (map[*row] != NULL)
+	{
+        *col = 0;
+        while (map[*row][*col] != '\0')
+		{
+            if (map[*row][*col] == p)
+                return 1;
             (*col)++;
         }
         (*row)++;
     }
     return 0;
 }
+int	check_collect(t_data *data, char **map)
+{
+	int		i;
+	int		y;
+	int		count;
 
-int check_if_is_playable(char **map) {
-    t_data data;
-    int row, col;
+	data->map = map;
+	i = 0;
+	y = 0;
+	count = 0;
+	while (data->map[y])
+	{
+		while (data->map[y][i])
+		{
+			if (data->map[y][i] == data->content.collect)
+				count++;
+			i++;
+		}
+		i = 0;
+		y++;
+	}
+	return (count);
+}
+
+
+// int check_if_is_playable(char **map)
+// {
+//     t_data data;
+//     int row, col;
     
-    if (ft_check_p(map, 'P', &row, &col)) {
-        if (row > 0 && row < data.width - 1 && col > 0 && col < data.width - 1) {
-            if (map[row + 1][col] == '1' && map[row - 1][col] == '1' &&
-                map[row][col + 1] == '1' && map[row][col - 1] == '1') {
-                return 1;
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
-        }
-    }
-    return 1;
-}
+// 	data.width = 6;
+//     if (ft_check_p(map, 'P', &row, &col)) {
+//         if (row > 0 && row < data.width - 1 && col > 0 && col < data.width - 1)
+// 		{
+//             if (map[row + 1][col] == '1' && map[row - 1][col] == '1' &&
+//                 map[row][col + 1] == '1' && map[row][col - 1] == '1')
+// 			{
+// 				printf("Error\nThe map is not Playabale\n");
+//                 return 0;
+//             }
+// 			else
+// 			{
+//                 return 1;
+//             }
+//         }
+// 		else
+// 		{
+//             return 1;
+//         }
+//     }
+//     return 0;
+// }
+// int main() {
+//     // Example map
+//     char *map[] = {
+//         "111111",
+//         "100011",
+//         "11P111",
+//         "101011",
+//         "100011",
+//         "111111",
+//         NULL
+//     };
 
-int main(){
-    char *map[] = {
-        "111111",
-        "10C1C1",
-        "1C1P11",
-        "1C11C1",
-        "11E1C1",
-        "111111",
-        NULL
-    };
-	
-	t_data	data;
-	data.width = 6;
-	int d = check_if_is_playable(map);
-	printf("%d", d);
-    return 0;
-}
+//     // Check if the map is surrounded by walls
+//     if (check_if_is_playable(map)) {
+//         printf("The map is playable!\n");
+//     }
+
+//     return 0;
+// }
