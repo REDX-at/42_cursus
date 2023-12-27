@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 12:54:58 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:57:57 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct img_s
 	void	*img_exit;
 	void	*img_wall;
 	void	*img_collect;
+	void	*img_playerback;
 	int		height;
 	int		width;
 	char	*player;
@@ -104,7 +105,9 @@ int		render(t_data *data);
 void	render_mapi(t_data *data);
 void    move_right(t_data *data);
 void    move_left(t_data *data);
+void    move_top(t_data *data);
 void	fill_the_map(t_data	data, int *x, int *y);
+void    move_down(t_data *data);
 
 # define KEY_W 13
 # define KEY_A 0

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 08:21:31 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 12:57:29 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:50:16 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ int	input_key(int keycode, t_data *data)
 	{
 		ft_printf("The Game is ended.\n");
 		mlx_destroy_window(data->mlx, data->mlx_win);
+        exit(0);
+        //end(data);
 	}
+	if (keycode == KEY_D)
+        move_right(data);
 	if (keycode == KEY_A)
         move_left(data);
 	if (keycode == KEY_W)
-		ft_printf("W");
+		move_top(data);
 	if (keycode == KEY_S)
-		ft_printf("S");
-	if (keycode == KEY_D)
-        move_right(data);
+		move_down(data);
     return (0);
 }
 void    move_right(t_data *data)
@@ -63,7 +65,7 @@ void    move_right(t_data *data)
                 data->map[posY][posX + 1] = data->content.player;
                 data->map[posY][posX] = data->content.space;
                 data->count += 1;
-                ft_printf("%d", data->count);
+                ft_printf("Moves : %d\n", data->count);
                 fill_the_map(*data, &x, &y);
             }
             else
@@ -72,12 +74,13 @@ void    move_right(t_data *data)
                 {
                     data->map[posY][posX + 1] = data->content.player;
                     data->map[posY][posX] = data->content.space;
-                    printf("Nadi jbti lgame B %d", data->count);
-                    end(data);
+                    ft_printf("Nadi jbti lgame B %\n", data->count);
+                    mlx_destroy_window(data->mlx, data->mlx_win);
+                    exit(EXIT_SUCCESS);
+                    // end(data);
                 }
             }
         }
-        
     }
 }
 void    move_left(t_data *data)
@@ -90,48 +93,95 @@ void    move_left(t_data *data)
     check = ft_check_whereis_p(data->map, 'P', &posY, &posX);
     if (check == 1)
     {
-        if (data->map[posY][posX - 1] != data->content.wall || data->map[posY][posX - 1] != data->content.collect)
+        if (data->map[posY][posX - 1] != data->content.wall)
         {
             if (data->map[posY][posX - 1] != data->content.exit)
             {
                 data->map[posY][posX - 1] = data->content.player;
                 data->map[posY][posX] = data->content.space;
                 data->count += 1;
-                ft_printf("%d", data->count);
+                ft_printf("Moves : %d\n", data->count);
                 fill_the_map(*data, &x, &y);
             }
             else
             {
-                if (check_collect(data, data->map) == 0 && data->map[posY][posX + 1] == data->content.exit)
+                if (check_collect(data, data->map) == 0 && data->map[posY][posX - 1] == data->content.exit)
                 {
-                    data->map[posY][posX + 1] = data->content.player;
+                    data->map[posY][posX - 1] = data->content.player;
                     data->map[posY][posX] = data->content.space;
-                    printf("Nadi jbti lgame B %d", data->count);
-                    end(data);
+                    ft_printf("Nadi jbti lgame B %d\n", data->count);
+                    mlx_destroy_window(data->mlx, data->mlx_win);
+                    exit(EXIT_SUCCESS);
                 }
             }
         }
-        
     }
 }
-// int main() {
-//     t_data *data = (t_data *)malloc(sizeof(t_data));
-    
-//     char *map[] = {
-//         "111111",
-//         "100011",
-//         "1101P1",
-//         "101011",
-//         "100011",
-//         "111111",
-//         NULL
-//     };
-//     data->map = map;
-//     int x;
-//     int y;
-//     if (ft_check_whereis_p(data->map, 'P', &y, &x)) {
-//         printf("The p coordination : \n");
-//     }
-//     printf("%d %d", y, x);
-//     return 0;
-// }
+void    move_top(t_data *data)
+{
+    int posX;
+    int posY;
+    int check = 0;
+    int x;
+    int y;
+    check = ft_check_whereis_p(data->map, 'P', &posY, &posX);
+    if (check == 1)
+    {
+        if (data->map[posY - 1][posX] != data->content.wall)
+        {
+            if (data->map[posY - 1][posX] != data->content.exit)
+            {
+                data->map[posY - 1][posX] = data->content.player;
+                data->map[posY][posX] = data->content.space;
+                data->count += 1;
+                ft_printf("Moves : %d\n", data->count);
+                fill_the_map(*data, &x, &y);
+            }
+            else
+            {
+                if (check_collect(data, data->map) == 0 && data->map[posY - 1][posX] == data->content.exit)
+                {
+                    data->map[posY - 1][posX] = data->content.player;
+                    data->map[posY][posX] = data->content.space;
+                    ft_printf("Nadi jbti lgame B %d\n", data->count);
+                    mlx_destroy_window(data->mlx, data->mlx_win);
+                    exit(EXIT_SUCCESS);
+                }
+            }
+        }
+    }
+}
+void    move_down(t_data *data)
+{
+    int posX;
+    int posY;
+    int check = 0;
+    int x;
+    int y;
+    check = ft_check_whereis_p(data->map, 'P', &posY, &posX);
+    if (check == 1)
+    {
+        if (data->map[posY + 1][posX] != data->content.wall)
+        {
+            if (data->map[posY + 1][posX] != data->content.exit)
+            {
+                data->map[posY + 1][posX] = data->content.player;
+                data->map[posY][posX] = data->content.space;
+                data->count += 1;
+                ft_printf("Moves : %d\n", data->count);
+                fill_the_map(*data, &x, &y);
+            }
+            else
+            {
+                if (check_collect(data, data->map) == 0 && data->map[posY + 1][posX] == data->content.exit)
+                {
+                    data->map[posY + 1][posX] = data->content.player;
+                    data->map[posY][posX] = data->content.space;
+                    ft_printf("Nadi jbti lgame B %d\n", data->count);
+                    mlx_destroy_window(data->mlx, data->mlx_win);
+                    exit(EXIT_SUCCESS);
+                }
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 12:49:37 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:04:48 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	end(t_data *data)
 		}
 		data->map[i] = NULL;
 		free(data->map);
-		mlx_destroy_image(data->mlx, data->imgs.img_floor);
-		mlx_destroy_image(data->mlx, data->imgs.img_collect);
-		mlx_destroy_image(data->mlx, data->imgs.img_wall);
-		mlx_destroy_image(data->mlx, data->imgs.img_exit);
-		mlx_destroy_image(data->mlx, data->imgs.img_player);
+		mlx_destroy_image(data->mlx, data->imgs.floor);
+		mlx_destroy_image(data->mlx, data->imgs.collect);
+		mlx_destroy_image(data->mlx, data->imgs.wall);
+		mlx_destroy_image(data->mlx, data->imgs.exit);
+		mlx_destroy_image(data->mlx, data->imgs.player);
 		mlx_destroy_image(data->mlx, data->mlx_win);
 	}
 	mlx_destroy_window(data->mlx, data->mlx_win);
@@ -151,36 +151,6 @@ int main(int argc, char **argv)
 			data.imgs.floor = mlx_xpm_file_to_image(data.mlx, floorxpm, &data.imgs.width, &data.imgs.height);
 			data.imgs.player = mlx_xpm_file_to_image(data.mlx, redx, &data.imgs.width, &data.imgs.height);
 			data.imgs.exit = mlx_xpm_file_to_image(data.mlx, exit, &data.imgs.width, &data.imgs.height);
-			// mlx_put_image_to_window(data.mlx, data.mlx_win, img, 0, 0);
-			// while (y < data.height)
-			// {
-			// 	while(x < data.width)
-			// 	{
-			// 		if (data.map[y][x] == data.content.wall)
-			// 		{
-			// 			mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.wall, x * data.imgs.width, y * data.imgs.height);
-			// 		}
-			// 		if (data.map[y][x] == data.content.space)
-			// 		{
-			// 			mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.floor, x * data.imgs.width, y * data.imgs.height);
-			// 		}
-			// 		if (data.map[y][x] == data.content.player)
-			// 		{
-			// 			mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.player, x * data.imgs.width, y * data.imgs.height);
-			// 		}
-			// 		if (data.map[y][x] == data.content.collect)
-			// 		{
-			// 			mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.collect, x * data.imgs.width, y * data.imgs.height);
-			// 		}
-			// 		if (data.map[y][x] == data.content.exit)
-			// 		{
-			// 			mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.exit, x * data.imgs.width, y * data.imgs.height);
-			// 		}
-			// 		x++;
-			// 	}
-			// 	x = 0;
-			// 	y++;
-			// }
 			fill_the_map(data, &x, &y);
 			mlx_hook(data.mlx_win, 2, 0, &input_key, &data);
 			mlx_hook(data.mlx_win, 17, 0, &end, &data);
