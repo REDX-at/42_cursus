@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:08:55 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/23 22:16:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 09:36:12 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strchrt(char *s, int c)
 	if (!s)
 		return (0);
 	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
+		return ((char *)&s[ft_strlent(s)]);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char) c)
@@ -56,7 +56,7 @@ char	*ft_strjoint(char *line, char *buff)
 	}
 	if (!line || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(line) + ft_strlen(buff)) + 1));
+	str = malloc(sizeof(char) * ((ft_strlent(line) + ft_strlent(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;
@@ -66,7 +66,7 @@ char	*ft_strjoint(char *line, char *buff)
 			str[i] = line[i];
 	while (buff[j] != '\0')
 		str[i++] = buff[j++];
-	str[ft_strlen(line) + ft_strlen(buff)] = '\0';
+	str[ft_strlent(line) + ft_strlent(buff)] = '\0';
 	free(line);
 	return (str);
 }

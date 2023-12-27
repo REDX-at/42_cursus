@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 17:16:42 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 12:54:58 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ void	print_img(t_data *data, void *img, int x, int y);
 int		check_collect(t_data *data, char **map);
 int		input_key(int keycode, t_data *data);
 void	render_offic(t_data *data);
+int		render(t_data *data);
+void	render_mapi(t_data *data);
+void    move_right(t_data *data);
+void    move_left(t_data *data);
+void	fill_the_map(t_data	data, int *x, int *y);
 
 # define KEY_W 13
 # define KEY_A 0

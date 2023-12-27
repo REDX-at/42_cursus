@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:33:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/06 11:51:49 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 09:34:49 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	*readline(int fd, char *line)
 	if (!buffer)
 		return (NULL);
 	read_bytes = 1;
-	while (!ft_strchr(line, '\n') && read_bytes > 0)
+	while (!ft_strchrt(line, '\n') && read_bytes > 0)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes == -1)
 			return (free(buffer), NULL);
 		buffer[read_bytes] = '\0';
-		line = ft_strjoin(line, buffer);
+		line = ft_strjoint(line, buffer);
 	}
 	free(buffer);
 	return (line);
@@ -47,7 +47,7 @@ char	*ft_newline(char *line)
 		free(line);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(line) - i) + 1);
+	str = (char *)malloc(sizeof(char) * (ft_strlent(line) - i) + 1);
 	if (!str)
 	{
 		free(line);

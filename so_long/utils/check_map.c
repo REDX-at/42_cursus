@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 08:30:25 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 19:33:52 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 09:45:54 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_check_col(char *map_line, char wall, t_data *data)
 
 int	ft_check_line(char *map_line, char wall)
 {
+	
 	int		i;
 
 	i = 0;

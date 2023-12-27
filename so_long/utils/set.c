@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:37:27 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 09:20:40 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 08:19:09 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void    set_content(t_cnt *content)
 
 void    set_image(t_data *data)
 {
-    data->imgs.height = 80;
-    data->imgs.width= 80;
+    data->imgs.height = 48;
+    data->imgs.width= 48;
     data->imgs.floor = "floor.xpm";
 	data->imgs.wall = "brick.xpm";
 	data->imgs.collect = "brick.xpm";

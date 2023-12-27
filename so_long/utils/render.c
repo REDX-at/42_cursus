@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:10:12 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 19:49:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 12:02:46 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,23 @@ void	render_mapi(t_data *data)
 	}
 }
 
-int	input_key(int keycode, t_data *data)
-{
-	if (keycode == KEY_ESC)
-	{
-		ft_printf("The Game is ended.\n");
-		mlx_destroy_window(data->mlx, data->mlx_win);
-	}
-	if (keycode == KEY_A)
-		ft_printf("A");
-	if (keycode == KEY_W)
-		ft_printf("W");
-	if (keycode == KEY_S)
-		ft_printf("S");
-	if (keycode == KEY_D)
-		ft_printf("D");
-	return (0);
-}
+// int	input_key(int keycode, t_data *data)
+// {
+// 	if (keycode == KEY_ESC)
+// 	{
+// 		ft_printf("The Game is ended.\n");
+// 		mlx_destroy_window(data->mlx, data->mlx_win);
+// 	}
+// 	if (keycode == KEY_A)
+// 		move_right(data);
+// 	if (keycode == KEY_W)
+// 		ft_printf("W");
+// 	if (keycode == KEY_S)
+// 		ft_printf("S");
+// 	if (keycode == KEY_D)
+// 		ft_printf("D");
+// 	return (0);
+// }
 
 int	render(t_data *data)
 {
