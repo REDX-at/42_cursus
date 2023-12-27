@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 14:57:57 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:51:23 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ typedef struct img_s
 	void	*img_exit;
 	void	*img_wall;
 	void	*img_collect;
-	void	*img_playerback;
 	int		height;
 	int		width;
+	char	*playerback;
+	char	*exit_open;
 	char	*player;
 	char	*floor;
 	char	*wall;
@@ -74,6 +75,7 @@ typedef struct data_s
 	int		bits_per_pixels;
 	int		line_lenght;
 	int		endian;
+	int		count_tmar;
 }				t_data;
 
 
@@ -108,6 +110,8 @@ void    move_left(t_data *data);
 void    move_top(t_data *data);
 void	fill_the_map(t_data	data, int *x, int *y);
 void    move_down(t_data *data);
+void	fill_the_map_fortop(t_data	data, int *x, int *y);
+void	fill_the_map_forsmall(t_data	data, int *x, int *y);
 
 # define KEY_W 13
 # define KEY_A 0

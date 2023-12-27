@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 15:04:48 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:23:25 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ void	print_err()
 {
 	ft_printf("%sMap Invalide %sX\n", WHITE, RED_NEW);
 }
-
+int	ft_free(t_data *data)
+{
+	ft_printf("The Game is ended.\n");
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	exit(EXIT_FAILURE);
+}
 int	end(t_data *data)
 {
 	int		i;
@@ -50,6 +55,7 @@ void	*print_string(char *str)
 }
 void	init_variables(t_data *data)
 {
+	data->count_tmar = 0;
 	data->content.count_p = 0;
 	data->content.count_e = 0;
 	data->content.count_c = 0;
@@ -66,6 +72,68 @@ void check_height_width(char **map, int *x, int *y)
     while (map[*x][*y])
         (*y)++;
     ft_printf("Y : %d", *y);
+}
+void	fill_the_map_fortop(t_data	data, int *x, int *y)
+{
+	*x = 0;
+	*y = 0;
+	char	*redx = "backredx.xpm";
+	data.imgs.playerback = mlx_xpm_file_to_image(data.mlx, redx, &data.imgs.width, &data.imgs.height);
+	while (*y < data.height)
+	{
+		while(*x < data.width)
+		{
+			if (data.map[*y][*x] == data.content.wall)
+			{
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.wall, *x * data.imgs.width, *y * data.imgs.height);
+			}
+			if (data.map[*y][*x] == data.content.space)
+			{
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.floor, *x * data.imgs.width, *y * data.imgs.height);
+			}
+			if (data.map[*y][*x] == data.content.player)
+			{
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.playerback, *x * data.imgs.width, *y * data.imgs.height);
+			}
+			if (data.map[*y][*x] == data.content.collect)
+			{
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.collect, *x * data.imgs.width, *y * data.imgs.height);
+			}
+			if (data.map[*y][*x] == data.content.exit)
+			{
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.exit, *x * data.imgs.width, *y * data.imgs.height);
+			}
+			(*x)++;
+		}
+		(*x) = 0;
+		(*y)++;
+	}
+}
+void	fill_the_map_forsmall(t_data	data, int *x, int *y)
+{
+	*x = 0;
+	*y = 0;
+	char	*exit = "bab_open.xpm";
+	data.imgs.exit = mlx_xpm_file_to_image(data.mlx, exit, &data.imgs.width, &data.imgs.height);
+	while (*y < data.height)
+	{
+		while(*x < data.width)
+		{
+			if (data.map[*y][*x] == data.content.wall)
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.wall, *x * data.imgs.width, *y * data.imgs.height);
+			if (data.map[*y][*x] == data.content.space)
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.floor, *x * data.imgs.width, *y * data.imgs.height);
+			if (data.map[*y][*x] == data.content.player)
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.player, *x * data.imgs.width, *y * data.imgs.height);
+			if (data.map[*y][*x] == data.content.collect)
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.collect, *x * data.imgs.width, *y * data.imgs.height);
+			if (data.map[*y][*x] == data.content.exit)
+				mlx_put_image_to_window(data.mlx, data.mlx_win, data.imgs.exit, *x * data.imgs.width, *y * data.imgs.height);
+			(*x)++;
+		}
+		(*x) = 0;
+		(*y)++;
+	}
 }
 void	fill_the_map(t_data	data, int *x, int *y)
 {
@@ -136,16 +204,13 @@ int main(int argc, char **argv)
 				free(data.mlx);
 				return 0;
 			}
-			// render(&data);
 			int y = 0;
 			int x = 0;
-			// void	*img;
-			// void	*floor;
-			char	*wall = "wall7jar.xpm";
-			char	*floorxpm = "floorw.xpm";
-			char	*redx = "REDXw.xpm";
-			char	*collect = "collect.xpm";
-			char	*exit = "EXIT.xpm";
+			char	*wall = "wallzalij.xpm";
+			char	*floorxpm = "zalij.xpm";
+			char	*redx = "redxmaroc.xpm";
+			char	*collect = "tmarjdid.xpm";
+			char	*exit = "babmkhabi.xpm";
 			data.imgs.collect = mlx_xpm_file_to_image(data.mlx, collect, &data.imgs.width, &data.imgs.height);
 			data.imgs.wall = mlx_xpm_file_to_image(data.mlx, wall, &data.imgs.width, &data.imgs.height);
 			data.imgs.floor = mlx_xpm_file_to_image(data.mlx, floorxpm, &data.imgs.width, &data.imgs.height);
@@ -153,7 +218,7 @@ int main(int argc, char **argv)
 			data.imgs.exit = mlx_xpm_file_to_image(data.mlx, exit, &data.imgs.width, &data.imgs.height);
 			fill_the_map(data, &x, &y);
 			mlx_hook(data.mlx_win, 2, 0, &input_key, &data);
-			mlx_hook(data.mlx_win, 17, 0, &end, &data);
+			mlx_hook(data.mlx_win, 17, 0, &ft_free, &data);
 			mlx_loop(data.mlx);
 			end(&data);
 		}
