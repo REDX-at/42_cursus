@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 19:34:59 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:53:34 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,33 @@ void	*ft_free_map(t_data *data)
 	data->map = NULL;
 	return (0);
 }
+void	*ft_free_second_map(t_data *data)
+{
+	int		i;
 
+	i = 0;
+	while (data->map_tmp[i] != NULL)
+	{
+		free(data->map_tmp[i]);
+		i++;
+	}
+	free(data->map_tmp);
+	data->map_tmp = NULL;
+	return (0);
+}
 char	**parse_map(int fd, t_data *data)
 {
 	int		i;
 
 	i = 1;
 	data->map = ft_splity(get_map(fd), '\n');
+	int y = 0;
+	while (data->map[y])
+	{
+		ft_printf("%s\n", data->map[y]);
+		y++;
+	}
+	
 	ft_check_content(data);
 	if (!(ft_check_format(data->map)))
 		return (ft_free_map(data));
@@ -78,32 +98,42 @@ char	**parse_map(int fd, t_data *data)
 	if (!(ft_check_line(data->map[i - 1], data->content.wall)))
 		return (ft_free_map(data));
 	if (!(check_if_is_playable(data->map)))
-		return (NULL);
+		return (ft_free_map(data));
 	return (data->map);
 }
 
 char	**map_core(char **str, t_data *data)
 {
 	int		fd;
-
-	fd = 0;
+	int		fd2;
+	char	*line;
+	
+	fd2 = 0;
 	data->map = NULL;
-	if (check_map_ber(str[1]) == 0)
-		return (print_string("Error\nNo correct format map founded\n"));
+	fd2 = open(str[1], O_RDONLY);
+	line = get_next_line(fd2);
+	while (line)
+	{
+		if (*line == '\n')
+			print_string("Error\nFailed to open file\n");
+		line = get_next_line(fd2);
+	}
+	close(fd2);
+	fd = 0;
+	fd = open(str[1], O_RDONLY);
+	if (fd > 0)
+		data->map = parse_map(fd, data);
 	else
 	{
-		fd = open(str[1], O_RDONLY);
-		if (fd > 0)
-			data->map = parse_map(fd, data);
-		else
-			return (print_string("Error\nFailed to open file\n"));
-		if ((data->content.count_c == 0 || data->content.count_e != 1
-				|| data->content.count_p != 1) && data->map != NULL)
-		{
-			ft_free_map(data);
-			return (print_string(
-					"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
-		}
+		ft_free_map(data);
+		return (print_string("Error\nFailed to open file\n"));
+	}
+	if ((data->content.count_c == 0 || data->content.count_e != 1
+			|| data->content.count_p != 1) && data->map != NULL)
+	{
+		ft_free_map(data);
+		return (print_string(
+				"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
 	}
 	return (data->map);
 }

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:37:27 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 08:19:09 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/28 13:49:15 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,14 @@ void    set_image(t_data *data)
 {
     data->imgs.height = 48;
     data->imgs.width= 48;
-    data->imgs.floor = "floor.xpm";
-	data->imgs.wall = "brick.xpm";
-	data->imgs.collect = "brick.xpm";
-	data->imgs.player = "brick.xpm";
-	data->imgs.exit = "brick.xpm";
-	data->imgs.img_wall = mlx_xpm_file_to_image(data->mlx, data->imgs.wall, 
-						&(data->imgs.width), &(data->imgs.height));
-	data->imgs.img_floor = mlx_xpm_file_to_image(data->mlx, data->imgs.floor, 
-						&(data->imgs.width), &(data->imgs.height));
-	data->imgs.img_exit = mlx_xpm_file_to_image(data->mlx, data->imgs.exit, 
-						&(data->imgs.width), &(data->imgs.height));
-	data->imgs.img_collect = mlx_xpm_file_to_image(data->mlx, data->imgs.collect, 
-						&(data->imgs.width), &(data->imgs.height));
-	data->imgs.img_player = mlx_xpm_file_to_image(data->mlx, data->imgs.player, 
-						&(data->imgs.width), &(data->imgs.height));
+	char	*wall = "./xpmfile/new_wall.xpm";
+	char	*floorxpm = "./xpmfile/new_floor.xpm";
+	char	*redx = "./xpmfile/new_redx.xpm";
+	char	*collect = "./xpmfile/new_collect.xpm";
+	char	*exit = "./xpmfile/new_exit.xpm";
+	data->imgs.collect = mlx_xpm_file_to_image(data->mlx, collect, &data->imgs.width, &data->imgs.height);
+	data->imgs.wall = mlx_xpm_file_to_image(data->mlx, wall, &data->imgs.width, &data->imgs.height);
+	data->imgs.floor = mlx_xpm_file_to_image(data->mlx, floorxpm, &data->imgs.width, &data->imgs.height);
+	data->imgs.player = mlx_xpm_file_to_image(data->mlx, redx, &data->imgs.width, &data->imgs.height);
+	data->imgs.exit = mlx_xpm_file_to_image(data->mlx, exit, &data->imgs.width, &data->imgs.height);
 }

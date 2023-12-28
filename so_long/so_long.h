@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 17:51:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:15:21 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct img_s
 	int		height;
 	int		width;
 	char	*playerback;
+	char	*player_right;
+	char	*player_left;
 	char	*exit_open;
 	char	*player;
 	char	*floor;
@@ -66,6 +68,7 @@ typedef struct data_s
 	int		width;
 	int		height;
 	char	**map;
+	char	**map_tmp;
 	int		count;
 	t_cnt	content;
 	t_img	imgs;
@@ -76,9 +79,11 @@ typedef struct data_s
 	int		line_lenght;
 	int		endian;
 	int		count_tmar;
+	int 	new_e;
+	char	*check_exit;
 }				t_data;
 
-
+void	print_map(t_data *data);
 void	args_handler(int argc);
 int		check_map_ber(char *str);
 int		get_line_double(int fd, char **str);
@@ -112,6 +117,17 @@ void	fill_the_map(t_data	data, int *x, int *y);
 void    move_down(t_data *data);
 void	fill_the_map_fortop(t_data	data, int *x, int *y);
 void	fill_the_map_forsmall(t_data	data, int *x, int *y);
+void	fill_the_map_forsmalltop(t_data	data, int *x, int *y);
+char	**get_clone(t_data *data);
+void	fill_the_map_forright(t_data	data, int *x, int *y);
+void	fill_the_map_forleft(t_data	data, int *x, int *y);
+void	fill_the_map_forsmallright(t_data	data, int *x, int *y);
+void	fill_the_map_forsmallleft(t_data	data, int *x, int *y);
+int		ft_check_whereis_p(char **map, char p, int *row, int *col);
+void	print_err();
+int		check_if_can_play(char **str, t_data *data);
+void	*ft_free_second_map(t_data *data);
+void	*ft_free_map(t_data *data);
 
 # define KEY_W 13
 # define KEY_A 0

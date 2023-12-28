@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 08:30:25 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 16:01:46 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:12:53 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,25 @@ int	ft_check_format(char **map)
 	}
 	return (1);
 }
-
-
+char	**get_clone(t_data *data)
+{
+	int y = 0;
+	data->map_tmp = (char **)malloc(sizeof(char *) * (data->height + 1)); 
+	while (data->map[y])
+	{
+		data->map_tmp[y] = ft_strdup(data->map[y]);
+		y++;
+	}
+	// int i = 0;
+	// while (data->map[i])
+	// {
+	// 	free(data->map[i]);
+	// 	i++;
+	// }
+	// free(data->map);
+	//data->map[y] = NULL;
+	return data->map_tmp;
+}
 int check_if_is_playable(char **map)
 {
     t_data data;
@@ -138,14 +155,10 @@ int check_if_is_playable(char **map)
                 return 0;
             }
 			else
-			{
                 return 1;
-            }
         }
 		else
-		{
             return 1;
-        }
     }
     return 0;
 }
@@ -188,51 +201,53 @@ int	check_collect(t_data *data, char **map)
 	}
 	return (count);
 }
+char	**check_direction(int y, int x, t_data *data, char **str)
+{
+	if (str[y + 1][x] == data->content.exit || str[y - 1][x] == data->content.exit || str[y][x + 1] == data->content.exit || str[y][x - 1] == data->content.exit)
+		data->new_e = 1;
+	if (str[y][x + 1] == data->content.collect || str[y][x + 1] == data->content.space)
+	{
+		str[y][x + 1] = data->content.player;
+		check_direction(y, x + 1, data, str);
+	}
+	if (str[y][x - 1] == data->content.collect || str[y][x - 1] == data->content.space)
+	{
+		str[y][x - 1] = data->content.player;
+		check_direction(y, x - 1, data, str);
+	}
+	if (str[y + 1][x] == data->content.collect || str[y + 1][x] == data->content.space)
+	{
+		str[y + 1][x] = data->content.player;
+		check_direction(y + 1, x, data, str);
+	}
+	if (str[y - 1][x] == data->content.collect || str[y - 1][x] == data->content.space)
+	{
+		str[y - 1][x] = data->content.player;
+		check_direction(y - 1, x, data, str);
+	}
+	return str;
+}
 
-
-// int check_if_is_playable(char **map)
-// {
-//     t_data data;
-//     int row, col;
-    
-// 	data.width = 6;
-//     if (ft_check_p(map, 'P', &row, &col)) {
-//         if (row > 0 && row < data.width - 1 && col > 0 && col < data.width - 1)
-// 		{
-//             if (map[row + 1][col] == '1' && map[row - 1][col] == '1' &&
-//                 map[row][col + 1] == '1' && map[row][col - 1] == '1')
-// 			{
-// 				printf("Error\nThe map is not Playabale\n");
-//                 return 0;
-//             }
-// 			else
-// 			{
-//                 return 1;
-//             }
-//         }
-// 		else
-// 		{
-//             return 1;
-//         }
-//     }
-//     return 0;
-// }
-// int main() {
-//     // Example map
-//     char *map[] = {
-//         "111111",
-//         "100011",
-//         "11P111",
-//         "101011",
-//         "100011",
-//         "111111",
-//         NULL
-//     };
-
-//     // Check if the map is surrounded by walls
-//     if (check_if_is_playable(map)) {
-//         printf("The map is playable!\n");
-//     }
-
-//     return 0;
-// }
+int	check_if_can_play(char **str, t_data *data)
+{
+	int x;
+	int y;
+	int d = 0;
+	
+	d = ft_check_whereis_p(str, 'P', &y, &x);
+	if (d != 0)
+	{
+		str = check_direction(y, x, data, data->map_tmp);
+		y = -1;
+		while (str[++y])
+		{
+			data->check_exit = ft_strtrim(str[y], "PE10");
+			if (data->check_exit[0] != '\0' || data->new_e == 0)
+			{
+				print_string("The Map Cant Be Playable 🤬.\n");
+				return (0);
+			}
+		}
+	}
+	return 0;
+}

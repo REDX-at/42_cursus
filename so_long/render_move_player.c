@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 08:21:31 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/27 20:09:37 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/28 17:57:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int	input_key(int keycode, t_data *data)
 	if (keycode == KEY_ESC)
 	{
 		ft_printf("\033[97mThe Game is ended 💀.\n");
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		exit(0);
-		//end(data);
+		end(data);
 	}
 	if (keycode == KEY_D || keycode == KEY_RIGHT)
 		move_right(data);
@@ -66,7 +64,7 @@ void    move_right(t_data *data)
                 {
                     data->count_tmar += 1;
                     ft_printf("------------------\n");
-					ft_printf("🌴Collect Tmra : %d\n", data->count_tmar);
+					ft_printf("🥶Collect EXTA : %d\n", data->count_tmar);
 					ft_printf("------------------\n");
 				}
 				data->map[posY][posX + 1] = data->content.player;
@@ -74,9 +72,9 @@ void    move_right(t_data *data)
 				data->count += 1;
 				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
-					fill_the_map_forsmall(*data, &x, &y);
+					fill_the_map_forsmallright(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map(*data, &x, &y);
+					fill_the_map_forright(*data, &x, &y);
 			}
 			else
 			{
@@ -84,9 +82,8 @@ void    move_right(t_data *data)
 				{
 					data->map[posY][posX + 1] = data->content.player;
 					data->map[posY][posX] = data->content.space;
-					ft_printf("\033[97mNadi jbti lgame B : 👣%d Moves\nAnd Drbti : 🌴%d TMRAT", data->count, data->count_tmar);
-					mlx_destroy_window(data->mlx, data->mlx_win);
-					exit(EXIT_SUCCESS);
+					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\nAnd Collect : 🥶 %d", data->count, data->count_tmar);
+					end(data);
 				}
 			}
 		}
@@ -110,7 +107,7 @@ void    move_left(t_data *data)
                 {
                     data->count_tmar += 1;
                     ft_printf("------------------\n");
-					ft_printf("🌴Collect Tmra : %d\n", data->count_tmar);
+					ft_printf("🥶Collect EXTA : %d\n", data->count_tmar);
 					ft_printf("------------------\n");
 				}
 				data->map[posY][posX - 1] = data->content.player;
@@ -118,9 +115,9 @@ void    move_left(t_data *data)
 				data->count += 1;
 				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
-					fill_the_map_forsmall(*data, &x, &y);
+					fill_the_map_forsmallleft(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map(*data, &x, &y);
+					fill_the_map_forleft(*data, &x, &y);
 			}
 			else
 			{
@@ -128,9 +125,8 @@ void    move_left(t_data *data)
 				{
 					data->map[posY][posX - 1] = data->content.player;
 					data->map[posY][posX] = data->content.space;
-					ft_printf("\033[97mNadi jbti lgame B : 👣%d Moves\nAnd Drbti : 🌴%d TMRAT", data->count, data->count_tmar);
-					mlx_destroy_window(data->mlx, data->mlx_win);
-					exit(EXIT_SUCCESS);
+					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\nAnd Collect : 🥶 %d", data->count, data->count_tmar);
+					end(data);
 				}
 			}
 		}
@@ -155,7 +151,7 @@ void    move_top(t_data *data)
 				{
 					data->count_tmar += 1;
 					ft_printf("------------------\n");
-					ft_printf("🌴Collect Tmra : %d\n", data->count_tmar);
+					ft_printf("🥶Collect EXTA : %d\n", data->count_tmar);
 					ft_printf("------------------\n");
 				}
 				data->map[posY - 1][posX] = data->content.player;
@@ -163,7 +159,7 @@ void    move_top(t_data *data)
 				data->count += 1;
 				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
-					fill_the_map_forsmall(*data, &x, &y);
+					fill_the_map_forsmalltop(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
 					fill_the_map_fortop(*data, &x, &y);
 			}
@@ -173,9 +169,8 @@ void    move_top(t_data *data)
 				{
 					data->map[posY - 1][posX] = data->content.player;
 					data->map[posY][posX] = data->content.space;
-					ft_printf("\033[97mNadi jbti lgame B : 👣%d Moves\nAnd Drbti : 🌴%d TMRATT", data->count, data->count_tmar);
-					mlx_destroy_window(data->mlx, data->mlx_win);
-					exit(EXIT_SUCCESS);
+					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\nAnd Collect : 🥶 %d", data->count, data->count_tmar);
+					end(data);
 				}
 			}
 		}
@@ -199,7 +194,7 @@ void    move_down(t_data *data)
 				{
 					data->count_tmar += 1;
 					ft_printf("------------------\n");
-					ft_printf("🌴Collect Tmra : %d\n", data->count_tmar);
+					ft_printf("🥶Collect EXTA : %d\n", data->count_tmar);
 					ft_printf("------------------\n");
 				}
 				data->map[posY + 1][posX] = data->content.player;
@@ -217,9 +212,8 @@ void    move_down(t_data *data)
 				{
 					data->map[posY + 1][posX] = data->content.player;
 					data->map[posY][posX] = data->content.space;
-					ft_printf("\033[97mNadi jbti lgame B : 👣%d Moves\nAnd Drbti : 🌴%d TMRAT", data->count, data->count_tmar);
-					mlx_destroy_window(data->mlx, data->mlx_win);
-					exit(EXIT_SUCCESS);
+					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\nAnd Collect : 🥶 %d", data->count, data->count_tmar);
+					end(data);
 				}
 			}
 		}
