@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/28 20:53:34 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 10:45:52 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	*ft_free_map(t_data *data)
 		i++;
 	}
 	free(data->map);
-	data->map = NULL;
 	return (0);
 }
+
 void	*ft_free_second_map(t_data *data)
 {
 	int		i;
@@ -68,19 +68,20 @@ void	*ft_free_second_map(t_data *data)
 	data->map_tmp = NULL;
 	return (0);
 }
+
 char	**parse_map(int fd, t_data *data)
 {
 	int		i;
+	int		y;
 
 	i = 1;
-	data->map = ft_splity(get_map(fd), '\n');
-	int y = 0;
+	data->map = ft_l_split(get_map(fd), '\n');
+	y = 0;
 	while (data->map[y])
 	{
 		ft_printf("%s\n", data->map[y]);
 		y++;
 	}
-	
 	ft_check_content(data);
 	if (!(ft_check_format(data->map)))
 		return (ft_free_map(data));
@@ -99,6 +100,7 @@ char	**parse_map(int fd, t_data *data)
 		return (ft_free_map(data));
 	if (!(check_if_is_playable(data->map)))
 		return (ft_free_map(data));
+	y = 0;
 	return (data->map);
 }
 
@@ -107,16 +109,19 @@ char	**map_core(char **str, t_data *data)
 	int		fd;
 	int		fd2;
 	char	*line;
-	
+	char	*temp;
+
 	fd2 = 0;
 	data->map = NULL;
 	fd2 = open(str[1], O_RDONLY);
 	line = get_next_line(fd2);
 	while (line)
 	{
+		temp = line;
 		if (*line == '\n')
 			print_string("Error\nFailed to open file\n");
 		line = get_next_line(fd2);
+		free(temp);
 	}
 	close(fd2);
 	fd = 0;

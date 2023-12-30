@@ -5,9 +5,11 @@ LINKER = -lmlx -framework OpenGL -framework AppKit
 SRC = so_long.c ./utils/args_handler.c ./utils/check_mapber.c ./utils/check_map.c \
 	./utils/get_line_double.c ./utils/get_map.c ./utils/set.c \
 	./utils/ft_strleny.c ./utils/ft_strjoiny.c ./utils/ft_strdupy.c \
-	./utils/ft_splity.c ./utils/ft_strlcpyy.c ./utils/render.c \
-	./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
-	render_move_player.c ./utils/fill_maps.c
+	 ./get_next_line/get_next_line.c \
+	 ./get_next_line/get_next_line_utils.c \
+	./utils/fill_maps.c ./utils/ft_l_split.c \
+	 ./utils/second_check.c ./utils/check_third.c ./utils/the_renders.c \
+	 ./utils/render_move_me.c 
 
 LIBFT = ./libftt/libft.a
 PRINTF = ./printf/libftprintf.a

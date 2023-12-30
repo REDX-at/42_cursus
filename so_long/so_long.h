@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/28 18:15:21 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:35:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct pos
 
 typedef struct data_s
 {
-	void    *mlx;
-	void    *mlx_win;
+	void	*mlx;
+	void	*mlx_win;
 	int		width;
 	int		height;
 	char	**map;
@@ -79,42 +79,35 @@ typedef struct data_s
 	int		line_lenght;
 	int		endian;
 	int		count_tmar;
-	int 	new_e;
+	int		new_e;
 	char	*check_exit;
 }				t_data;
 
-void	print_map(t_data *data);
 void	args_handler(int argc);
 int		check_map_ber(char *str);
 int		get_line_double(int fd, char **str);
 void	*print_string(char *str);
-void    set_content(t_cnt *content);
-void    set_image(t_data *data);
+void	set_content(t_cnt *content);
+void	set_image(t_data *data);
 char	**map_core(char **str, t_data *data);
 int		ft_check_col(char *map_line, char wall, t_data *data);
 int		ft_check_line(char *map_line, char wall);
 int		ft_check_other(char *map_line, t_cnt *content);
 void	ft_check_content(t_data *data);
 int		ft_check_format(char **map);
-char	**ft_splity(char const *s, char c);
 char	*ft_strdupy(const char *src);
 char	*ft_strjoiny(char const *s1, char const *s2);
 size_t	ft_strleny(const char *s);
-size_t	ft_strlcpyy(char *dest, const char *src, size_t size);
 int		end(t_data *data);
-int		ft_check_p(char **map, char p, int *row, int *col) ;
+int		ft_check_p(char **map, char p, int *row, int *col);
 int		check_if_is_playable(char **map);
-void	print_img(t_data *data, void *img, int x, int y);
 int		check_collect(t_data *data, char **map);
 int		input_key(int keycode, t_data *data);
-void	render_offic(t_data *data);
-int		render(t_data *data);
-void	render_mapi(t_data *data);
-void    move_right(t_data *data);
-void    move_left(t_data *data);
-void    move_top(t_data *data);
+void	move_right(t_data *data);
+void	move_left(t_data *data);
+void	move_top(t_data *data);
 void	fill_the_map(t_data	data, int *x, int *y);
-void    move_down(t_data *data);
+void	move_down(t_data *data);
 void	fill_the_map_fortop(t_data	data, int *x, int *y);
 void	fill_the_map_forsmall(t_data	data, int *x, int *y);
 void	fill_the_map_forsmalltop(t_data	data, int *x, int *y);
@@ -124,10 +117,12 @@ void	fill_the_map_forleft(t_data	data, int *x, int *y);
 void	fill_the_map_forsmallright(t_data	data, int *x, int *y);
 void	fill_the_map_forsmallleft(t_data	data, int *x, int *y);
 int		ft_check_whereis_p(char **map, char p, int *row, int *col);
-void	print_err();
+void	print_err(void);
 int		check_if_can_play(char **str, t_data *data);
 void	*ft_free_second_map(t_data *data);
 void	*ft_free_map(t_data *data);
+char	**ft_l_split(char *str, char sep);
+void	call_render(char **str, t_data *data);
 
 # define KEY_W 13
 # define KEY_A 0

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:33:34 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/26 14:52:13 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:31:25 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	process_format(const char *format, va_list args, int *i, int *j)
 		else if (format[*j] == 'X')
 			*i += ft_s("0X");
 	}
-	if ((format[*j - 1] == ' ' || format[*j - 1] == '+' || format[*j - 1] 
+	if ((format[*j - 1] == ' ' || format[*j - 1] == '+' || format[*j - 1]
 			== '#') && (format[*j] == 'd' || format[*j] == 'i'))
 		handle_d_i(&c_plus, i, 1);
 	if (format[*j] != '\0')
@@ -110,4 +110,3 @@ int	ft_printf(const char *format, ...)
 	}
 	return (va_end(args), i);
 }
-
