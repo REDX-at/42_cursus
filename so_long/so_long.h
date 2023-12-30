@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 11:35:03 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:26:34 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct img_s
 	char	*playerback;
 	char	*player_right;
 	char	*player_left;
+	char	*player_down;
+	char	*player_top;
 	char	*exit_open;
 	char	*player;
 	char	*floor;
@@ -123,6 +125,8 @@ void	*ft_free_second_map(t_data *data);
 void	*ft_free_map(t_data *data);
 char	**ft_l_split(char *str, char sep);
 void	call_render(char **str, t_data *data);
+void	fill_the_map_fordown(t_data	data, int *x, int *y);
+void	fill_the_map_forsmalldown(t_data	data, int *x, int *y);
 
 # define KEY_W 13
 # define KEY_A 0

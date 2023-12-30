@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:54:06 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 10:58:27 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:32:36 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,7 @@ int	check_if_can_play(char **str, t_data *data)
 		y = -1;
 		while (str[++y])
 		{
-			ft_printf("y : %d\n", y);
-			ft_printf("he : %s\n", str[y]);
 			data->check_exit = ft_strtrim(str[y], "PE10");
-			ft_printf("the char : %c\n", data->check_exit[0]);
 			if (data->check_exit[0] != '\0' || data->new_e == 0)
 			{
 				print_string("The Map Cant Be Playable 🤬.\n");

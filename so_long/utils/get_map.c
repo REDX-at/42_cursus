@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 10:45:52 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:33:06 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,6 @@ char	**parse_map(int fd, t_data *data)
 	i = 1;
 	data->map = ft_l_split(get_map(fd), '\n');
 	y = 0;
-	while (data->map[y])
-	{
-		ft_printf("%s\n", data->map[y]);
-		y++;
-	}
 	ft_check_content(data);
 	if (!(ft_check_format(data->map)))
 		return (ft_free_map(data));

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 10:37:15 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:31:44 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,11 @@ void	*print_string(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	leaks(void)
-{
-	system("leaks so_long");
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		i;
 
-	atexit(leaks);
 	args_handler(argc);
 	i = 0;
 	if (argc == 2)

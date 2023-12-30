@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:37:27 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 11:04:35 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:22:40 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	set_image(t_data *data)
 {
 	data->imgs.height = 48;
 	data->imgs.width = 48;
-	data->imgs.wall = "./xpmfile/new_wall.xpm";
-	data->imgs.floor = "./xpmfile/new_floor.xpm";
-	data->imgs.player = "./xpmfile/new_redx.xpm";
-	data->imgs.collect = "./xpmfile/new_collect.xpm";
-	data->imgs.exit = "./xpmfile/new_exit.xpm";
+	data->imgs.wall = "./xpmfile/wall_pack.xpm";
+	data->imgs.floor = "./xpmfile/space_pack.xpm";
+	data->imgs.player = "./xpmfile/right_pack.xpm";
+	data->imgs.collect = "./xpmfile/ghost_pack.xpm";
+	data->imgs.exit = "./xpmfile/dorclose_pack.xpm";
 	data->imgs.collect = mlx_xpm_file_to_image(data->mlx, data->imgs.collect,
 			&data->imgs.width, &data->imgs.height);
 	data->imgs.wall = mlx_xpm_file_to_image(data->mlx, data->imgs.wall,

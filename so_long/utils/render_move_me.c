@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:38:30 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 10:53:31 by aitaouss         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:45:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	move_right(t_data *data)
 				if (check_collect(data, data->map) == 0
 					&& data->map[pos_y][pos_x + 1] == data->content.exit)
 				{
+					data->count += 1;
+					ft_printf("👣Moves : %d", data->count);
 					data->map[pos_y][pos_x + 1] = data->content.player;
 					data->map[pos_y][pos_x] = data->content.space;
 					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\nAnd"
@@ -115,6 +117,8 @@ void	move_left(t_data *data)
 				if (check_collect(data, data->map) == 0
 					&& data->map[pos_y][pos_x - 1] == data->content.exit)
 				{
+					data->count += 1;
+					ft_printf("👣Moves : %d", data->count);
 					data->map[pos_y][pos_x - 1] = data->content.player;
 					data->map[pos_y][pos_x] = data->content.space;
 					ft_printf("\033[97m\nGAME WON with 👣 %d Moves"
@@ -163,6 +167,8 @@ void	move_top(t_data *data)
 				if (check_collect(data, data->map) == 0
 					&& data->map[pos_y - 1][pos_x] == data->content.exit)
 				{
+					data->count += 1;
+					ft_printf("👣Moves : %d", data->count);
 					data->map[pos_y - 1][pos_x] = data->content.player;
 					data->map[pos_y][pos_x] = data->content.space;
 					ft_printf("\033[97m\nGAME WON with 👣"
@@ -203,15 +209,17 @@ void	move_down(t_data *data)
 				data->count += 1;
 				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
-					fill_the_map_forsmall(*data, &x, &y);
+					fill_the_map_forsmalldown(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map(*data, &x, &y);
+					fill_the_map_fordown(*data, &x, &y);
 			}
 			else
 			{
 				if (check_collect(data, data->map) == 0
 					&& data->map[pos_y + 1][pos_x] == data->content.exit)
 				{
+					data->count += 1;
+					ft_printf("👣Moves : %d", data->count);
 					data->map[pos_y + 1][pos_x] = data->content.player;
 					data->map[pos_y][pos_x] = data->content.space;
 					ft_printf("\033[97m\nGAME WON with 👣 %d Moves\n"
