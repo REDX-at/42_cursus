@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:38:30 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 17:45:20 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/02 20:13:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	input_key(int keycode, t_data *data)
 		ft_printf("\033[97mThe Game is ended 💀.\n");
 		end(data);
 	}
+	data->keysend = keycode;
 	if (keycode == KEY_D || keycode == KEY_RIGHT)
 		move_right(data);
 	if (keycode == KEY_A || keycode == KEY_LEFT)
@@ -56,11 +57,10 @@ void	move_right(t_data *data)
 				data->map[pos_y][pos_x + 1] = data->content.player;
 				data->map[pos_y][pos_x] = data->content.space;
 				data->count += 1;
-				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
 					fill_the_map_forsmallright(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map_forright(*data, &x, &y);
+					fill_the_map(*data, &x, &y);
 			}
 			else
 			{
@@ -106,11 +106,10 @@ void	move_left(t_data *data)
 				data->map[pos_y][pos_x - 1] = data->content.player;
 				data->map[pos_y][pos_x] = data->content.space;
 				data->count += 1;
-				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
 					fill_the_map_forsmallleft(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map_forleft(*data, &x, &y);
+					fill_the_map(*data, &x, &y);
 			}
 			else
 			{
@@ -156,11 +155,10 @@ void	move_top(t_data *data)
 				data->map[pos_y - 1][pos_x] = data->content.player;
 				data->map[pos_y][pos_x] = data->content.space;
 				data->count += 1;
-				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
 					fill_the_map_forsmalltop(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map_fortop(*data, &x, &y);
+					fill_the_map(*data, &x, &y);
 			}
 			else
 			{
@@ -207,11 +205,10 @@ void	move_down(t_data *data)
 				data->map[pos_y + 1][pos_x] = data->content.player;
 				data->map[pos_y][pos_x] = data->content.space;
 				data->count += 1;
-				ft_printf("\033[97m👣Moves : %d\n", data->count);
 				if (check_collect(data, data->map) == 0)
 					fill_the_map_forsmalldown(*data, &x, &y);
 				if (check_collect(data, data->map) != 0)
-					fill_the_map_fordown(*data, &x, &y);
+					fill_the_map(*data, &x, &y);
 			}
 			else
 			{

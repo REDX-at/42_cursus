@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 17:26:34 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/02 20:12:28 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ typedef struct data_s
 	int		count_tmar;
 	int		new_e;
 	char	*check_exit;
+	int		keysend;
 }				t_data;
 
+void	ft_show_moves(t_data *data);
 void	args_handler(int argc);
 int		check_map_ber(char *str);
 int		get_line_double(int fd, char **str);

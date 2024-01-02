@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:35:05 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 11:31:08 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:10:32 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	call_render(char **str, t_data *data)
 	init_variables(data);
 	set_content(&(data->content));
 	data->map = map_core(str, data);
+	if ((data->width * data->height) > 53 * 28)
+		print_string("The Map size not valide\n");
 	data->map_tmp = get_clone(data);
 	check_if_can_play(data->map_tmp, data);
 	open_window(data);
