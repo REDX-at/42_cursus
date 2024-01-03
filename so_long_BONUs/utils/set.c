@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:37:27 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 20:32:36 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:29:01 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	set_content(t_cnt *content)
 	content->count_e = 0;
 	content->count_c = 0;
 	content->count_n = 0;
+	content->count_enemie = 1;
 }
 
 void	set_image(t_data *data)

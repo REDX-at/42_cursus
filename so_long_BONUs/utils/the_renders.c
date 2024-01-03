@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:35:05 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 20:50:42 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 10:29:43 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	open_window(t_data *data)
 		ft_free_second_map(data);
 		exit(EXIT_FAILURE);
 	}
-	ft_printf("|%d|\n", data->width);
 	set_image(data);
-	ft_printf("|%d|\n", data->width);
 	data->mlx_win = mlx_new_window(data->mlx, data->width * (data->imgs.width),
 			((data->height + 1) * data->imgs.height), "So_long");
 	if (data->mlx_win == NULL)
@@ -64,7 +62,7 @@ void	call_render(char **str, t_data *data)
 	fill_the_map(*data, &x, &y);
 	mlx_hook(data->mlx_win, 2, 0, &input_key, data);
 	mlx_hook(data->mlx_win, 17, 0, &ft_free, data);
-	mlx_loop_hook(data->mlx, move_enemie, data);
+	mlx_loop_hook(data->mlx, sloow_move, data);
 	mlx_loop(data->mlx);
 	end(data);
 }

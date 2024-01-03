@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:54:06 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 19:50:51 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:42:55 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,27 @@ int	check_collect(t_data *data, char **map)
 
 char	**check_direction(int y, int x, t_data *data, char **str)
 {
-	if (str[y + 1][x] == data->content.exit
-		|| str[y - 1][x] == data->content.exit
-			|| str[y][x + 1] == data->content.exit
-			|| str[y][x - 1] == data->content.exit)
+	if (str[y + 1][x] == 'E' || str[y - 1][x] == 'E'
+		|| str[y][x + 1] == 'E' || str[y][x - 1] == 'E')
 		data->new_e = 1;
-	if (str[y][x + 1] == data->content.collect
-		|| str[y][x + 1] == data->content.space)
+	if (str[y][x + 1] == 'C' || str[y][x + 1] == '0')
 	{
-		str[y][x + 1] = data->content.player;
+		str[y][x + 1] = 'P';
 		check_direction(y, x + 1, data, str);
 	}
-	if (str[y][x - 1] == data->content.collect
-		|| str[y][x - 1] == data->content.space)
+	if (str[y][x - 1] == 'C' || str[y][x - 1] == '0')
 	{
-		str[y][x - 1] = data->content.player;
+		str[y][x - 1] = 'P';
 		check_direction(y, x - 1, data, str);
 	}
-	if (str[y + 1][x] == data->content.collect
-		|| str[y + 1][x] == data->content.space)
+	if (str[y + 1][x] == 'C' || str[y + 1][x] == '0')
 	{
-		str[y + 1][x] = data->content.player;
+		str[y + 1][x] = 'P';
 		check_direction(y + 1, x, data, str);
 	}
-	if (str[y - 1][x] == data->content.collect
-		|| str[y - 1][x] == data->content.space)
+	if (str[y - 1][x] == 'C' || str[y - 1][x] == '0')
 	{
-		str[y - 1][x] = data->content.player;
+		str[y - 1][x] = 'P';
 		check_direction(y - 1, x, data, str);
 	}
 	return (str);

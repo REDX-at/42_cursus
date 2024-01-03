@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 20:36:20 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 14:59:27 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct cnt_s
 	int		count_e;
 	int		count_c;
 	int		count_n;
+	int		count_enemie;
 }				t_cnt;
 
 typedef struct img_s
@@ -86,8 +87,10 @@ typedef struct data_s
 	int		count_tmar;
 	int		new_e;
 	char	*check_exit;
+	int		keysend;
 }				t_data;
 
+int		sloow_move(t_data *data);
 void	ft_show_moves(t_data *data);
 void	args_handler(int argc);
 int		check_map_ber(char *str);
@@ -114,14 +117,8 @@ void	move_left(t_data *data);
 void	move_top(t_data *data);
 void	fill_the_map(t_data	data, int *x, int *y);
 void	move_down(t_data *data);
-void	fill_the_map_fortop(t_data	data, int *x, int *y);
 void	fill_the_map_forsmall(t_data	data, int *x, int *y);
-void	fill_the_map_forsmalltop(t_data	data, int *x, int *y);
 char	**get_clone(t_data *data);
-void	fill_the_map_forright(t_data	data, int *x, int *y);
-void	fill_the_map_forleft(t_data	data, int *x, int *y);
-void	fill_the_map_forsmallright(t_data	data, int *x, int *y);
-void	fill_the_map_forsmallleft(t_data	data, int *x, int *y);
 int		ft_check_whereis_p(char **map, char p, int *row, int *col);
 void	print_err(void);
 int		check_if_can_play(char **str, t_data *data);
@@ -129,9 +126,11 @@ void	*ft_free_second_map(t_data *data);
 void	*ft_free_map(t_data *data);
 char	**ft_l_split(char *str, char sep);
 void	call_render(char **str, t_data *data);
-void	fill_the_map_fordown(t_data	data, int *x, int *y);
-void	fill_the_map_forsmalldown(t_data	data, int *x, int *y);
 int		move_enemie(t_data *data);
+void	swap_move_right(t_data *data, int *x, int *y);
+void	swap_move_left(t_data *data, int *x, int *y);
+void	swap_move_top(t_data *data, int *x, int *y);
+void	swap_move_down(t_data *data, int *x, int *y);
 
 # define KEY_W 13
 # define KEY_A 0

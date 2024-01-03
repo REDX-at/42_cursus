@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 20:08:55 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:45:42 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char	**parse_map(int fd, t_data *data)
 		return (ft_free_map(data));
 	if (!(check_if_is_playable(data->map)))
 		return (ft_free_map(data));
-	y = 0;
 	return (data->map);
 }
 
@@ -109,6 +108,8 @@ char	**map_core(char **str, t_data *data)
 	fd2 = 0;
 	data->map = NULL;
 	fd2 = open(str[1], O_RDONLY);
+	if (fd2 == -1)
+		return (print_string("Error\nFailed to open file\n"));
 	line = get_next_line(fd2);
 	while (line)
 	{
@@ -130,7 +131,7 @@ char	**map_core(char **str, t_data *data)
 	}
 	if ((data->content.count_c == 0 || data->content.count_e != 1
 			|| data->content.count_p != 1 || data->content.count_n != 1)
-				&& data->map != NULL)
+		&& data->map != NULL)
 	{
 		ft_free_map(data);
 		return (print_string(

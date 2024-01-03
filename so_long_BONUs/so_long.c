@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 17:31:44 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:35:02 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ void	*print_string(char *str)
 	exit(EXIT_FAILURE);
 }
 
+void	leaks(void)
+{
+	system("leaks so_long");
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		i;
-
+	atexit(leaks);
 	args_handler(argc);
 	i = 0;
 	if (argc == 2)
@@ -60,12 +65,8 @@ int	main(int argc, char **argv)
 		i = check_map_ber(argv[1]);
 		if (i == 0)
 			print_err();
-		else if (i == 2)
-			print_string("Right syntax <file.ber>");
 		else
-		{
 			call_render(argv, &data);
-		}
 	}
 	return (0);
 }

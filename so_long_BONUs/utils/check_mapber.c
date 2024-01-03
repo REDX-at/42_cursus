@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:03:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 11:08:18 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:35:17 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ int	check_map_ber(char *str)
 	find = 0;
 	j = 0;
 	ber = ".ber";
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '.')
-		return (2);
 	while (str[i] && ber[j])
 	{
 		if (str[i] == '.')
@@ -49,7 +45,5 @@ int	check_map_ber(char *str)
 		}
 		i++;
 	}
-	if (find == 4 && str[i] == '\0')
-		return (1);
-	return (0);
+	return (find == 4 && str[i] == '\0');
 }

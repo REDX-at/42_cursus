@@ -9,7 +9,8 @@ SRC = so_long.c ./utils/args_handler.c ./utils/check_mapber.c ./utils/check_map.
 	 ./get_next_line/get_next_line_utils.c \
 	./utils/fill_maps.c ./utils/ft_l_split.c \
 	 ./utils/second_check.c ./utils/check_third.c ./utils/the_renders.c \
-	 ./utils/render_move_me.c ./utils/show_move.c ./utils/enemie.c
+	 ./utils/render_move_me.c ./utils/show_move.c ./utils/enemie.c \
+	 ./utils/utils_move_player.c
 
 LIBFT = ./libftt/libft.a
 PRINTF = ./printf/libftprintf.a

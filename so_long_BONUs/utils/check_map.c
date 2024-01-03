@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 08:30:25 by aitaouss          #+#    #+#             */
-/*   Updated: 2023/12/30 20:07:57 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:04:37 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	ft_check_other(char *map_line, t_cnt *content)
 	i = 0;
 	while (map_line[i])
 	{
-		if (content->count_e > 1 || content->count_p > 1 || content->count_n == 0)
+		if (content->count_e > 1 || content->count_p > 1
+			|| content->count_n == 0)
 		{
 			print_string("Error\nWrong number of player or exit\n");
 			return (0);
