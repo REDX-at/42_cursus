@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:36:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/03 14:59:27 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:38:31 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct data_s
 	int		keysend;
 }				t_data;
 
+void	check_newline(char	**str);
 int		sloow_move(t_data *data);
 void	ft_show_moves(t_data *data);
 void	args_handler(int argc);
@@ -131,6 +132,7 @@ void	swap_move_right(t_data *data, int *x, int *y);
 void	swap_move_left(t_data *data, int *x, int *y);
 void	swap_move_top(t_data *data, int *x, int *y);
 void	swap_move_down(t_data *data, int *x, int *y);
+void	check_keysend(t_data *data, char *redx);
 
 # define KEY_W 13
 # define KEY_A 0

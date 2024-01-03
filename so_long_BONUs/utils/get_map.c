@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:13:52 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/03 15:45:42 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:00:58 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,9 @@ char	**parse_map(int fd, t_data *data)
 char	**map_core(char **str, t_data *data)
 {
 	int		fd;
-	int		fd2;
-	char	*line;
-	char	*temp;
 
-	fd2 = 0;
+	check_newline(str);
 	data->map = NULL;
-	fd2 = open(str[1], O_RDONLY);
-	if (fd2 == -1)
-		return (print_string("Error\nFailed to open file\n"));
-	line = get_next_line(fd2);
-	while (line)
-	{
-		temp = line;
-		if (*line == '\n')
-			print_string("Error\nFailed to open file\n");
-		line = get_next_line(fd2);
-		free(temp);
-	}
-	close(fd2);
 	fd = 0;
 	fd = open(str[1], O_RDONLY);
 	if (fd > 0)

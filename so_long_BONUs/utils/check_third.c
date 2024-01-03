@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:26:33 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/03 12:05:24 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:38:16 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,54 @@ char	**get_clone(t_data *data)
 	}
 	data->map_tmp[y] = NULL;
 	return (data->map_tmp);
+}
+
+void	check_newline(char	**str)
+{
+	int		fd2;
+	char	*line;
+	char	*temp;
+
+	fd2 = 0;
+	fd2 = open(str[1], O_RDONLY);
+	if (fd2 == -1)
+		print_string("Error\nFailed to open file\n");
+	line = get_next_line(fd2);
+	while (line)
+	{
+		temp = line;
+		if (*line == '\n')
+			print_string("Error\nFailed to open file\n");
+		line = get_next_line(fd2);
+		free(temp);
+	}
+	close(fd2);
+}
+
+void	check_keysend(t_data *data, char *redx)
+{
+	if (data->keysend == KEY_A || data->keysend == KEY_LEFT)
+	{
+		redx = "./xpmfile/left_pack.xpm";
+		data->imgs.player = mlx_xpm_file_to_image(data->mlx, redx,
+				&data->imgs.width, &data->imgs.height);
+	}
+	else if (data->keysend == KEY_D || data->keysend == KEY_RIGHT)
+	{
+		redx = "./xpmfile/right_pack.xpm";
+		data->imgs.player = mlx_xpm_file_to_image(data->mlx, redx,
+				&data->imgs.width, &data->imgs.height);
+	}
+	else if (data->keysend == KEY_S || data->keysend == KEY_BOTTOM)
+	{
+		redx = "./xpmfile/down_pack.xpm";
+		data->imgs.player = mlx_xpm_file_to_image(data->mlx, redx,
+				&data->imgs.width, &data->imgs.height);
+	}
+	else if (data->keysend == KEY_W || data->keysend == KEY_TOP)
+	{
+		redx = "./xpmfile/top_pack.xpm";
+		data->imgs.player = mlx_xpm_file_to_image(data->mlx, redx,
+				&data->imgs.width, &data->imgs.height);
+	}
 }

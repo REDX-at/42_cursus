@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 22:14:14 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/03 15:35:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:48:30 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		i;
+
 	atexit(leaks);
 	args_handler(argc);
 	i = 0;
