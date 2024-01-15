@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/15 23:46:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 00:37:41 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		check_if_sorted(t_swap **stack);
 int		sort_list(t_swap **stack);
 t_swap	*ft_lstlastt(t_swap *lst);
 void	sort_three(t_swap **stack);
-t_swap	*create_empty_stack();
 void	push_a(t_swap **stack_a, t_swap **stack_b);
 void	case_one(t_swap **stack);
 void	case_two(t_swap **stack);
@@ -57,5 +56,7 @@ int		ft_lstsizet(t_swap *lst);
 void	index_target(t_swap **stack);
 void	sort_turk(t_swap **stack_a, t_swap **stack_b);
 void	check_above_median(t_swap **stack_a, t_swap ** stack_b);
+void	find_target(t_swap **stack_a, t_swap **stack_b);
+int		find_min(t_swap **stack_a);
 
 #endif

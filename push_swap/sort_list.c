@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 00:23:31 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 00:55:43 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,39 @@ void	fin_cheap(t_swap **stack_a, t_swap **stack_b)
 	}
 }
 
+void	find_target(t_swap **stack_a, t_swap **stack_b)
+{
+	t_swap	*temp_b;
+	t_swap	*temp_a;
+	int		target = 0;
+	int		flag = 0;
+
+	temp_b = *stack_b;
+	temp_a = *stack_a;
+	while (temp_b)
+	{
+		while (temp_a)
+		{
+			if (temp_a->content > temp_b->content)
+			{
+				if (!flag)
+					temp_b->target_node = temp_a;
+				else
+				{
+					if (temp_a->content < target)
+						target = temp_a->content;
+				}
+				flag = 1;
+			}
+			else
+				ft_printf("min\n");
+				// temp_b->target_node = min;
+			temp_a = temp_a->next;
+		}
+		temp_b = temp_b->next;
+	}
+}
+
 void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 {
 	int	size_list;
@@ -150,6 +183,7 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 		size--;
 	}
 	fin_cheap(stack_a, stack_b);
+	find_target(stack_a, stack_b);
 	if (size == 3)
 		sort_three(stack_a);
 }
