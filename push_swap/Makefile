@@ -1,7 +1,7 @@
 NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = push_swap.c swap_utils.c arg_handlers.c
+SRC = push_swap.c swap_utils.c arg_handlers.c sort_list.c sort_three_instruction.c min_max.c
 
 LIBFT = ./libftt/libft.a
 PRINTF = ./printf/libftprintf.a

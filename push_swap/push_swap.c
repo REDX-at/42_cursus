@@ -6,39 +6,39 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/08 01:19:56 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/15 23:59:02 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_number(int *arr)
+
+void	ft_free_stack_a(t_swap **stack_a)
 {
-	int r = 0;
-	int j = 0;
-	int x = 0;
-	int tmp = 0;
-	while (r < j - 1)
+	t_swap *tmp;
+	while (*stack_a)
 	{
-		x = 0;
-		while (x < j - 1 - r)
-		{
-			if (arr[x] > arr[x + 1])
-			{
-				tmp = arr[x];
-				arr[x] = arr[x + 1];
-				arr[x + 1] = tmp;
-			}
-			x++;
-		}
-		r++;
+		ft_printf("%d\n", (*stack_a)->content);
+		tmp = (*stack_a)->next;
+		free(*stack_a);
+		*stack_a = tmp;
 	}
-	j = 0;
-	while (j < r)
+	ft_printf("-\na\n");
+	ft_printf("-------------------\n");
+}
+
+void	ft_free_stack_b(t_swap **stack_b)
+{
+	t_swap *tmp;
+	while (*stack_b)
 	{
-		ft_printf("%d\n", arr[j]);
-		j++;
+		ft_printf("%d\n", (*stack_b)->content);
+		tmp = (*stack_b)->next;
+		free(*stack_b);
+		*stack_b = tmp;
 	}
+	ft_printf("-\nb\n");
+	ft_printf("-------------------\n");
 }
 
 t_swap	*new_list(int content)
@@ -54,48 +54,64 @@ t_swap	*new_list(int content)
 	return (new_node);
 }
 
-t_swap *create_list(char **str)
+void	setup_list(t_swap **new_node, t_swap **head, int *content, t_swap **current)
 {
-	t_swap *head = NULL;
-	t_swap *current = NULL;
- 	t_swap *new_node = NULL;
-	int i = 1;
-	while (str[i])
+	*new_node = new_list(*content);
+	if (!*new_node)
 	{
-		int content = atoi(str[i]);
-		new_node = new_list(content);
-		if (!new_node)
-			return NULL;
-		if (!head)
-		{
-			head = new_node;
-			current = head;
-		}
-		else
-		{
-			current->next = new_node;
-			new_node->prev = current;
-			current = new_node;
-		}
-		i++;
+		ft_printf("new_node\n");
+		exit(0);
 	}
-	return head;
+	if (!*head)
+	{
+		*head = *new_node;
+		*current = *head;
+	}
+	else
+	{
+		(*current)->next = *new_node;
+		(*new_node)->prev = *current;
+		*current = *new_node;
+	}
 }
 
-t_swap *create_empty_stack() {
-    t_swap *new_stack = (t_swap *)malloc(sizeof(t_swap));
-    if (new_stack == NULL) {
-        return NULL;
-    }
-    new_stack->content = 0;
-    new_stack->next = NULL;
-    return new_stack;
+t_swap *create_list(char **str)
+{
+	t_swap *head;
+	t_swap *current;
+ 	t_swap *new_node;
+	char	**res;
+	int	content;
+	int i;
+	int	d;
+
+	i = 1;
+	head = NULL;
+	current = NULL;
+	new_node = NULL;
+	content = 0;
+	while (str[i] != NULL)
+	{
+		d = 0;
+		res = ft_split(str[i], ' ');
+		while (res[d])
+		{
+			content = ft_atoi(res[d]);
+			setup_list(&new_node, &head, &content, &current);
+			free(res[d]);
+			d++;
+		}
+		i++;
+		free(res);
+	}
+	return (head);
 }
 
 int check_duplicate(const t_swap *list)
 {
-	const t_swap *current = list;
+	const t_swap *current;
 
+	current = list;
 	while (current)
 	{
 		const t_swap *temp = current->next;
@@ -110,39 +126,44 @@ int check_duplicate(const t_swap *list)
 		}
 		current = current->next;
 	}
+	return (0);
+}
 
-	return 0;
+void	f()
+{
+	system("leaks push_swap");
 }
 
 int main(int argc, char **argv)
 {
 	t_swap	*stack_a = NULL;
 	t_swap	*stack_b = NULL;
-	int d = arg_handlers(argc, argv);
-	if (d == 1)
+
+	int arg_valid = arg_handlers(argc, argv);
+	if (arg_valid)
 	{
 		ft_printf("Error\n");
 		exit(EXIT_FAILURE);
 	}
 	stack_a = create_list(argv);
-	stack_b = create_empty_stack();
 	check_duplicate(stack_a);
-	//swap_a(stack_a);
-	//swap_b(stack_b);
-	//swap_a_b(stack_a, stack_b);
-	//push_b(stack_a, stack_b);
-	//rotate_a(stack_a);
-	while (stack_b)
-	{
-		ft_printf("b : %d\n", stack_b->content);
-		stack_b = stack_b->next;
-	}
-	ft_printf("-------------------\n");
-	while (stack_a)
-	{
-		ft_printf("a : %d\n", stack_a->content);
-		stack_a = stack_a->next;
-	}
-	ft_printf("-\na\n");
+	// push_b(&stack_a, &stack_b);
+	// push_b(&stack_a, &stack_b);
+	// push_b(&stack_a, &stack_b);
+	// push_b(&stack_a, &stack_b);
+	// check_above_median(&stack_a, &stack_b);
+	// while (stack_b)
+	// {
+	// 	index_target(&stack_b);
+	// 	if (stack_b->above_median)
+	// 		ft_printf("signe\n");
+	// 	stack_b = stack_b->next;
+	// }
+	sort_turk(&stack_a, &stack_b);
+	ft_free_stack_a(&stack_a);
+	ft_free_stack_b(&stack_b);
 	return 0;
 }
+
+
+
