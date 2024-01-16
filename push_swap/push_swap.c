@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 00:56:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:37:49 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	ft_free_stack_a(t_swap **stack_a)
 	t_swap *tmp;
 	while (*stack_a)
 	{
+		// ft_printf("cheap : %d\n", (*stack_a)->cheapest_move);
 		ft_printf("%d\n", (*stack_a)->content);
 		tmp = (*stack_a)->next;
-		free(*stack_a);
+		// free(*stack_a);
 		*stack_a = tmp;
 	}
 	ft_printf("-\na\n");
@@ -33,7 +34,11 @@ void	ft_free_stack_b(t_swap **stack_b)
 	while (*stack_b)
 	{
 		if ((*stack_b)->target_node)
+		{
 			ft_printf("target : %d\n", (*stack_b)->target_node->content);
+			ft_printf("cheap target : %d\n", (*stack_b)->target_node->cheapest_move);
+		}
+		ft_printf("cheap : %d\n", (*stack_b)->cheapest_move);
 		ft_printf("%d\n", (*stack_b)->content);
 		tmp = (*stack_b)->next;
 		free(*stack_b);
@@ -162,6 +167,8 @@ int main(int argc, char **argv)
 	// 	stack_b = stack_b->next;
 	// }
 	sort_turk(&stack_a, &stack_b);
+	// t_swap	*min = find_minswap(&stack_a);
+	// ft_printf("min : %d\n", min->content);
 	ft_free_stack_a(&stack_a);
 	ft_free_stack_b(&stack_b);
 	return 0;

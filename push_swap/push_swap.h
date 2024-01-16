@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 00:37:41 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:54:25 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b);
 void	check_above_median(t_swap **stack_a, t_swap ** stack_b);
 void	find_target(t_swap **stack_a, t_swap **stack_b);
 int		find_min(t_swap **stack_a);
+t_swap	*find_minswap(t_swap **stack_a);
 
 #endif

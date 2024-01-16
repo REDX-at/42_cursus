@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 00:55:43 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:35:07 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ void	sort_three(t_swap **stack)
 	size = ft_lstsizet(*stack);
 	last = ft_lstlastt(*stack);
 	if (!stack || !*stack)
-	{
-		ft_printf("test 3\n");
 		exit(0);
-	}
 	if (!check_if_sorted(stack) && size == 3)
 	{
 		if ((*stack)->content < (*stack)->next->content && (*stack)->content < last->content)
@@ -102,15 +99,22 @@ void	fin_cheap(t_swap **stack_a, t_swap **stack_b)
 {
 	t_swap	*temp_b = *stack_b;
 	index_target(&temp_b);
+	int	d = 1;
 	while (temp_b)
 	{
 		if (temp_b->above_median)
+		{
 			temp_b->cheapest_move = temp_b->index;
+			// ft_printf("cheap : %d %d\n", temp_b->cheapest_move, d);
+		}
 		else
+		{
 			temp_b->cheapest_move = ft_lstsizet(*stack_b) - temp_b->index;
-		ft_printf("cheap b  : %d\n", temp_b->cheapest_move);
+			// ft_printf("cheap : %d %d\n", temp_b->cheapest_move, d);
+		}
 		temp_b = temp_b->next;
 	}
+	d = 2;
 	t_swap	*temp_a = *stack_a;
 	index_target(&temp_a);
 	while (temp_a)
@@ -119,7 +123,6 @@ void	fin_cheap(t_swap **stack_a, t_swap **stack_b)
 			temp_a->cheapest_move = temp_a->index;
 		else
 			temp_a->cheapest_move = ft_lstsizet(*stack_a) - temp_a->index;
-		ft_printf("cheap a  : %d\n", temp_a->cheapest_move);
 		temp_a = temp_a->next;
 	}
 }
@@ -130,27 +133,35 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 	t_swap	*temp_a;
 	int		target = 0;
 	int		flag = 0;
-
+	
 	temp_b = *stack_b;
 	temp_a = *stack_a;
 	while (temp_b)
-	{
+	{	
+		t_swap	*min = find_minswap(stack_a);
+		temp_a = *stack_a;
+		flag = 0;
 		while (temp_a)
 		{
 			if (temp_a->content > temp_b->content)
 			{
 				if (!flag)
+				{
 					temp_b->target_node = temp_a;
+					target = temp_a->content;
+				}
 				else
 				{
 					if (temp_a->content < target)
+					{
+						temp_b->target_node = temp_a;
 						target = temp_a->content;
+					}
 				}
 				flag = 1;
 			}
 			else
-				ft_printf("min\n");
-				// temp_b->target_node = min;
+				temp_b->target_node = min;
 			temp_a = temp_a->next;
 		}
 		temp_b = temp_b->next;
@@ -182,8 +193,8 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 			push_b(stack_a, stack_b);
 		size--;
 	}
-	fin_cheap(stack_a, stack_b);
-	find_target(stack_a, stack_b);
 	if (size == 3)
 		sort_three(stack_a);
+	fin_cheap(stack_a, stack_b);
+	find_target(stack_a, stack_b);
 }
