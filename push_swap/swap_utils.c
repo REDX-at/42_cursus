@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:17:45 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 00:00:20 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:41:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ void	check(t_swap *stack)
 		stack = stack->next;
 		i++;
 	}
-	if (i < 1)
-	{
-		ft_printf("alo\n");
+	if (i <= 1)
 		exit(0);
-	}
 	stack = head;
 }
 

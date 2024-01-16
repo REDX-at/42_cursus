@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 22:35:07 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:48:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,12 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 		temp_b = temp_b->next;
 	}
 }
+
+// void	find_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
+// {
+// 	t_swap	*temp_a = *stack_a;
+// 	t_swap	*temp_b = *stack_b;	
+// }
 
 void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 {

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 22:37:49 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:43:26 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int main(int argc, char **argv)
 	sort_turk(&stack_a, &stack_b);
 	// t_swap	*min = find_minswap(&stack_a);
 	// ft_printf("min : %d\n", min->content);
+	// reverse_rotate_a(&stack_a);
 	ft_free_stack_a(&stack_a);
 	ft_free_stack_b(&stack_b);
 	return 0;
