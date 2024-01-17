@@ -168,11 +168,39 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 	}
 }
 
-// void	find_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
-// {
-// 	t_swap	*temp_a = *stack_a;
-// 	t_swap	*temp_b = *stack_b;	
-// }
+void	get_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
+{
+	t_swap	*temp_a = *stack_a;
+	t_swap	*temp_b = *stack_b;
+	while (temp_b)
+	{
+		ft_printf("conetent : %d | target : %d\n", temp_b->content, temp_b->target_node->content);
+		temp_b->cheapest_cost = temp_b->cheapest_move + temp_b->target_node->cheapest_move;
+		temp_b = temp_b->next;
+	}
+}
+
+t_swap	*find_cheap_cost(t_swap **stack_a, t_swap ** stack_b)
+{
+	t_swap	*temp_a = *stack_a;
+	t_swap	*temp_b = *stack_b;
+	t_swap	*cheap = temp_b;
+	int cheapest = INT_MAX;
+	while (temp_b)
+	{
+		if (temp_b)
+		{
+			if (temp_b->cheapest_cost < cheapest)
+			{
+				cheapest = temp_b->cheapest_cost;
+				cheap = temp_b;
+			}
+		}
+		temp_b = temp_b->next;
+	}
+	// ft_printf("cheap all : %d\n", cheap->content);
+	return (cheap);
+}
 
 void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 {
@@ -203,4 +231,7 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 		sort_three(stack_a);
 	fin_cheap(stack_a, stack_b);
 	find_target(stack_a, stack_b);
+	get_cheapest_cost(stack_a, stack_b);
+	t_swap	*cheap = find_cheap_cost(stack_a, stack_b);
+	ft_printf("to push : %d\n", cheap->content);
 }

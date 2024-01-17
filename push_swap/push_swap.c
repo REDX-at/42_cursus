@@ -39,6 +39,8 @@ void	ft_free_stack_b(t_swap **stack_b)
 			ft_printf("cheap target : %d\n", (*stack_b)->target_node->cheapest_move);
 		}
 		ft_printf("cheap : %d\n", (*stack_b)->cheapest_move);
+		ft_printf("node b : %d\n", (*stack_b)->content);
+		ft_printf("cheapes cost : %d\n", (*stack_b)->cheapest_cost);
 		ft_printf("%d\n", (*stack_b)->content);
 		tmp = (*stack_b)->next;
 		free(*stack_b);

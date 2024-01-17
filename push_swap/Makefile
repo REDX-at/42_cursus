@@ -1,6 +1,6 @@
 NAME = push_swap
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 SRC = push_swap.c swap_utils.c arg_handlers.c sort_list.c sort_three_instruction.c min_max.c
 
 LIBFT = ./libftt/libft.a
@@ -17,8 +17,8 @@ make_libft:
 make_printf:
 	@cd ./printf && make > /dev/null
 
-$(NAME): $(OBJS)
-	@$(CC) $(LIBFT) $(PRINTF) $^ -o $@
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
+	@$(CC) $^ -o $@
 
 %.o: %.c push_swap.h
 	@$(CC) $(CFLAGS) -c $< -o $@

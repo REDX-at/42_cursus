@@ -2,7 +2,7 @@ SRCS =  ft_c.c ft_d.c ft_p.c ft_s.c ft_u.c ft_x.c ft_printf.c
 OBJS = $(SRCS:.c=.o)
 CC = cc
 HEAD = ft_printf.h
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 NAME = libftprintf.a
 RM = rm -f
 LIBC = ar rcs

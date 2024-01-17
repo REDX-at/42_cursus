@@ -19,6 +19,7 @@
 # include "./libftt/libft.h"
 # include "./printf/ft_printf.h"
 #include <stdbool.h>
+# include <limits.h>
 
 typedef struct s_swap
 {
@@ -26,6 +27,7 @@ typedef struct s_swap
 	int				index;
 	int				above_median;
 	int				cheapest_move;
+	int				cheapest_cost;
 	struct s_swap	*next;
 	struct s_swap	*prev;
 	struct s_swap	*target_node;	
