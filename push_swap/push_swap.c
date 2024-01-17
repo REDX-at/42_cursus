@@ -43,7 +43,7 @@ void	ft_free_stack_b(t_swap **stack_b)
 		ft_printf("cheapes cost : %d\n", (*stack_b)->cheapest_cost);
 		ft_printf("%d\n", (*stack_b)->content);
 		tmp = (*stack_b)->next;
-		free(*stack_b);
+		// free(*stack_b);
 		*stack_b = tmp;
 	}
 	ft_printf("-\nb\n");
@@ -176,6 +176,3 @@ int main(int argc, char **argv)
 	ft_free_stack_b(&stack_b);
 	return 0;
 }
-
-
-

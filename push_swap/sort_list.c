@@ -202,6 +202,19 @@ t_swap	*find_cheap_cost(t_swap **stack_a, t_swap ** stack_b)
 	return (cheap);
 }
 
+void	push_back(t_swap **stack_a, t_swap **stack_b)
+{
+	t_swap	*temp_a = *stack_a;
+	t_swap	*temp_b = *stack_b;
+	t_swap	*to_push;
+	int	index = 0;
+	
+	to_push = find_cheap_cost(&temp_a, &temp_b);
+	index = to_push->cheapest_move;
+	// push_a(&temp_a, &temp_b);
+	ft_printf("index : %d\n", index);
+}
+
 void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 {
 	int	size_list;
@@ -232,6 +245,24 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 	fin_cheap(stack_a, stack_b);
 	find_target(stack_a, stack_b);
 	get_cheapest_cost(stack_a, stack_b);
-	t_swap	*cheap = find_cheap_cost(stack_a, stack_b);
-	ft_printf("to push : %d\n", cheap->content);
+	// t_swap	*to_push;
+	// int	index = 0;
+	// int	index_two = 0;
+
+	// to_push = find_cheap_cost(stack_a, stack_b);
+	// index = to_push->cheapest_move;
+	// index_two = to_push->target_node->cheapest_move;
+	// ft_printf("index : %d\n", index);
+	// while (index > 0)
+	// {
+	// 	rotate_b(stack_b);
+	// 	index--;
+	// }
+	// while (index_two > 0)
+	// {
+	// 	rotate_a(stack_a);
+	// 	index_two--;
+	// }
+	// push_a(stack_a, stack_b);
+
 }
