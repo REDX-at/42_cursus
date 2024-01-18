@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:17:45 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 22:41:03 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:55:46 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void    swap_a(t_swap *stack)
 	}
 	else
 		return ;
+	ft_printf("sa\n");
 }
 
 void	check(t_swap *stack)
@@ -50,8 +51,10 @@ void	check(t_swap *stack)
 		stack = stack->next;
 		i++;
 	}
-	if (i <= 1)
-		exit(0);
+	if (i < 1)
+	{
+		return;
+	}
 	stack = head;
 }
 
@@ -79,12 +82,14 @@ void	swap_b(t_swap *list)
 	}
 	else
 		return ;
+	ft_printf("sb\n");
 }
 
 void	swap_a_b(t_swap *stack_a, t_swap *stack_b)
 {
 	swap_a(stack_a);
 	swap_b(stack_b);
+	ft_printf("ss\n");
 }
 
 void push_b(t_swap **stack_a, t_swap **stack_b)
@@ -107,6 +112,7 @@ void push_b(t_swap **stack_a, t_swap **stack_b)
         if (*stack_a)
             (*stack_a)->prev = NULL;
         free(temp);
+		ft_printf("pb\n");
     }
 }
 
@@ -126,6 +132,7 @@ void	push_a(t_swap **stack_a, t_swap **stack_b)
         t_swap *temp = *stack_b;
         *stack_b = (*stack_b)->next;
         free(temp);
+		ft_printf("pa\n");
 	}
 }
 
@@ -142,9 +149,10 @@ t_swap	*ft_lstlastt(t_swap *lst)
 	return (lst);
 }
 
-void	rotate_a(t_swap **stack_a)
+void	rotate_a(t_swap **stack_a, int flag)
 {
-	check(*stack_a);
+	if (!(*stack_a) || !(*stack_a)->next)
+		return ;
 	t_swap *last = ft_lstlastt(*stack_a);
 	t_swap *temp = NULL;
 
@@ -152,11 +160,14 @@ void	rotate_a(t_swap **stack_a)
 	*stack_a = (*stack_a)->next;
 	temp->next = NULL;
 	last->next = temp;
+	if (flag != 0)
+		ft_printf("ra\n");
 }
 
-void	rotate_b(t_swap **stack_b)
+void	rotate_b(t_swap **stack_b, int flag)
 {
-	check(*stack_b);
+	if (!(*stack_b) || !(*stack_b)->next)
+		return ;
 	t_swap *last = ft_lstlastt(*stack_b);
 	t_swap *temp = NULL;
 
@@ -164,37 +175,52 @@ void	rotate_b(t_swap **stack_b)
 	*stack_b = (*stack_b)->next;
 	temp->next = NULL;
 	last->next = temp;
+	if (flag != 0)
+		ft_printf("rb\n");
 }
 
-void	rotate_a_b(t_swap *stack_a, t_swap *stack_b)
+void	rotate_a_b(t_swap **stack_a, t_swap **stack_b)
 {
-	rotate_a(&stack_a);
-	rotate_b(&stack_b);
+	rotate_a(stack_a, 0);
+	rotate_b(stack_b, 0);
+	ft_printf("rr\n");
 }
 
-void	reverse_rotate_a(t_swap **stack_a)
+void reverse_rotate_a(t_swap **stack_a, int flag)
 {
-	check(*stack_a);
-	t_swap	*last = ft_lstlastt(*stack_a);
-	t_swap *temp = *stack_a;
-	last->prev->next = NULL;
-	*stack_a = last;
-	(*stack_a)->next = temp;
+    if (*stack_a == NULL || (*stack_a)->next == NULL)
+        return;
+    t_swap *last = *stack_a;
+    while (last->next->next != NULL)
+        last = last->next;
+    t_swap *second_last = last;
+    last = last->next;
+    second_last->next = NULL;
+    last->next = *stack_a;
+    *stack_a = last;
+	if (flag != 0)
+		ft_printf("rra\n");
 }
 
-void	reverse_rotate_b(t_swap **stack_b)
+void reverse_rotate_b(t_swap **stack_b, int flag)
 {
-	check(*stack_b);
-	t_swap *last = ft_lstlastt(*stack_b);
-	t_swap *temp = *stack_b;
-	if (last->prev->next)
-		last->prev->next = NULL;
-	*stack_b = last;
-	(*stack_b)->next = temp;
+    if (*stack_b == NULL || (*stack_b)->next == NULL)
+        return;
+    t_swap *last = *stack_b;
+    while (last->next->next != NULL)
+        last = last->next;
+    t_swap *second_last = last;
+    last = last->next;
+    second_last->next = NULL;
+    last->next = *stack_b;
+    *stack_b = last;
+	if (flag != 0)
+		ft_printf("rrb\n");
 }
 
 void	reverse_rotate_a_b(t_swap **stack_a, t_swap **stack_b)
 {
-	reverse_rotate_a(stack_a);
-	reverse_rotate_b(stack_b);
+	reverse_rotate_a(stack_a, 0);
+	reverse_rotate_b(stack_b, 0);
+	ft_printf("rrr\n");
 }

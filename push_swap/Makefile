@@ -1,5 +1,5 @@
 NAME = push_swap
-CC = cc
+CC = cc 
 CFLAGS = -Wall -Wextra
 SRC = push_swap.c swap_utils.c arg_handlers.c sort_list.c sort_three_instruction.c min_max.c
 

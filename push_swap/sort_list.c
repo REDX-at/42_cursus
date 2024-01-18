@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 22:48:38 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:57:50 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	sort_three(t_swap **stack)
 			case_four(stack);
 		else if ((*stack)->content > (*stack)->next->content && (*stack)->content > last->content && (*stack)->next->content > last->content)
 			case_five(stack);
-		ft_printf("\n");
 	}
 }
 
@@ -105,12 +104,10 @@ void	fin_cheap(t_swap **stack_a, t_swap **stack_b)
 		if (temp_b->above_median)
 		{
 			temp_b->cheapest_move = temp_b->index;
-			// ft_printf("cheap : %d %d\n", temp_b->cheapest_move, d);
 		}
 		else
 		{
 			temp_b->cheapest_move = ft_lstsizet(*stack_b) - temp_b->index;
-			// ft_printf("cheap : %d %d\n", temp_b->cheapest_move, d);
 		}
 		temp_b = temp_b->next;
 	}
@@ -138,30 +135,18 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 	temp_a = *stack_a;
 	while (temp_b)
 	{	
-		t_swap	*min = find_minswap(stack_a);
 		temp_a = *stack_a;
+		int match = INT_MAX;
 		flag = 0;
 		while (temp_a)
 		{
-			if (temp_a->content > temp_b->content)
+			if (temp_a->content > temp_b->content && temp_a->content < match)
 			{
-				if (!flag)
-				{
-					temp_b->target_node = temp_a;
-					target = temp_a->content;
-				}
-				else
-				{
-					if (temp_a->content < target)
-					{
-						temp_b->target_node = temp_a;
-						target = temp_a->content;
-					}
-				}
-				flag = 1;
+				match = temp_a->content;
+				temp_b->target_node = temp_a;
 			}
-			else
-				temp_b->target_node = min;
+			if (match == INT_MAX)
+				temp_b->target_node = find_minswap(stack_a);
 			temp_a = temp_a->next;
 		}
 		temp_b = temp_b->next;
@@ -174,7 +159,6 @@ void	get_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
 	t_swap	*temp_b = *stack_b;
 	while (temp_b)
 	{
-		ft_printf("conetent : %d | target : %d\n", temp_b->content, temp_b->target_node->content);
 		temp_b->cheapest_cost = temp_b->cheapest_move + temp_b->target_node->cheapest_move;
 		temp_b = temp_b->next;
 	}
@@ -198,21 +182,53 @@ t_swap	*find_cheap_cost(t_swap **stack_a, t_swap ** stack_b)
 		}
 		temp_b = temp_b->next;
 	}
-	// ft_printf("cheap all : %d\n", cheap->content);
 	return (cheap);
 }
 
-void	push_back(t_swap **stack_a, t_swap **stack_b)
+void	move_to_top(t_swap **stack_a, t_swap **stack_b, t_swap	*to_push)
 {
 	t_swap	*temp_a = *stack_a;
 	t_swap	*temp_b = *stack_b;
-	t_swap	*to_push;
-	int	index = 0;
+
+	while ((*stack_a) && (*stack_b) && ((to_push) != (*stack_b)) && ((to_push)->target_node != (*stack_a))
+		&& ((to_push)->above_median) && ((to_push)->target_node->above_median))
+	{
+		rotate_a_b(stack_a, stack_b);
+	}
+	while ((*stack_a) && (*stack_b) && ((to_push) != (*stack_b)) && ((to_push)->target_node != (*stack_a))
+		&& !((to_push)->above_median) && !((to_push)->target_node->above_median))
+	{
+		reverse_rotate_a_b(stack_a, stack_b);
+	}
+	while ((*stack_b) && (to_push) != (*stack_b))
+	{
+		if ((to_push)->above_median)
+			rotate_b((stack_b), 1);
+		else
+			reverse_rotate_b((stack_b), 1);
+	}
+	while ((*stack_a) && (to_push)->target_node != (*stack_a))
+	{
+		if ((to_push)->target_node->above_median)
+			rotate_a((stack_a), 1);
+		else
+			reverse_rotate_a((stack_a), 1);
+	}
+	push_a(stack_a, stack_b);
+}
+
+void	finish_stack(t_swap **stack_a)
+{
 	
-	to_push = find_cheap_cost(&temp_a, &temp_b);
-	index = to_push->cheapest_move;
-	// push_a(&temp_a, &temp_b);
-	ft_printf("index : %d\n", index);
+	t_swap	*min = find_minswap(stack_a);
+	index_target(stack_a);
+	while (*stack_a && min != (*stack_a))
+	{
+		if (min->above_median)
+			rotate_a(stack_a, 1);
+		else
+			reverse_rotate_a(stack_a, 1);
+	}
 }
 
 void	sort_turk(t_swap **stack_a, t_swap **stack_b)
@@ -224,17 +240,14 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 	med = get_med(stack_a);
 	size_list = ft_lstsizet(*stack_a);
 	if (check_if_sorted(stack_a))
-	{
-		ft_printf("sorted\n");
 		exit(0);
-	}
 	size = size_list;
 	while (size > 3 && *stack_a)
 	{
 		if ((*stack_a)->content > med)
 		{
 			push_b(stack_a, stack_b);
-			rotate_b(stack_b);
+			rotate_b(stack_b, 1);
 		}
 		else
 			push_b(stack_a, stack_b);
@@ -242,27 +255,15 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 	}
 	if (size == 3)
 		sort_three(stack_a);
-	fin_cheap(stack_a, stack_b);
-	find_target(stack_a, stack_b);
-	get_cheapest_cost(stack_a, stack_b);
-	// t_swap	*to_push;
-	// int	index = 0;
-	// int	index_two = 0;
-
-	// to_push = find_cheap_cost(stack_a, stack_b);
-	// index = to_push->cheapest_move;
-	// index_two = to_push->target_node->cheapest_move;
-	// ft_printf("index : %d\n", index);
-	// while (index > 0)
-	// {
-	// 	rotate_b(stack_b);
-	// 	index--;
-	// }
-	// while (index_two > 0)
-	// {
-	// 	rotate_a(stack_a);
-	// 	index_two--;
-	// }
-	// push_a(stack_a, stack_b);
-
+	while (*stack_b)
+	{
+		index_target(stack_b);
+		index_target(stack_a);
+		fin_cheap(stack_a, stack_b);
+		find_target(stack_a, stack_b);
+		get_cheapest_cost(stack_a, stack_b);
+		t_swap	*to_push = find_cheap_cost(stack_a, stack_b);
+		move_to_top(stack_a, stack_b, to_push);
+	}
+	finish_stack(stack_a);
 }

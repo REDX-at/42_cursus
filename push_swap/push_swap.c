@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 22:43:26 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:57:22 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	ft_free_stack_a(t_swap **stack_a)
 	t_swap *tmp;
 	while (*stack_a)
 	{
-		// ft_printf("cheap : %d\n", (*stack_a)->cheapest_move);
-		ft_printf("%d\n", (*stack_a)->content);
 		tmp = (*stack_a)->next;
-		// free(*stack_a);
+		ft_printf("%d\n", (*stack_a)->content);
+		free(*stack_a);
 		*stack_a = tmp;
 	}
-	ft_printf("-\na\n");
-	ft_printf("-------------------\n");
+	ft_printf("------a-----\n");
 }
 
 void	ft_free_stack_b(t_swap **stack_b)
@@ -33,21 +31,11 @@ void	ft_free_stack_b(t_swap **stack_b)
 	t_swap *tmp;
 	while (*stack_b)
 	{
-		if ((*stack_b)->target_node)
-		{
-			ft_printf("target : %d\n", (*stack_b)->target_node->content);
-			ft_printf("cheap target : %d\n", (*stack_b)->target_node->cheapest_move);
-		}
-		ft_printf("cheap : %d\n", (*stack_b)->cheapest_move);
-		ft_printf("node b : %d\n", (*stack_b)->content);
-		ft_printf("cheapes cost : %d\n", (*stack_b)->cheapest_cost);
 		ft_printf("%d\n", (*stack_b)->content);
 		tmp = (*stack_b)->next;
-		// free(*stack_b);
 		*stack_b = tmp;
 	}
-	ft_printf("-\nb\n");
-	ft_printf("-------------------\n");
+	ft_printf("------b-----\n");
 }
 
 t_swap	*new_list(int content)
@@ -67,10 +55,7 @@ void	setup_list(t_swap **new_node, t_swap **head, int *content, t_swap **current
 {
 	*new_node = new_list(*content);
 	if (!*new_node)
-	{
-		ft_printf("new_node\n");
 		exit(0);
-	}
 	if (!*head)
 	{
 		*head = *new_node;
@@ -156,23 +141,8 @@ int main(int argc, char **argv)
 	}
 	stack_a = create_list(argv);
 	check_duplicate(stack_a);
-	// push_b(&stack_a, &stack_b);
-	// push_b(&stack_a, &stack_b);
-	// push_b(&stack_a, &stack_b);
-	// push_b(&stack_a, &stack_b);
-	// check_above_median(&stack_a, &stack_b);
-	// while (stack_b)
-	// {
-	// 	index_target(&stack_b);
-	// 	if (stack_b->above_median)
-	// 		ft_printf("signe\n");
-	// 	stack_b = stack_b->next;
-	// }
 	sort_turk(&stack_a, &stack_b);
-	// t_swap	*min = find_minswap(&stack_a);
-	// ft_printf("min : %d\n", min->content);
-	// reverse_rotate_a(&stack_a);
-	ft_free_stack_a(&stack_a);
-	ft_free_stack_b(&stack_b);
+	// ft_free_stack_a(&stack_a);
+	// ft_free_stack_b(&stack_b);
 	return 0;
 }

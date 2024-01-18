@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/16 20:54:25 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:56:04 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ void    swap_a(t_swap *stack);
 void	swap_b(t_swap *list);
 void	swap_a_b(t_swap *stack_a, t_swap *stack_b);
 void	push_b(t_swap **stack_a, t_swap **stack_b);
-void	rotate_a(t_swap **stack_a);
-void	rotate_b(t_swap **stack_b);
-void	reverse_rotate_a(t_swap **stack_a);
-void	reverse_rotate_b(t_swap **stack_b);
+void	rotate_a(t_swap **stack_a, int flag);
+void	rotate_b(t_swap **stack_b, int flag);
+void	rotate_a_b(t_swap **stack_a, t_swap **stack_b);
+void	reverse_rotate_a(t_swap **stack_a, int flag);
+void	reverse_rotate_b(t_swap **stack_b, int flag);
 void	reverse_rotate_a_b(t_swap **stack_a, t_swap **stack_b);
 int		check_if_sorted(t_swap **stack);
 int		sort_list(t_swap **stack);
