@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_handlers.c                                     :+:      :+:    :+:   */
+/*   arg_handlers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:19:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:17:48 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/19 20:55:19 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 void	ft_print_err(void)
 {
@@ -67,7 +67,7 @@ void	loop_args(char **str, int *found, int *digit)
 	}
 }
 
-int	arg_handlers(int total, char **str)
+int	arg_handlers_bonus(int total, char **str)
 {
 	int	found;
 	int	digit;

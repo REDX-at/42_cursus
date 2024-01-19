@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_utils.c                                       :+:      :+:    :+:   */
+/*   swap_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:17:45 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 19:26:58 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:43:45 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
-void	swap_b(t_swap *stack)
+void	checker_swap_b(t_swap *stack)
 {
 	int		tmp;
 	t_swap	*head;
@@ -36,10 +36,9 @@ void	swap_b(t_swap *stack)
 	(stack)->content = (stack)->next->content;
 	stack = (stack)->next;
 	(stack)->content = tmp;
-	ft_printf("sb\n");
 }
 
-void	swap_a(t_swap *stack)
+void	checker_swap_a(t_swap *stack)
 {
 	int		tmp;
 	t_swap	*head;
@@ -63,17 +62,15 @@ void	swap_a(t_swap *stack)
 	(stack)->content = (stack)->next->content;
 	stack = (stack)->next;
 	(stack)->content = tmp;
-	ft_printf("sa\n");
 }
 
-void	swap_a_b(t_swap *stack_a, t_swap *stack_b)
+void	checker_swap_a_b(t_swap *stack_a, t_swap *stack_b)
 {
-	swap_a(stack_a);
-	swap_b(stack_b);
-	ft_printf("ss\n");
+	checker_swap_a(stack_a);
+	checker_swap_b(stack_b);
 }
 
-void	push_b(t_swap **stack_a, t_swap **stack_b)
+void	checker_push_b(t_swap **stack_a, t_swap **stack_b)
 {
 	t_swap	*new_node;
 	t_swap	*temp;
@@ -94,6 +91,5 @@ void	push_b(t_swap **stack_a, t_swap **stack_b)
 		if (*stack_a)
 			(*stack_a)->prev = NULL;
 		free(temp);
-		ft_printf("pb\n");
 	}
 }
