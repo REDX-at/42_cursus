@@ -39,8 +39,8 @@ void	push_back(t_swap **stack_a, t_swap **stack_b)
 		index_target(stack_a);
 		fin_cheap(stack_a, stack_b);
 		find_target(stack_a, stack_b);
-		get_cheapest_cost(stack_a, stack_b);
-		to_push = find_cheap_cost(stack_a, stack_b);
+		get_cheapest_cost(stack_b);
+		to_push = find_cheap_cost(stack_b);
 		move_to_top(stack_a, stack_b, to_push);
 	}
 	finish_stack(stack_a);

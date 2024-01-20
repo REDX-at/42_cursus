@@ -19,7 +19,6 @@ void	ft_free_stack_a(t_swap **stack_a)
 	while (*stack_a)
 	{
 		tmp = (*stack_a)->next;
-		ft_printf("%d \n", (*stack_a)->content);
 		free(*stack_a);
 		*stack_a = tmp;
 	}
@@ -56,11 +55,6 @@ int	check_duplicate(t_swap *list)
 	return (0);
 }
 
-void	f()
-{
-	system("leaks push_swap");
-}
-
 void	check_arg(char **str)
 {
 	int	d;
@@ -73,7 +67,8 @@ void	check_arg(char **str)
 		i = 0;
 		while (str[d][i] != '\0')
 		{
-			if (!ft_isdigit(str[d][i]) && str[d][i] != ' ' && str[d][i] != '\t' && str[d][i] != '-' && str[d][i] != '+')
+			if (!ft_isdigit(str[d][i]) && str[d][i] != ' '
+				&& str[d][i] != '\t' && str[d][i] != '-' && str[d][i] != '+')
 				ft_print_err();
 			i++;
 		}
@@ -87,7 +82,6 @@ int	main(int argc, char **argv)
 	t_swap	*stack_b;
 	int		arg_valid;
 
-	// atexit(f);
 	stack_a = NULL;
 	stack_b = NULL;
 	arg_valid = arg_handlers(argc, argv);

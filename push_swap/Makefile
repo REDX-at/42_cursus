@@ -1,6 +1,6 @@
 NAME = push_swap
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra 
 SRC = push_swap.c swap_utils.c arg_handlers.c sort_list.c sort_three_instruction.c \
 	min_max.c swap_utils_two.c swap_utils_three.c utils_turk.c steps_turk.c \
 	setup_stack.c
@@ -10,9 +10,12 @@ PRINTF = ./printf/libftprintf.a
 
 OBJS = $(SRC:.c=.o)
 
+bonus: make_checker
 all: make_libft make_printf $(NAME)
 	@echo "\033[0m \033[97mCompile Done \033[92m√"
 
+make_checker:
+	@cd ./checker_bonus && make > /dev/null
 make_libft:
 	@cd ./libftt && make > /dev/null
 
@@ -37,5 +40,6 @@ fclean:
 	@rm -f $(PRINTF)
 	@cd ./libftt && make fclean > /dev/null
 	@cd ./printf && make fclean > /dev/null
+	@cd ./checker_bonus && make fclean > /dev/null
 
 re: clean fclean all

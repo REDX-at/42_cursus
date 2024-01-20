@@ -80,7 +80,8 @@ void	check_arg(char **str)
 		i = 0;
 		while (str[d][i] != '\0')
 		{
-			if (!ft_isdigit(str[d][i]) && str[d][i] != ' ' && str[d][i] != '\t' && str[d][i] != '-' && str[d][i] != '+')
+			if (!ft_isdigit(str[d][i]) && str[d][i] != ' ' && str[d][i] != '\t'
+				&& str[d][i] != '-' && str[d][i] != '+')
 				ft_print_err();
 			i++;
 		}

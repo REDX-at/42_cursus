@@ -18,51 +18,49 @@ void	ft_print_err(void)
 	exit(EXIT_FAILURE);
 }
 
-void	for_arg_handler(char ***str, int *f, int *i, int *j, t_data *data)
+void	for_arg_handler(char ***str, int *f, t_data *data)
 {
-	if ((*str)[*j][*i] < '0' || (*str)[*j][*i] > '9')
+	if ((*str)[data->j][data->i] < '0' || (*str)[data->j][data->i] > '9')
 	{
 		*f = 1;
-		if ((*str)[*j][*i] == ' ')
+		if ((*str)[data->j][data->i] == ' ')
 			*f = 0;
-		if ((*str)[*j][*i] == '-' || (*str)[*j][*i] == '+')
+		if ((*str)[data->j][data->i] == '-' || (*str)[data->j][data->i] == '+')
 		{
-			if (!ft_isdigit((*str)[*j][*i + 1]))
+			if (!ft_isdigit((*str)[data->j][data->i + 1]))
 				data->midd++;
-			if (((*str)[*j][(*i) - 1] == ' ') || *i == 0)
+			if (((*str)[data->j][(data->i) - 1] == ' ') || data->i == 0)
 				data->spy++;
 			else
 				data->midd++;
 			*f = 0;
 		}
 	}
-	(*i)++;
+	data->i++;
 }
 
 void	loop_args(char **str, int *found, int *digit)
 {
-	int	j;
 	t_data	v;
-	int	i;
 
-	j = 1;
+	v.j = 1;
 	v.midd = 0;
 	v.spy = 0;
-	i = 0;
-	while (str[j])
+	v.i = 0;
+	while (str[v.j])
 	{
-		i = 0;
+		v.i = 0;
 		v.spy = 0;
 		*digit = 0;
-		while (str[j][i] && str[j][i] != '\0')
+		while (str[v.j][v.i] && str[v.j][v.i] != '\0')
 		{
-			if (ft_isdigit(str[j][i]))
+			if (ft_isdigit(str[v.j][v.i]))
 				*digit = 1;
-			for_arg_handler(&str, found, &i, &j, &v);
+			for_arg_handler(&str, found, &v);
 		}
 		if (!*digit || v.midd != 0)
 			ft_print_err();
-		j++;
+		v.j++;
 	}
 }
 

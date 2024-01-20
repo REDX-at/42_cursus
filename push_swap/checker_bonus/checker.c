@@ -108,13 +108,13 @@ void	checker_steps(t_swap **stack_a, t_swap **stack_b, char **buffer)
 	}
 	if (check_if_sorted(stack_a) && !*stack_b)
 		print_ok_ko(1);
-	ft_printf("KO");
+	ft_printf("KO\n");
 	exit(0);
 }
 
 int	main(int argc, char **argv)
 {
-	int		valid = 0;;
+	int		valid;
 	char	*buffer;
 	t_swap	*stack_a;
 	t_swap	*stack_b;

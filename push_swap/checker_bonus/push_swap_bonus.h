@@ -38,6 +38,8 @@ typedef struct s_data
 {
 	int	spy;
 	int	midd;
+	int	j;
+	int	i;
 }	t_data;
 
 void	check_arg(char **str);

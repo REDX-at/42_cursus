@@ -43,27 +43,23 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 {
 	t_swap	*temp_b;
 	t_swap	*temp_a;
-	int		target;
-	int		match;
+	long	match;
 
-	target = 0;
 	temp_b = *stack_b;
 	while (temp_b)
 	{
 		temp_a = *stack_a;
-		match = INT_MAX;
+		match = (long)INT_MAX + 1;
 		while (temp_a)
 		{
-			if (temp_a->content > temp_b->content && temp_a->content <= match)
+			if (temp_a->content > temp_b->content && temp_a->content < match)
 			{
 				match = temp_a->content;
 				temp_b->target_node = temp_a;
-				ft_printf("target : %d | for %d\n", temp_b->target_node->content, temp_b->content);
 			}
-			else if (match == INT_MAX)
+			if (match == (long)INT_MAX + 1)
 			{
 				temp_b->target_node = find_minswap(stack_a);
-				ft_printf("target : %d | for %d\n", temp_b->target_node->content, temp_b->content);
 			}
 			temp_a = temp_a->next;
 		}
@@ -71,12 +67,10 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 	}
 }
 
-void	get_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
+void	get_cheapest_cost(t_swap **stack_b)
 {
-	t_swap	*temp_a;
 	t_swap	*temp_b;
 
-	temp_a = *stack_a;
 	temp_b = *stack_b;
 	while (temp_b)
 	{
@@ -86,14 +80,12 @@ void	get_cheapest_cost(t_swap **stack_a, t_swap **stack_b)
 	}
 }
 
-t_swap	*find_cheap_cost(t_swap **stack_a, t_swap **stack_b)
+t_swap	*find_cheap_cost(t_swap **stack_b)
 {
-	t_swap	*temp_a;
 	t_swap	*cheap;
 	t_swap	*temp_b;
 	int		cheapest;
 
-	temp_a = *stack_a;
 	temp_b = *stack_b;
 	cheap = temp_b;
 	cheapest = INT_MAX;

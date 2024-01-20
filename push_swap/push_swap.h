@@ -33,6 +33,14 @@ typedef struct s_swap
 	struct s_swap	*target_node;	
 }	t_swap;
 
+typedef struct s_data
+{
+	int	spy;
+	int	midd;
+	int	j;
+	int	i;
+}	t_data;
+
 void	check_arg(char **str);
 int		arg_handlers(int total, char **str);
 void	swap_a(t_swap *stack);
@@ -62,8 +70,8 @@ void	find_target(t_swap **stack_a, t_swap **stack_b);
 int		find_min(t_swap **stack_a);
 t_swap	*find_minswap(t_swap **stack_a);
 void	fin_cheap(t_swap **stack_a, t_swap **stack_b);
-void	get_cheapest_cost(t_swap **stack_a, t_swap **stack_b);
-t_swap	*find_cheap_cost(t_swap **stack_a, t_swap **stack_b);
+void	get_cheapest_cost(t_swap **stack_b);
+t_swap	*find_cheap_cost(t_swap **stack_b);
 void	first_step(t_swap **stack_a, t_swap **stack_b, int *size, int *med);
 void	push_back(t_swap **stack_a, t_swap **stack_b);
 void	finish_stack(t_swap **stack_a);
