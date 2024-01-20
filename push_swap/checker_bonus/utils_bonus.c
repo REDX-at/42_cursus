@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 21:35:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 22:47:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 18:09:50 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,4 @@ t_swap	*new_list(int content)
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
-}
-
-void	ft_free_stack_a(t_swap **stack_a)
-{
-	t_swap	*tmp;
-
-	while (*stack_a)
-	{
-		ft_printf("%d\n", (*stack_a)->content);
-		tmp = (*stack_a)->next;
-		free(*stack_a);
-		*stack_a = tmp;
-	}
-}
-
-void	ft_free_stack_b(t_swap **stack_b)
-{
-	t_swap	*tmp;
-
-	while (*stack_b)
-	{
-		ft_printf("%d\n", (*stack_b)->content);
-		tmp = (*stack_b)->next;
-		*stack_b = tmp;
-	}
 }

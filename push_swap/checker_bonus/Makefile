@@ -1,8 +1,8 @@
-NAME = push_swap_bonus
+NAME = checker
 CC = cc 
 CFLAGS = -Wall -Wextra
 BONUS = checker.c arg_handlers_bonus.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
-		swap_utils_bonus.c swap_utils_thr_bonus.c swap_utils_two_bonus.c utils_bonus.c
+		swap_utils_bonus.c swap_utils_thr_bonus.c swap_utils_two_bonus.c utils_bonus.c utils_two_bonus.c
 
 LIBFT = ../libftt/libft.a
 PRINTF = ../printf/libftprintf.a

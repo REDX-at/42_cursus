@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:17:45 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 22:43:45 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 18:10:02 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	checker_swap_b(t_swap *stack)
 	t_swap	*head;
 	int		i;
 
+	if (!stack)
+		return ;
 	head = NULL;
 	i = 0;
 	tmp = 0;
@@ -29,8 +31,6 @@ void	checker_swap_b(t_swap *stack)
 	}
 	stack = head;
 	if (i <= 1)
-		return ;
-	if (!stack)
 		return ;
 	tmp = (stack)->content;
 	(stack)->content = (stack)->next->content;
@@ -44,6 +44,8 @@ void	checker_swap_a(t_swap *stack)
 	t_swap	*head;
 	int		i;
 
+	if (!stack)
+		return ;
 	head = NULL;
 	i = 0;
 	tmp = 0;
@@ -55,8 +57,6 @@ void	checker_swap_a(t_swap *stack)
 	}
 	stack = head;
 	if (i <= 1)
-		return ;
-	if (!stack)
 		return ;
 	tmp = (stack)->content;
 	(stack)->content = (stack)->next->content;

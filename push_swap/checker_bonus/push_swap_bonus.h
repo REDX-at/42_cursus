@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 20:41:20 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 22:52:19 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:19:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ typedef struct s_swap
 	struct s_swap	*target_node;	
 }	t_swap;
 
+typedef struct s_data
+{
+	int	spy;
+	int	midd;
+}	t_data;
+
+void	check_arg(char **str);
+int		check_if_sorted(t_swap **stack);
+void	print_ok_ko(int flag);
 void	ft_free_stack_a(t_swap **stack_a);
 void	ft_free_stack_b(t_swap **stack_b);
 t_swap	*new_list(int content);

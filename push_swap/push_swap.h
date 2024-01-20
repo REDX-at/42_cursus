@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:54:37 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:13:19 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:23:53 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_swap
 	struct s_swap	*target_node;	
 }	t_swap;
 
+void	check_arg(char **str);
 int		arg_handlers(int total, char **str);
 void	swap_a(t_swap *stack);
 void	swap_b(t_swap *stack);

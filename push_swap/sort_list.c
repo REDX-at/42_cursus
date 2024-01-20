@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:20:24 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:57:09 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_if_sorted(t_swap **stack)
 	flag = 0;
 	if (!stack || !*stack)
 	{
-		ft_printf("Error\n");
+		ft_putstr_fd("Error\n", 2);
 		exit(0);
 	}
 	while (*stack && (*stack)->next)

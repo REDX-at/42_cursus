@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:19:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:55:19 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:22:37 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_print_err(void)
 {
-	ft_printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
 	exit(EXIT_FAILURE);
 }
 
-void	for_arg_handler(char ***str, int *f, int *spy, int *i, int *j, int *m)
+void	for_arg_handler(char ***str, int *f, int *i, int *j, t_data *data)
 {
 	if ((*str)[*j][*i] < '0' || (*str)[*j][*i] > '9')
 	{
@@ -28,11 +28,11 @@ void	for_arg_handler(char ***str, int *f, int *spy, int *i, int *j, int *m)
 		if ((*str)[*j][*i] == '-' || (*str)[*j][*i] == '+')
 		{
 			if (!ft_isdigit((*str)[*j][*i + 1]))
-				(*m)++;
+				data->midd++;
 			if (((*str)[*j][(*i) - 1] == ' ') || *i == 0)
-				(*spy)++;
+				data->spy++;
 			else
-				(*m)++;
+				data->midd++;
 			*f = 0;
 		}
 	}
@@ -42,26 +42,25 @@ void	for_arg_handler(char ***str, int *f, int *spy, int *i, int *j, int *m)
 void	loop_args(char **str, int *found, int *digit)
 {
 	int	j;
-	int	spy;
-	int	midd;
+	t_data	v;
 	int	i;
 
 	j = 1;
-	spy = 0;
-	midd = 0;
+	v.midd = 0;
+	v.spy = 0;
 	i = 0;
 	while (str[j])
 	{
 		i = 0;
-		spy = 0;
+		v.spy = 0;
 		*digit = 0;
 		while (str[j][i] && str[j][i] != '\0')
 		{
 			if (ft_isdigit(str[j][i]))
 				*digit = 1;
-			for_arg_handler(&str, found, &spy, &i, &j, &midd);
+			for_arg_handler(&str, found, &i, &j, &v);
 		}
-		if (!*digit || midd != 0)
+		if (!*digit || v.midd != 0)
 			ft_print_err();
 		j++;
 	}
@@ -76,6 +75,7 @@ int	arg_handlers_bonus(int total, char **str)
 	found = 0;
 	if (total == 1)
 		exit(0);
+	check_arg(str);
 	loop_args(str, &found, &digit);
 	if (found)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:28:22 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 19:26:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:55:13 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ void	find_target(t_swap **stack_a, t_swap **stack_b)
 		match = INT_MAX;
 		while (temp_a)
 		{
-			if (temp_a->content > temp_b->content && temp_a->content < match)
+			if (temp_a->content > temp_b->content && temp_a->content <= match)
 			{
 				match = temp_a->content;
 				temp_b->target_node = temp_a;
+				ft_printf("target : %d | for %d\n", temp_b->target_node->content, temp_b->content);
 			}
-			if (match == INT_MAX)
+			else if (match == INT_MAX)
+			{
 				temp_b->target_node = find_minswap(stack_a);
+				ft_printf("target : %d | for %d\n", temp_b->target_node->content, temp_b->content);
+			}
 			temp_a = temp_a->next;
 		}
 		temp_b = temp_b->next;

@@ -6,18 +6,11 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:56:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:34:10 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:48:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_t2akd(int sign)
-{
-	if (sign == -1)
-		return (0);
-	return (-1);
-}
 
 static char	*ft_sifr(const char *s)
 {
@@ -28,10 +21,16 @@ static char	*ft_sifr(const char *s)
 	return ((char *)s);
 }
 
+void	print_err(void)
+{
+	ft_putstr_fd("Error\n", 2);
+	exit(0);
+}
+
 int	ft_atoi(const char *str)
 {
 	int				sign;
-	unsigned long	result;
+	long			result;
 	int				count;
 
 	sign = 1;
@@ -52,7 +51,7 @@ int	ft_atoi(const char *str)
 		str++;
 		count++;
 	}
-	if (result > 9223372036854775807 || count >= 20)
-		return (ft_t2akd(sign));
+	if (result * sign > 2147483647 || count > 10 || result * sign < -2147483648)
+		print_err();
 	return (result * sign);
 }

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:19:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/19 20:17:48 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:24:22 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_err(void)
 {
-	ft_printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -76,6 +76,7 @@ int	arg_handlers(int total, char **str)
 	found = 0;
 	if (total == 1)
 		exit(0);
+	check_arg(str);
 	loop_args(str, &found, &digit);
 	if (found)
 		return (1);

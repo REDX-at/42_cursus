@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   utils_two_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 15:54:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/20 21:42:19 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/01/20 17:31:21 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/01/20 21:23:11 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
+
+void	print_ok_ko(int flag)
+{
+	if (flag == 1)
+	{
+		ft_printf("OK\n");
+		exit(0);
+	}
+	ft_printf("KO\n");
+	exit(0);
+}
+
+int	check_if_sorted(t_swap **stack)
+{
+	int		flag;
+	t_swap	*head;
+
+	head = *stack;
+	flag = 0;
+	if (!stack || !*stack)
+		ft_print_err();
+	while (*stack && (*stack)->next)
+	{
+		if ((*stack)->content > (*stack)->next->content)
+			flag = 1;
+		*stack = (*stack)->next;
+	}
+	*stack = head;
+	if (flag)
+		return (0);
+	return (1);
+}
 
 void	ft_free_stack_a(t_swap **stack_a)
 {
@@ -19,7 +51,6 @@ void	ft_free_stack_a(t_swap **stack_a)
 	while (*stack_a)
 	{
 		tmp = (*stack_a)->next;
-		ft_printf("%d \n", (*stack_a)->content);
 		free(*stack_a);
 		*stack_a = tmp;
 	}
@@ -32,33 +63,9 @@ void	ft_free_stack_b(t_swap **stack_b)
 	while (*stack_b)
 	{
 		tmp = (*stack_b)->next;
+		free(*stack_b);
 		*stack_b = tmp;
 	}
-}
-
-int	check_duplicate(t_swap *list)
-{
-	t_swap	*current;
-	t_swap	*temp;
-
-	current = list;
-	while (current)
-	{
-		temp = current->next;
-		while (temp)
-		{
-			if (current->content == temp->content)
-				ft_print_err();
-			temp = temp->next;
-		}
-		current = current->next;
-	}
-	return (0);
-}
-
-void	f()
-{
-	system("leaks push_swap");
 }
 
 void	check_arg(char **str)
@@ -79,24 +86,4 @@ void	check_arg(char **str)
 		}
 		d++;
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_swap	*stack_a;
-	t_swap	*stack_b;
-	int		arg_valid;
-
-	// atexit(f);
-	stack_a = NULL;
-	stack_b = NULL;
-	arg_valid = arg_handlers(argc, argv);
-	if (arg_valid)
-		ft_print_err();
-	stack_a = create_list(argv, 1, 0);
-	check_duplicate(stack_a);
-	sort_turk(&stack_a, &stack_b);
-	ft_free_stack_a(&stack_a);
-	ft_free_stack_b(&stack_b);
-	return (0);
 }
