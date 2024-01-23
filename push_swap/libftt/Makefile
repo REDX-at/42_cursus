@@ -6,7 +6,7 @@
 #    By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:35:19 by aitaouss          #+#    #+#              #
-#    Updated: 2023/11/13 15:04:17 by aitaouss         ###   ########.fr        #
+#    Updated: 2024/01/23 20:19:11 by aitaouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ BONUS_SRCS =    ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 LIBC = ar rcs
 RM = rm -f
 OBJ = $(SRCS:.c=.o)
@@ -44,7 +44,7 @@ bonus:  $(BONUS_OBJ)
 	@$(LIBC) $(NAME) $(BONUS_OBJ)
 
 %.o:    %.c libft.h
-	@echo "√" $<
+	@echo "\033[92m√\033[0m \033[97m" $<
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

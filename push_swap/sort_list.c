@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 06:25:43 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/20 17:57:09 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:27:25 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 
 	size = 0;
 	min = find_min(stack_a);
-	med = ft_lstsizet(*stack_a) / 2;
-	if (min >= med)
+	// med = ft_lstsizet(*stack_a) / 2;
+	// if (min >= med)
 		med = get_med(stack_a);
 	size_list = ft_lstsizet(*stack_a);
 	if (check_if_sorted(stack_a))

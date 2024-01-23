@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 20:41:20 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/01/22 18:01:08 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:00:00 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "../libftt/libft.h"
-# include "../printf/ft_printf.h"
+# include "./libftt/libft.h"
+# include "./printf/ft_printf.h"
 # include "./get_next_line/get_next_line.h"
 # include <stdbool.h>
 # include <limits.h>
