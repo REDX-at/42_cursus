@@ -30,8 +30,6 @@ int	check_if_sorted(t_swap **stack)
 
 	head = *stack;
 	flag = 0;
-	if (!stack || !*stack)
-		ft_print_err();
 	while (*stack && (*stack)->next)
 	{
 		if ((*stack)->content > (*stack)->next->content)

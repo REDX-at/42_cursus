@@ -1,7 +1,7 @@
 NAME = push_swap
 NAME_BONUS = checker
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra 
 SRC = push_swap.c swap_utils.c arg_handlers.c sort_list.c sort_three_instruction.c \
 	min_max.c swap_utils_two.c swap_utils_three.c utils_turk.c steps_turk.c \
 	setup_stack.c

@@ -65,6 +65,11 @@ t_swap	*create_list(char **str, int i, int d)
 	{
 		d = 0;
 		res = ft_split(str[i], ' ');
+		if (!res)
+		{
+			free(res);
+			exit(0);
+		}
 		while (res[d])
 		{
 			content = ft_atoi(res[d]);

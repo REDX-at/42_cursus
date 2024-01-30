@@ -114,9 +114,7 @@ void	sort_turk(t_swap **stack_a, t_swap **stack_b)
 
 	size = 0;
 	min = find_min(stack_a);
-	// med = ft_lstsizet(*stack_a) / 2;
-	// if (min >= med)
-		med = get_med(stack_a);
+	med = get_med(stack_a);
 	size_list = ft_lstsizet(*stack_a);
 	if (check_if_sorted(stack_a))
 		exit(0);
