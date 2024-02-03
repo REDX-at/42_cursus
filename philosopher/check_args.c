@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 11:06:48 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/02 12:02:26 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/03 15:00:00 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/03 15:31:05 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,21 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-int	check_num(int n)
+int	check_num(int n, int flag)
 {
+    if (flag == 1)
+    {
+        if (n < 1)
+        {
+		    if(!print_exit("Number of philo less than 1", 0))
+			    return (0);
+        }
+        return (1);
+    }
 	if (n < 60)
 	{
 		if(!print_exit("Error N < 60", 0))
-		{
 			return (0);
-		}
 	}
 	return(1);
 }

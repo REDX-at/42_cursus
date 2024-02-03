@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 21:29:13 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/02 17:45:58 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/03 14:59:24 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/03 15:25:02 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,18 @@ int	main(int argc, char **argv)
 	}
 	if (!check_arg(argv))
 		return (0);
+    number = ft_atol(argv[1]);
+    if (!check_num(number, 1))
+		return (0);
 	number = ft_atol(argv[2]);
-	if (!check_num(number))
+	if (!check_num(number, 0))
 		return (0);
 	number = ft_atol(argv[3]);
-	if (!check_num(number))
+	if (!check_num(number, 0))
 		return (0);
 	number = ft_atol(argv[4]);
-	if (!check_num(number))
+	if (!check_num(number, 0))
 		return (0);
 	forum->philo_number = ft_atol(argv[1]);
 	initialize_data_forum(data, forum);
-	data = philo_list(forum);
-	while (data)
-	{
-		pthread_join(data->philo_thread, NULL);
-		data = data->next;
-	}
 }
-

@@ -1,7 +1,7 @@
 NAME = philo
 CC = cc -fsanitize=address 
 CFLAGS = -Wall -Wextra
-SRC = philosopher.c utils_philo.c check_args.c ft_atol.c
+SRC = philosopher.c utils_philo.c check_args.c ft_atol.c protected_ft.c
 
 OBJS = $(SRC:.c=.o)
 

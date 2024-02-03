@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 21:29:44 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/02 17:49:45 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/03 14:59:36 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/03 15:45:19 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 #include <stdio.h>
 #include <time.h>
 #include <pthread.h>
-
-typedef struct s_list
-{
-	pthread_t		philo;
-	struct s_list	*next;
-}	t_list;
 
 typedef	struct s_fork
 {
@@ -47,6 +41,7 @@ typedef struct s_data
 	int				number_philo;
 	struct s_data	*next;
 	pthread_mutex_t	mutex;
+    t_forum         *forum;
 }	t_data;
 
 //  TABLE
@@ -62,13 +57,13 @@ typedef	struct s_forum
 	bool	end_sim;
 	t_fork	*fork;
 	t_data	*philo;
-}	t_forum;	
+}	t_forum;
 
 int		print_exit(char *str, int flag);
 void	ft_puts(char *str);
-t_data	*philo_list(t_forum *forum);
+void	*malloc_pro(size_t byte);
 int		check_arg(char **argv);
-int		check_num(int n);
+int	check_num(int n, int flag);
 void	initialize_data_forum(t_data *data, t_forum *forum);
 long	ft_atol(const char *str);
 
