@@ -65,3 +65,49 @@ int	pro_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	}
 	return (1);
 }
+
+static int	handle_thread_err(int status, t_opcode opcode)
+{
+	if (0 == status)
+		return ;
+	if (EAGAIN == status)
+	{
+		if (!print_exit("No ressources to create another thread", 0))
+			return ;
+	}
+	else if (EINVAL == status && CREATE == opcode)
+	{
+		if (!print_exit("the caller does not have a permission", 0))
+			return ;
+	}
+	else if (EINVAL == status && (JOIN == opcode || DETACH == opcode))
+	{
+		if (!print_exit("the values is not joinable", 0))
+			return ;
+	}
+	else if (ESRCH == status)
+	{
+		if (!print_exit("No thread could be found", 0))
+			return ;
+	}
+	else if (EDEADLK == status)
+	{
+		if (!print_exit("A deadlock was detected", 0))
+			return ;
+	}
+}
+
+void	pro_tnread_handle(pthread_t *thread, void *(*fun)(void *), void *data, t_opcode opcode)
+{
+	if (CREATE == opcode)
+		handle_thread_err(pthread_create(thread, NULL, fun, data), opcode);
+	else if (JOIN == opcode)
+		handle_thread_err(pthread_join(*thread, NULL), opcode);
+	else if (DETACH == opcode)
+		handle_thread_err(pthread_detach(*thread), opcode);
+	else
+	{
+		if (!print_exit("Wrong opcode for thread handle", 0))
+			return ;
+	}
+}

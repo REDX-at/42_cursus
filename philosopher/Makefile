@@ -1,5 +1,5 @@
 NAME = philo
-CC = cc -fsanitize=address 
+CC = cc 
 CFLAGS = -Wall -Wextra
 SRC = philosopher.c utils_philo.c check_args.c ft_atol.c protected_ft.c
 
