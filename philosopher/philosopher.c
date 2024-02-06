@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:59:24 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/03 15:25:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:05:23 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	print_exit(char *str, int flag)
 int	main(int argc, char **argv)
 {
 	t_data	*data = malloc(sizeof(t_data));
-	t_forum	*forum = malloc(sizeof(t_forum));
+	t_forum	*table = malloc(sizeof(t_forum));
 	long	number;
 
 	number = 0;
@@ -48,18 +48,6 @@ int	main(int argc, char **argv)
 	}
 	if (!check_arg(argv))
 		return (0);
-    number = ft_atol(argv[1]);
-    if (!check_num(number, 1))
-		return (0);
-	number = ft_atol(argv[2]);
-	if (!check_num(number, 0))
-		return (0);
-	number = ft_atol(argv[3]);
-	if (!check_num(number, 0))
-		return (0);
-	number = ft_atol(argv[4]);
-	if (!check_num(number, 0))
-		return (0);
-	forum->philo_number = ft_atol(argv[1]);
-	initialize_data_forum(data, forum);
+	table->philo_number = ft_atol(argv[1]);
+	initialize_data_forum(data, table);
 }

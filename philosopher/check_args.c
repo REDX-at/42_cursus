@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:00:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/03 15:31:05 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:09:09 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,26 @@ int util_check_arg(char **str, int *j)
     return (1);
 }
 
+int	check_number(char **argv)
+{
+	int	nbr;
+
+	nbr = 0;
+    nbr = ft_atol(argv[1]);
+    if (!check_num(nbr, 1))
+		return (0);
+	nbr = ft_atol(argv[2]);
+	if (!check_num(nbr, 0))
+		return (0);
+	nbr = ft_atol(argv[3]);
+	if (!check_num(nbr, 0))
+		return (0);
+	nbr = ft_atol(argv[4]);
+	if (!check_num(nbr, 0))
+		return (0);
+	return (1);
+}
+
 int check_arg(char **argv)
 {
 	int i;
@@ -73,6 +93,8 @@ int check_arg(char **argv)
 
 	j= 0;
 	i = 1;
+	if (!check_number(argv))
+		return (0);
 	while (argv[i])
 	{
 		str = argv[i];

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:59:36 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/03 15:45:19 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:58:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,20 @@
 #include <stdio.h>
 #include <time.h>
 #include <pthread.h>
+#include <errno.h>
 
+typedef enum	e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_opcode;
+
+typedef pthread_mutex_t t_mtx;
 typedef	struct s_fork
 {
 	pthread_mutex_t	fork;
@@ -41,7 +54,7 @@ typedef struct s_data
 	int				number_philo;
 	struct s_data	*next;
 	pthread_mutex_t	mutex;
-    t_forum         *forum;
+    struct t_forum         *forum;
 }	t_data;
 
 //  TABLE
@@ -56,7 +69,7 @@ typedef	struct s_forum
 	long	start_sim;
 	bool	end_sim;
 	t_fork	*fork;
-	t_data	*philo;
+	t_data	*philos;
 }	t_forum;
 
 int		print_exit(char *str, int flag);
