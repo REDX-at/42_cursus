@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:59:24 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/06 18:05:23 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:14:52 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,11 @@ void	ft_puts(char *str)
 	write(1, "\n", 1);
 }
 
-void	free_all(t_forum *table, t_data *data)
+void	free_all(t_forum *table, t_philo *data)
 {
 	free(data);
 	free(table->philos);
 	free(table);
-}
-int	print_exit(char *str, int flag)
-{
-	printf("%s\n", str);
-	if (flag == 1)
-		return(1);
-	if (flag == 0)
-		return(0);
-	return (0);
 }
 
 int	data_init(t_forum *table, char **argv)
@@ -54,7 +45,7 @@ int	data_init(t_forum *table, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_data	*data = malloc(sizeof(t_data));
+	t_philo	*data = malloc(sizeof(t_philo));
 	t_forum	*table = malloc(sizeof(t_forum));
 	long	number;
 

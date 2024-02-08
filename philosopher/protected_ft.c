@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+void	*malloc_pro(size_t byte)
+{
+	char	*alloc;
+
+	alloc = malloc(byte);
+	if (!alloc)
+		return (NULL);
+	return (alloc);
+}
+
 static void	handle_mutex_err(int status, t_opcode opcode)
 {
 	if (0 == status)
@@ -97,7 +107,7 @@ static int	handle_thread_err(int status, t_opcode opcode)
 	}
 }
 
-void	pro_tnread_handle(pthread_t *thread, void *(*fun)(void *), void *data, t_opcode opcode)
+int	pro_tnread_handle(pthread_t *thread, void *(*fun)(void *), void *data, t_opcode opcode)
 {
 	if (CREATE == opcode)
 		handle_thread_err(pthread_create(thread, NULL, fun, data), opcode);
@@ -108,6 +118,7 @@ void	pro_tnread_handle(pthread_t *thread, void *(*fun)(void *), void *data, t_op
 	else
 	{
 		if (!print_exit("Wrong opcode for thread handle", 0))
-			return ;
+			return (0);
 	}
+	return (1);
 }

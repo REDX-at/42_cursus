@@ -1,7 +1,7 @@
 NAME = philo
 CC = cc 
 CFLAGS = -Wall -Wextra
-SRC = philosopher.c utils_philo.c check_args.c ft_atol.c protected_ft.c
+SRC = philosopher.c utils_philo.c check_args.c ft_atol.c protected_ft.c dinner.c getters_setters.c init.c
 
 OBJS = $(SRC:.c=.o)
 
