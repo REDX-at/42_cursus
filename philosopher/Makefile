@@ -1,23 +1,40 @@
 NAME = philo
-CC = cc 
-CFLAGS = -Wall -Wextra
-SRC = philosopher.c utils_philo.c check_args.c ft_atol.c protected_ft.c dinner.c getters_setters.c init.c sync_utils.c print.c
+CC = cc
+CFLAGS = -g -Wall -Wextra -Werror
+RM = rm -rf
+OBJS_DIR = objs/
 
-OBJS = $(SRC:.c=.o)
+ifdef DEBUG_MODE
+    CFLAGS += -DDEBUG_MODE=$(DEBUG_MODE) -fsanitize=thread 
+endif
 
-$(NAME): $(OBJS)
-	@$(CC) $^ -o $@
+ifdef PHILO_MAX
+    CFLAGS += -DPHILO_MAX=$(PHILO_MAX)
+endif
+
+
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+
+all : $(NAME)
+
+$(NAME) : $(OBJS)
+	@$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c philo.h
 	@echo "\033[92m√\033[0m \033[97m" $<
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	@rm -f $(OBJS)
+re : fclean all
 
-fclean:
+clean :
+	@$(RM) $(OBJS)
+
+fclean : clean
 	@echo "\033[0m \033[97mObject Full Cleaned \033[92m√"
-	@rm -f $(OBJS)
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 
-re: fclean all
+BOLD_CYAN=\033[1;36m
+RESET_COLOR=\033[0m
+
+.PHONY : clean fclean re all bonus

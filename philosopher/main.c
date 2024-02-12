@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sync_utils.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:12:08 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/08 16:13:22 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/12 09:23:39 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/12 11:30:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_all_thread(t_forum *table)
+int	main(int ac, char **av)
 {
-	while(!get_bool(&table->table_mutex, &table->all_thread_ready));
+	t_table	table;
+
+	if (5 == ac || 6 == ac)
+	{
+		if (!parse_args(&table, av))
+			return (0);
+		if (!init_data(&table))
+		{
+			clean(&table);
+			return (0);
+		}
+		dinner_start(&table);
+		clean(&table);
+	}
+	else
+	{
+		if (!print_error("Wrong input"RESET))
+			return (0);
+	}
+	return (1);
 }
