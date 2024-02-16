@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:41:35 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/16 20:35:33 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:47:06 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv, char **envp)
     int fd = open(filefd, O_RDONLY);
     while (1)
 	{
+		flag = 0;
         char *input = readline("aitaouss@aitaouss:~$ ");
         
         if (input == NULL)
@@ -30,6 +31,14 @@ int main(int argc, char **argv, char **envp)
             printf("\n");
             break;
         }
+		if (strcmp(input, "unlink") == 0)
+		{
+			if (unlink(filename) == 0)
+        		printf("File %s removed successfully.\n", filename);
+			else
+        		printf("Error: Could not remove file %s\n", filename);
+			flag = 1;
+		}
 		if (strcmp(input, "fstat") == 0)
 		{
 			if (fstat(fd, &file_info) == 0)
