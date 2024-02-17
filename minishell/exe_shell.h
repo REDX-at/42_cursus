@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:40:38 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/16 17:44:43 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/17 12:33:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <dirent.h>
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"

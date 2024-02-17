@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:41:35 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/16 20:47:06 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:12:32 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,75 @@
 
 int main(int argc, char **argv, char **envp)
 {
+	envp = NULL;
     char cwd[255];
-	const char *filename = "/Users/aitaouss/Desktop/mylink";
+	// char *const args[] = {"ls", "/Users/aitaouss/Desktop/cursus/minishell", NULL};
+	const char *filename = "/Users/aitaouss/Desktop/remove.txt";
     struct stat file_info;
     const char *home_directory = getenv("HOME");
 	int flag = 0;
-    const char *filefd = "test.txt";
+    const char *filefd = "./file_utils/test.txt";
+    const char *filestat = "./file_utils/stat.txt";
+    const char *fileslstat = "./file_utils/lstat_link";
     int fd = open(filefd, O_RDONLY);
-    while (1)
+	// for the dup
+	int fd2 = open(filefd, O_RDONLY);
+	int new_fd = dup(fd2);
+	// for the dir functions
+	// const char *dirname = "/Users/aitaouss/Desktop";
+	// DIR *dir;
+    
+    // dir = opendir(dirname);
+    // // Read and print the contents of the directory
+    // struct dirent *entry = readdir(dir);
+    // while ((entry = readdir(dir)) != NULL)
+	// {
+    //     printf(RED"Name : "RESET"%s | "GREEN"Type : "RESET"%d\n"RESET, entry->d_name, entry->d_type);
+	// }
+	// if (closedir(dir) == -1)
+	// {
+	// 	printf("Error: Could not close directory\n");
+	// 	return 1;
+	// }
+	// exit(0);
+
+	// for the SHELL
+	while (1)
 	{
 		flag = 0;
-        char *input = readline("aitaouss@aitaouss:~$ ");
+        char *input = readline(RED"aitaouss@aitaouss:~$ "RESET);
         
         if (input == NULL)
 		{
             printf("\n");
             break;
+        }
+        if (strcmp(input, "ls") == 0)
+        {
+            pid_t pid = fork();
+
+            if (pid == -1)
+            {
+                printf("Error: Could not fork\n");
+                exit(EXIT_FAILURE);
+            }
+            else if (pid == 0)
+            {
+                // Child process
+                char *const args[] = {"ls", "/Users/aitaouss/Desktop", NULL};
+                if (execve("/bin/ls", args, envp) == -1)
+                {
+                    printf("Error: Could not execute ls\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
+            else
+            {
+                // Parent process
+                int status;
+                waitpid(-1, &status, 0);
+            }
+            flag = 1;
         }
 		if (strcmp(input, "unlink") == 0)
 		{
@@ -53,7 +106,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		if (strcmp(input, "stat") == 0)
 		{
-			if (stat(filename, &file_info) == 0)
+			if (stat(filestat, &file_info) == 0)
 			{
         		// Access information in file_info structure
         		printf("File size: %lld bytes\n", (long long)file_info.st_size);
@@ -63,7 +116,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		if (strcmp(input, "lstat") == 0)
 		{
-		    if (lstat(filename, &file_info) == 0)
+		    if (lstat(fileslstat, &file_info) == 0)
 			{
         		// Access information in the file_info structure
         		printf("File size: %lld bytes\n", (long long)file_info.st_size);
@@ -101,6 +154,8 @@ int main(int argc, char **argv, char **envp)
 
         free(input);
     }
+	close(fd2);
+	close(new_fd);
 	close(fd);
     return 0;
 }
