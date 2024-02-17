@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:41:35 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/17 16:12:32 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:12:52 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ int main(int argc, char **argv, char **envp)
 	// }
 	// exit(0);
 
+	// for the getenv
+	// const char	*str;
+	// str = "PWD";
+	// char *homeDirectory = getenv(str);
+	// if (homeDirectory != NULL)
+	// 	printf(RED"%s directory: "W"%s\n", str, homeDirectory);
+	// else
+	// 	printf("%s environment variable not set.\n", str);
+	// exit(0);
 	// for the SHELL
 	while (1)
 	{
@@ -84,6 +93,48 @@ int main(int argc, char **argv, char **envp)
             }
             flag = 1;
         }
+		if (strncmp(input, "echo", 4) == 0)
+		{
+			pid_t pid = fork();
+			if (pid == -1)
+			{
+				printf("Error: Could not fork\n");
+				exit(EXIT_FAILURE);
+			}
+
+			if (pid == 0)
+			{
+				// Child process
+				int i = 1;
+				char **res = ft_split(input, ' ');
+				// while (res[i])
+				// {
+				// 	printf("the res : %s\n", res[i]);
+				// 	i++;
+				// }
+				// exit(0);
+				// i = 1;
+				while (res[i] != NULL)
+				{
+					printf("the res : %s\n", res[i]);
+					char *const argf[] = {"echo", res[i], NULL};
+					if (execve("/bin/echo", argf, envp) == -1)
+					{
+						printf("Error: Could not execute echo\n");
+						exit(EXIT_FAILURE);
+					}
+					printf("the res : %s\n", res[i]);
+					i++;
+				}
+			}
+			else
+			{
+				// Parent process
+				int status;
+				waitpid(-1, &status, 0);
+			}
+			flag = 1;
+		}
 		if (strcmp(input, "unlink") == 0)
 		{
 			if (unlink(filename) == 0)

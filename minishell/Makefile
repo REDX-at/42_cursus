@@ -1,6 +1,6 @@
 CC = cc
 NAME = exe_shell
-SRC = exe_shell.c
+SRC = exe_shell.c ft_split.c
 CFLAGS = -Wall -Wextra -lreadline
 OBJ = $(SRC:.c=.o)
 

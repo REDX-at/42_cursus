@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 09:23:31 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/12 18:10:29 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:15:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,12 @@ void	dinner_start(t_table *table)
 	if (0 == table->meal_limit_number)
 		return ;
 	else if (1 == table->philo_nbr)
-	{
-		if (!pro_thread(&table->philos[0].thread_id, one_philo,
-			&table->philos[0], CREATE))
-			return ;
-	}
+		pro_thread(&table->philos[0].thread_id, one_philo,
+			&table->philos[0], CREATE);
 	else
 		while (++i < table->philo_nbr)
-		{
-			if (!pro_thread(&table->philos[i].thread_id, dinner_simulation,
-				&table->philos[i], CREATE))
-				return ;
-		}
+			pro_thread(&table->philos[i].thread_id, dinner_simulation,
+				&table->philos[i], CREATE);
 	pro_thread(&table->monitor, watch_dinner, table, CREATE);
 	table->start_simulation = gettime(MILLISECOND);
 	set_bool(&table->table_mutex, &table->thread_ready, true);
