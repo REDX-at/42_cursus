@@ -22,11 +22,11 @@ int	main(int ac, char **av)
 			return (0);
 		if (!init_data(&table))
 		{
-			clean(&table);
+			clear_process(&table);
 			return (0);
 		}
 		dinner_start(&table);
-		clean(&table);
+		clear_process(&table);
 	}
 	else
 	{

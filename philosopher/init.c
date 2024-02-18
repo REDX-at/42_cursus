@@ -39,7 +39,7 @@ static int	philo_init(t_table *table)
 		philo->id = i + 1;
 		philo->full = false;
 		philo->count_meals = 0;
-		if (!pro_mutex(&philo->philo_mutex, INIT))
+		if (!function_mutex(&philo->philo_mutex, INIT))
 			return (0);
 		philo->table = table;
 		distribute_forks(philo, table->forks, i);
@@ -59,13 +59,13 @@ int	init_data(t_table *table)
 	table->forks = pro_malloc(table->philo_nbr * sizeof(t_fork));
 	if (!table->philos || !table->forks)
 		return (0);
-	if (!pro_mutex(&table->print_mutex, INIT))
+	if (!function_mutex(&table->print_mutex, INIT))
 		return (0);
-	if (!pro_mutex(&table->table_mutex, INIT))
+	if (!function_mutex(&table->DataMutex, INIT))
 		return (0);
 	while (++i < table->philo_nbr)
 	{
-		if (!pro_mutex(&table->forks[i].fork, INIT))
+		if (!function_mutex(&table->forks[i].fork, INIT))
 			return (0);
 		table->forks[i].fork_id = i;
 	}

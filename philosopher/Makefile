@@ -1,19 +1,10 @@
 NAME = philo
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra
 RM = rm -rf
 OBJS_DIR = objs/
 
-ifdef DEBUG_MODE
-    CFLAGS += -DDEBUG_MODE=$(DEBUG_MODE) -fsanitize=thread 
-endif
-
-ifdef PHILO_MAX
-    CFLAGS += -DPHILO_MAX=$(PHILO_MAX)
-endif
-
-
-SRCS = $(wildcard *.c)
+SRCS = dinner.c getters_setters.c init.c main.c parse_args.c print.c thread_mutex.c utils.c synchro_utils.c track_dinner.c
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)

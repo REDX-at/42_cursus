@@ -1,14 +1,16 @@
 CC = cc
 NAME = exe_shell
 SRC = exe_shell.c ft_split.c
-CFLAGS = -Wall -Wextra -lreadline
+CFLAGS = -Wall -Wextra
+LDFLAGS = -lreadline
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) clean
 
 $(NAME): $(OBJ)
 	@echo "\033[92m√\033[0m \033[97m" $<
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
 	@rm -f $(OBJ)

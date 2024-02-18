@@ -78,7 +78,7 @@ int main(int argc, char **argv, char **envp)
             else if (pid == 0)
             {
                 // Child process
-                char *const args[] = {"ls", "/Users/aitaouss/Desktop", NULL};
+                char *const args[] = {"ls", "/home/aitaouss/github/minishell", NULL};
                 if (execve("/bin/ls", args, envp) == -1)
                 {
                     printf("Error: Could not execute ls\n");
@@ -107,23 +107,17 @@ int main(int argc, char **argv, char **envp)
 				// Child process
 				int i = 1;
 				char **res = ft_split(input, ' ');
-				// while (res[i])
-				// {
-				// 	printf("the res : %s\n", res[i]);
-				// 	i++;
-				// }
-				// exit(0);
-				// i = 1;
+				if (res[i] == NULL)
+					res[i] = " ";
+				
 				while (res[i] != NULL)
 				{
-					printf("the res : %s\n", res[i]);
-					char *const argf[] = {"echo", res[i], NULL};
-					if (execve("/bin/echo", argf, envp) == -1)
+					// char *const argf[] = {"echo", res[i] , res[i + 1], NULL};
+					if (execve("/bin/echo", res, envp) == -1)
 					{
 						printf("Error: Could not execute echo\n");
 						exit(EXIT_FAILURE);
 					}
-					printf("the res : %s\n", res[i]);
 					i++;
 				}
 			}

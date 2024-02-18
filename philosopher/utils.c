@@ -34,16 +34,16 @@ long	gettime(int time_code)
 void	ft_usleep(long usec, t_table *table)
 {
 	long	start;
-	long	elapsed;
+	long	Passed;
 	long	rem;
 
 	start = gettime(MICROSECOND);
 	while (gettime(MICROSECOND) - start < usec)
 	{
-		if (simulation_finished(table))
+		if (mission_complete(table))
 			break ;
-		elapsed = gettime(MICROSECOND) - start;
-		rem = usec - elapsed;
+		Passed = gettime(MICROSECOND) - start;
+		rem = usec - Passed;
 		if (rem > 1e4)
 			usleep(rem / 2);
 		else
@@ -52,19 +52,20 @@ void	ft_usleep(long usec, t_table *table)
 	}
 }
 
-void	clean(t_table *table)
+void	clear_process(t_table *table)
 {
 	t_philo	*philo;
 	int		i;
 
-	i = -1;
-	while (++i < table->philo_nbr)
+	i = 0;
+	while (i < table->philo_nbr)
 	{
 		philo = table->philos + i;
-		pro_mutex(&philo->philo_mutex, DESTROY);
+		function_mutex(&philo->philo_mutex, DESTROY);
+		i++;
 	}
-	pro_mutex(&table->print_mutex, DESTROY);
-	pro_mutex(&table->table_mutex, DESTROY);
+	function_mutex(&table->DataMutex, DESTROY);
+	function_mutex(&table->print_mutex, DESTROY);
 	free(table->forks);
 	free(table->philos);
 }

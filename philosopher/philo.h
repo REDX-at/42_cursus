@@ -102,29 +102,29 @@ struct	s_table
 	pthread_t			monitor;
 	t_fork				*forks;
 	t_philo				*philos;
-	t_mtx				table_mutex;
+	t_mtx				DataMutex;
 	t_mtx				print_mutex;
 };
 
-int		pro_thread(pthread_t *thread, void *(*foo)(void *),
+int		function_thread(pthread_t *thread, void *(*foo)(void *),
 			void *data, t_opcode opcode);
-int		pro_mutex(t_mtx *mutex, t_opcode opcode);
+int		function_mutex(t_mtx *mutex, t_opcode opcode);
 void	*pro_malloc(size_t bytes);
 int		parse_args(t_table *table, char **av);
 int		init_data(t_table *table);
 void	dinner_start(t_table *table);
-void	set_bool(t_mtx *mutex, bool *dest, bool value);
-bool	get_bool(t_mtx *mutex, bool *value);
-long	get_long(t_mtx *mutex, long *value);
-void	set_long(t_mtx *mutex, long *dest, long value);
-bool	simulation_finished(t_table *table);
+void	set_bool(t_mtx *mutex, bool *dest, bool result);
+bool	get_bool(t_mtx *mutex, bool *result);
+long	get_long(t_mtx *mutex, long *result);
+void	set_long(t_mtx *mutex, long *dest, long result);
+bool	mission_complete(t_table *table);
 time_t	gettime(int time_code);
 void	ft_usleep(long usec, t_table *table);
-void	clean(t_table *table);
+void	clear_process(t_table *table);
 int		print_error(const char *error);
-void	write_status(t_philo_status status, t_philo *philo);
+void	print_state(t_philo_status status, t_philo *philo);
 void	wait_all_threads(t_table *table);
-void	increase_long(t_mtx *mutex, long *value);
+void	increase_long(t_mtx *mutex, long *result);
 bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 void	thinking(t_philo *philo, bool pre_simulation);
 void	de_synchronize_philos(t_philo *philo);

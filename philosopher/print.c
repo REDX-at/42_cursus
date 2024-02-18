@@ -13,24 +13,24 @@
 #include "philo.h"
 #include <time.h>
 
-void	write_status(t_philo_status status, t_philo *philo)
+void	print_state(t_philo_status status, t_philo *philo)
 {
-	long	elapsed;
+	long	Passed;
 
-	elapsed = gettime(MILLISECOND) - philo->table->start_simulation;
+	Passed = gettime(MILLISECOND) - philo->table->start_simulation;
 	if (get_bool(&philo->philo_mutex, &philo->full))
 		return ;
-	pro_mutex(&philo->table->print_mutex, LOCK);
+	function_mutex(&philo->table->print_mutex, LOCK);
 	if ((TAKE_left_fork == status || TAKE_right_fork == status)
-		&& !simulation_finished(philo->table))
-		printf(W"%-6ld %d has taken a fork\n", elapsed, philo->id);
-	else if (EATING == status && !simulation_finished(philo->table))
-		printf(W"%-6ld %d is eating\n", elapsed, philo->id);
-	else if (SLEEPING == status && !simulation_finished(philo->table))
-		printf(W"%-6ld %d is sleeping\n", elapsed, philo->id);
-	else if (THINKING == status && !simulation_finished(philo->table))
-		printf(W"%-6ld %d is thinking\n", elapsed, philo->id);
+		&& !mission_complete(philo->table))
+		printf(W"%-6ld %d has taken a fork\n", Passed, philo->id);
+	else if (EATING == status && !mission_complete(philo->table))
+		printf(W"%-6ld %d is eating\n", Passed, philo->id);
+	else if (SLEEPING == status && !mission_complete(philo->table))
+		printf(W"%-6ld %d is sleeping\n", Passed, philo->id);
+	else if (THINKING == status && !mission_complete(philo->table))
+		printf(W"%-6ld %d is thinking\n", Passed, philo->id);
 	else if (DIED == status)
-		printf(W"%-6ld %d died\n", elapsed, philo->id);
-	pro_mutex(&philo->table->print_mutex, UNLOCK);
+		printf(W"%-6ld %d died\n", Passed, philo->id);
+	function_mutex(&philo->table->print_mutex, UNLOCK);
 }

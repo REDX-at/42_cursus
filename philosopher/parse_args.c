@@ -36,14 +36,14 @@ static const char	*valid_input(const char *str)
 	if (*str == '+')
 		++str;
 	else if (*str == '-')
-		retu = print_error("Feed me only positive values");
+		retu = print_error("Feed me only positive results");
 	if (!is_digit(*str))
 		retu = print_error("The input is not a correct digit");
 	number = str;
 	while (is_digit(*str++))
 		++len;
 	if (len > 10)
-		retu = print_error("The value is too big, INT_MAX is the limit");
+		retu = print_error("The result is too big, INT_MAX is the limit");
 	if (!retu)
 		return (NULL);
 	return (number);
