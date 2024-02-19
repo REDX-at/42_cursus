@@ -1,57 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 18:55:00 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/17 18:56:32 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/19 10:33:36 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/19 19:21:55 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exe_shell.h"
+#include "minishell.h"
 
+// ft_strdup function
+char	*ft_strdup(const char *s1)
+{
+    char	*str;
+    int		i;
+
+    i = 0;
+    while (s1[i])
+        i++;
+    str = (char *)malloc(sizeof(char) * (i + 1));
+    if (!str)
+        return (NULL);
+    i = 0;
+    while (s1[i])
+    {
+        str[i] = s1[i];
+        i++;
+    }
+    str[i] = '\0';
+    return (str);
+}
+
+// ft_strlen function
 size_t	ft_strlen(const char *s)
 {
-	int	i;
+    size_t	i;
 
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-static int	tol(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = (char *)malloc(sizeof(char) * (tol(src) + 1));
-	if (!new)
-		return (NULL);
-	while (src[i])
-	{
-		new[i] = src[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
+    i = 0;
+    while (s[i])
+        i++;
+    return (i);
 }
 
 static int	count_word(const char *str, char c, size_t slen)
@@ -135,4 +126,72 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	strings[count_w] = NULL;
 	return (strings);
+}
+
+// t_cmd	*the_list(char **splited)
+// {
+// 	t_cmd	*cmd;
+// 	t_cmd	*head;
+// 	int		i;
+
+// 	i = 0;
+// 	head = get_cmd(splited[i], NULL, false);
+// 	cmd = head;
+// 	while (splited[++i])
+// 	{
+// 		cmd->next = get_cmd(splited[i], NULL, true);
+// 		cmd = cmd->next;
+// 	}
+// 	return (head);
+// }
+
+// ft_strjoin function
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+// a function to check the access of the path
+int	check_access(char *path, t_cmd *cmd)
+{
+	char	*env = getenv("PATH");
+	char	**splited = ft_split(env, ':');
+	int		i;
+
+	i = 0;
+	while (splited[i])
+	{
+		char	*new_path = ft_strjoin(splited[i], "/");
+		char	*new_path2 = ft_strjoin(new_path, path);
+		if (access(new_path2, F_OK) == 0)
+		{
+			cmd->path = new_path2;
+			break ;
+		}
+		i++;
+	}
+	return (0);
 }

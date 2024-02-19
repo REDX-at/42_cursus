@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_shell.h                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 17:40:38 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/17 19:18:40 by aitaouss         ###   ########.fr       */
+/*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
+/*   Updated: 2024/02/19 18:32:26 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXE_SHELL_H
-# define EXE_SHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
+#include <termcap.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,6 +28,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 #include <termios.h>
+#include <stdbool.h>
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -37,6 +39,29 @@
 # define RESET "\033[0m"
 # define W "\033[0;37m"
 
-char **ft_split(char const *s, char c);
+// Linked list for the cmd
+typedef struct s_cmd
+{
+    char			*cmd;
+    char            *path;
+    bool            is_builtin;
+    char            *diretcory;
+    char            *str;
+    struct s_cmd	*next;
+}				t_cmd;
+
+void	execute_test(char *path, char *cmd, char *where);
+void    ft_cd(char *path);
+void    ft_pwd();
+char    **ft_split(char const *s, char c);
+int	    ft_strcmp(char *str, char *str2);
+t_cmd	*get_cmd(char *cmd, char *path, bool is_builtin);
+t_cmd	*the_list(char **splited);
+size_t	ft_strlen(const char *s);
+int	    check_access(char *path, t_cmd *cmd);
+// void    execute_pipeline(t_cmd *cmd);
+void    test_exe(t_cmd *cmd);
+t_cmd	*list_test(void);
+char	*ft_strdup(const char *s1);
 
 #endif

@@ -1,16 +1,14 @@
 CC = cc
-NAME = exe_shell
-SRC = exe_shell.c ft_split.c
-CFLAGS = -Wall -Wextra
-LDFLAGS = -lreadline
-
+NAME = minishell
+SRC = minishell.c ./execute/built_in_cmd.c utils.c Exe_file.c
+CFLAGS = -Wall -Wextra -fsanitize=address
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) clean
 
 $(NAME): $(OBJ)
 	@echo "\033[92m√\033[0m \033[97m" $<
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
+	@$(CC) -lreadline $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
