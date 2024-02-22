@@ -6,12 +6,32 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/22 00:44:03 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:07:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void sig_handler(int signum)
+{
+	if (signum == SIGINT)
+		printf(GREEN"\nminishell$"RESET);
+}
+
+void ft_cmd_free(t_cmd **cmd)
+{
+	while ((*cmd))
+	{
+		// free((*cmd)->cmd);
+		ft_free((*cmd)->argv);
+		//free((*cmd)->file);
+		(*cmd) = (*cmd)->next;
+	}
+	free(*cmd);
+	(*cmd) = NULL;
+}
+
+// MIne
 int	ft_strcmp(char *str, char *str2)
 {
 	int i;
@@ -28,30 +48,29 @@ int	ft_strcmp(char *str, char *str2)
 	return (1);
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
+	char *line;
+	t_cmd *cmd;
+
 	(void)argc;
 	(void)argv;
-	envp = NULL;
-
-	char	*input;
-	while(1)
+	cmd = NULL;
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	while (1)
 	{
-		t_cmd	*cmd;
-		cmd = list_test();
-		// while (cmd)
-		// {
-		// 	check_access(cmd->cmd, cmd);
-		//     printf("| cmd  : %s\n", cmd->cmd);
-		//     printf("| path : %s\n", cmd->path);
-		//     printf("+------+----------------\n");
-		//     cmd = cmd->next;
-		// }
-		// exit(0);
-		input = readline(GREEN"minishell$ "RESET);
-		cmd = list_test();
-        execute_part(cmd);
-		add_history(input);
+		line = readline(GREEN"minishell$ "RESET);
+		if(line)
+		{
+			add_history(line);
+			ft_tokenizing(line, &cmd);
+			execute_part(cmd, envp);
+			ft_cmd_free(&cmd);
+		}
+		if (!line)
+			exit(0);
+		free(line);
 	}
-	return (0);
+	
 }

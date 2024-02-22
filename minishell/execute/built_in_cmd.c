@@ -6,19 +6,19 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/19 19:10:05 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:56:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // function of cd command
-void    ft_cd(char *path)
+void    ft_cd(t_cmd *cmd)
 {
-	if (!path)
-		path = "/Users/aitaouss";
-	chdir(path);
-	printf("changed directory to %s\n", path);
+	if (cmd->argv[1] == NULL)
+		cmd->argv[1] = "/Users/aitaouss";
+	chdir(cmd->argv[1]);
+	// printf("changed directory to %s\n", path);
 }
 
 //function of pwd command
