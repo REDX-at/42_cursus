@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/19 18:32:26 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:15:10 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@
 // Linked list for the cmd
 typedef struct s_cmd
 {
-    char			*cmd;
-    char            *path;
-    bool            is_builtin;
-    char            *diretcory;
-    char            *str;
-    struct s_cmd	*next;
+	char            *pipe;
+	char			*cmd;
+	char            *path;
+	bool            is_builtin;
+	char            *diretcory;
+	char            *str;
+	char			*flag;
+	char            **argv;
+	struct s_cmd	*next;
 }				t_cmd;
 
 void	execute_test(char *path, char *cmd, char *where);
@@ -58,10 +61,12 @@ int	    ft_strcmp(char *str, char *str2);
 t_cmd	*get_cmd(char *cmd, char *path, bool is_builtin);
 t_cmd	*the_list(char **splited);
 size_t	ft_strlen(const char *s);
-int	    check_access(char *path, t_cmd *cmd);
+int		check_access(char *command, t_cmd *cmd);
 // void    execute_pipeline(t_cmd *cmd);
-void    test_exe(t_cmd *cmd);
+int		execute_part(t_cmd *cmd);
 t_cmd	*list_test(void);
 char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+void    creat_shild(t_cmd *cmd, int pipefd[2], char **argv);
 
 #endif

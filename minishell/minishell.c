@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/19 19:19:42 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/22 00:44:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		cmd = list_test();
 		// while (cmd)
 		// {
+		// 	check_access(cmd->cmd, cmd);
 		//     printf("| cmd  : %s\n", cmd->cmd);
 		//     printf("| path : %s\n", cmd->path);
 		//     printf("+------+----------------\n");
@@ -49,9 +50,8 @@ int	main(int argc, char **argv, char **envp)
 		// exit(0);
 		input = readline(GREEN"minishell$ "RESET);
 		cmd = list_test();
-        test_exe(cmd);
+        execute_part(cmd);
 		add_history(input);
-		
 	}
 	return (0);
 }

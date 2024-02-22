@@ -1,7 +1,7 @@
 CC = cc
 NAME = minishell
-SRC = minishell.c ./execute/built_in_cmd.c utils.c Exe_file.c
-CFLAGS = -Wall -Wextra -fsanitize=address
+SRC = minishell.c ./execute/built_in_cmd.c utils.c ./execute/Exe_file.c ./execute/creat_shild.c
+CFLAGS = -Wall -Wextra -fsanitize=address -g
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) clean
