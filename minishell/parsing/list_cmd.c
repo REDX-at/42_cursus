@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 22:39:19 by mkibous           #+#    #+#             */
-/*   Updated: 2024/02/22 15:39:02 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/23 00:37:19 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_cmd	*ft_lstnew_cmd(char *content)
 	lst->cmd = content;
     lst->prev = NULL;
 	lst->next = NULL;
+	lst->file = NULL;
+	lst->redir = NULL;
 	return (lst);
 }
 

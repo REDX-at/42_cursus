@@ -6,18 +6,20 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/22 16:07:20 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/23 00:19:21 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// For signal
 void sig_handler(int signum)
 {
 	if (signum == SIGINT)
-		printf(GREEN"\nminishell$"RESET);
+		ft_putstr_fd(GREEN"\nminishell$"RESET, 1);
 }
 
+// For free
 void ft_cmd_free(t_cmd **cmd)
 {
 	while ((*cmd))
@@ -29,6 +31,23 @@ void ft_cmd_free(t_cmd **cmd)
 	}
 	free(*cmd);
 	(*cmd) = NULL;
+}
+
+// For coutn cmd
+void	count_cmd(t_cmd *cmd)
+{
+	t_cmd *tmp = cmd;
+	tmp->count_cmd = 0;
+	int i = 0;
+	while (tmp)
+	{
+		while (tmp)
+		{
+			i += 1;
+			tmp = tmp->next;
+		}
+	}
+	cmd->count_cmd = i;
 }
 
 // MIne
@@ -61,16 +80,24 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RESET);
+		if (ft_strcmp(line, "exit") == 1)
+		{
+			free(line);	
+			exit(0);
+		}
 		if(line)
 		{
 			add_history(line);
 			ft_tokenizing(line, &cmd);
+			count_cmd(cmd);
 			execute_part(cmd, envp);
 			ft_cmd_free(&cmd);
 		}
 		if (!line)
+		{
+			free(line);
 			exit(0);
+		}
 		free(line);
 	}
-	
 }

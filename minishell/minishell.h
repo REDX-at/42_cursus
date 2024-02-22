@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/22 15:56:58 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/23 00:36:22 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define RESET "\033[0m"
 # define W "\033[0;37m"
 
+// Token
 typedef enum e_token
 {
 	WORD = -1,
@@ -63,27 +64,14 @@ typedef enum e_state
 	GENERAL,
 } t_state;
 
-// Linked list for the cmd
-// typedef struct s_cmd
-// {
-// 	char            *pipe;
-// 	char			*cmd;
-// 	char            *path;
-// 	bool            is_builtin;
-// 	char            *diretcory;
-// 	char            *str;
-// 	char			*flag;
-// 	char            **argv;
-// 	struct s_cmd	*next;
-// }				t_cmd;
-
 //askari header
 typedef struct s_cmd
 {
 	char			*path;
+	int				count_cmd;
 	bool			pipe;
 	bool			is_builtin;
-	bool			redir;
+	char			*redir;
 	char			*diretcory;
 	bool			env;
 	char			*cmd;
@@ -93,6 +81,7 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 } t_cmd;
 
+// Linked list for the token
 typedef struct s_elem
 {
 	char			*content;
@@ -103,27 +92,27 @@ typedef struct s_elem
 	struct s_elem   *prev;
 }	t_elem;
 
-void	execute_test(char *path, char *cmd, char *where);
+// Function For Execute
 void    ft_cd(t_cmd *cmd);
 void    ft_pwd();
+void	ft_env(char **env);
+void    creat_shild(t_cmd *cmd, int pipefd[2], char **argv);
+int 	execute_part(t_cmd *cmd, char **env);
+void	ft_echo(t_cmd *cmd);
+
+// My functions
+void	count_cmd(t_cmd *cmd);
 char    **ft_split(char const *s, char c);
 int	    ft_strcmp(char *str, char *str2);
-t_cmd	*get_cmd(char *cmd, char *path, bool is_builtin);
-t_cmd	*the_list(char **splited);
 size_t	ft_strlen(const char *s);
 int		check_access(char *command, t_cmd *cmd);
-// void    execute_pipeline(t_cmd *cmd);
-int 	execute_part(t_cmd *cmd, char **env);
-t_cmd	*list_test(void);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
-void    creat_shild(t_cmd *cmd, int pipefd[2], char **argv);
 
 // askari functions
 void sig_handler(int signum);
 void	ft_free(char **str);
 void ft_tokenizing(char *line, t_cmd **cmd);
-void ft_readline(void);
 t_elem	*ft_lstnew(char *content);
 void	ft_lstadd_back(t_elem **lst, t_elem *new);
 void	ft_lstadd_front(t_elem **lst, t_elem *new);
