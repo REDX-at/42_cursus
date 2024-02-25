@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 09:44:32 by mkibous           #+#    #+#             */
-/*   Updated: 2024/02/23 00:37:44 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/23 15:42:36 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ void ft_cmd(t_cmd **cmd, t_elem *elem)
 			ft_lstadd_back_cmd(cmd ,ft_lstnew_cmd(elem->content));
 			last = ft_lstlast_cmd(*cmd);
 			size = ft_count_argv(elem);
+			(*cmd)->count_cmd++;
 			// printf("|||||%d||||", size);
 			last->argv = (char **)malloc(sizeof(char *) * (size + 1));
 			last->argv[size] = NULL;

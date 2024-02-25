@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/23 00:20:35 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/24 23:04:03 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	ft_echo(t_cmd *cmd)
 	while (cmd->argv[i])
 	{
 		ft_putstr_fd(cmd->argv[i], 1);
-		if (cmd->argv[i + 1])
-			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	ft_putstr_fd("\n", 1);
@@ -32,7 +30,6 @@ void	ft_echo(t_cmd *cmd)
 void	ft_cd(t_cmd *cmd)
 {
 	DIR		*dir;
-	struct dirent	*dp;
 	char	*path;
 
 	if (cmd->argv[1] == NULL)
@@ -62,38 +59,107 @@ void    ft_pwd()
 	exit(0);
 }
 
-void	ft_env(char **env)
+void	ft_env(t_table *table)
 {
 	int i;
 
 	i = 0;
-	while (env[i])
+	while (table->env[i])
 	{
-		ft_putstr_fd(env[i], 1);
+		ft_putstr_fd(table->env[i], 1);
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
 
-// function of export command
-void	ft_export(t_cmd *cmd, char **env)
+// add env function
+char	**ft_add_env(char **env, char *str)
 {
-	int i;
-	int j;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = malloc(sizeof(char *) * (i + 2));
+	new_env = (char **)malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	while (env[i])
 	{
 		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	new_env[i] = ft_strdup(cmd->argv[1]);
+	new_env[i] = ft_strdup(str);
 	new_env[i + 1] = NULL;
-	free(env);
-	env = new_env;
+	return (new_env);
+}
+
+// function export
+void	ft_export(t_cmd *cmd, t_table *table)
+{
+	int		i;
+	char	*str;
+
+	i = 1;
+	while (cmd->argv[i])
+	{
+		if (ft_strchr(cmd->argv[i], '='))
+		{
+			table->env = ft_add_env(table->env, cmd->argv[i]);
+		}
+		else
+		{
+			str = ft_strjoin(cmd->argv[i], "=");
+			table->env = ft_add_env(table->env, str);
+			free(str);
+		}
+		i++;
+	}
+}
+
+// ft_strlen 2d
+int	ft_strlen_2d(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+// function unset
+void ft_unset(t_cmd *cmd, t_table *table)
+{
+    int  i;
+    int  j;
+    int  len;
+    char **new_env;
+
+    i = 0;
+    j = 0;
+    len = ft_strlen_2d(table->env) + 1;
+    new_env = (char **)malloc(sizeof(char *) * len);
+	if (cmd->argv[1] == NULL)
+	{
+		ft_putstr_fd("nset: not enough arguments\n", 2);
+		return ;
+	}
+    while (table->env[i])
+    {
+        if (ft_strncmp(table->env[i], cmd->argv[1], ft_strlen(cmd->argv[1])) != 0)
+        {
+            new_env[j] = ft_strdup(table->env[i]);
+            j++;
+        }
+        i++;
+    }
+    new_env[j] = NULL; // Moved this line inside the loop
+    i = 0;
+    while (table->env[i])
+    {
+        free(table->env[i]);
+        i++;
+    }
+    free(table->env);
+    table->env = new_env;
 }

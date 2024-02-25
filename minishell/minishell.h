@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/23 00:36:22 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/25 04:37:32 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
 # define W "\033[0;37m"
+# define BOLD "\033[1m"
+
+// useful define
+# define CLEAR "\033[2J\033[H"
+# define UP "\033[A"
+# define DOWN "\033[B"
+# define RIGHT "\033[C"
+# define LEFT "\033[D"
+# define BACKSPACE 127
+# define CTRL_D 4
 
 // Token
 typedef enum e_token
@@ -57,12 +67,22 @@ typedef enum e_token
 	DREDIR_OUT,
 } t_token;
 
+// State
 typedef enum e_state
 {
 	IN_DQUOTE,
 	IN_QUOTE,
 	GENERAL,
 } t_state;
+
+// table
+typedef struct s_table
+{
+	char			**env;
+	int				count_cmd;
+	char			*name;
+	char			*value;
+} t_table;
 
 //askari header
 typedef struct s_cmd
@@ -93,21 +113,27 @@ typedef struct s_elem
 }	t_elem;
 
 // Function For Execute
+void    execute_cmd(t_cmd *cmd, int fd[][2], char **argv, int k);
+void	execute_for_cmd(t_cmd *cmd, t_table *table);
+void	execute_built_in(t_cmd *cmd, int fd[][2], t_table *tale, int k);
+int		check_access(char *command, t_cmd *cmd);
+
+// function built-in
 void    ft_cd(t_cmd *cmd);
 void    ft_pwd();
-void	ft_env(char **env);
-void    creat_shild(t_cmd *cmd, int pipefd[2], char **argv);
-int 	execute_part(t_cmd *cmd, char **env);
+void	ft_env(t_table *table);
 void	ft_echo(t_cmd *cmd);
+void	ft_exit(char **line);
+void	ft_export(t_cmd *cmd, t_table *table);
+void	ft_unset(t_cmd *cmd, t_table *table);
 
-// My functions
-void	count_cmd(t_cmd *cmd);
+// Utils Function
 char    **ft_split(char const *s, char c);
 int	    ft_strcmp(char *str, char *str2);
 size_t	ft_strlen(const char *s);
-int		check_access(char *command, t_cmd *cmd);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strcmp(char *str, char *str2);
 
 // askari functions
 void sig_handler(int signum);
