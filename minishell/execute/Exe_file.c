@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:42:02 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/25 12:11:04 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:13:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void execute_built_in(t_cmd *cmd, int fd[][2], t_table *table, int k)
 		ft_export(cmd, table);
 	else if (ft_strcmp(cmd->cmd, "unset"))
 		ft_unset(cmd, table);
+	else if (ft_strcmp(cmd->cmd, "exit"))
+		ft_exit(cmd->line);
 }
 
 void close_file_descriptor(int fd[][2], int k)
@@ -85,6 +87,7 @@ void	execute_for_cmd(t_cmd *cmd, t_table *table)
 	int	k;
 	int	fd[table->count_cmd][2];
 	pid_t	pid[table->count_cmd];
+	char buf[1];
 
 	k = 0;
 	creat_pipe(table, fd, k);
@@ -97,8 +100,10 @@ void	execute_for_cmd(t_cmd *cmd, t_table *table)
 			exit(EXIT_FAILURE);
 		}
 		if (pid[k] == 0)
-		{
 			into_child(cmd, fd, table, k);
+		else if (pid[k]> 0 )
+		{
+			into_parrent(cmd, pid, k, table, buf);
 		}
 		k++;
 		cmd = cmd->next;

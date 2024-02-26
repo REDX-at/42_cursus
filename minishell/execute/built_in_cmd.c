@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/25 12:06:38 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:49:12 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,64 @@
 void	ft_echo(t_cmd *cmd)
 {
 	int i;
+	int	fd;
 
+	fd = 1;
 	i = 1;
-	while (cmd->argv[i])
+	if (cmd->redir)
 	{
-		ft_putstr_fd(cmd->argv[i], 1);
-		i++;
+		if (cmd->file)
+		{
+			printf("cmd redir = |%s|\n", cmd->redir);
+			if (ft_strncmp(cmd->redir, ">>", 2) == 0)
+				fd = open(cmd->file, O_CREAT | O_RDWR | O_APPEND, 0644);
+			else if (ft_strncmp(cmd->redir, ">", 1) == 0)
+				fd = open(cmd->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			while (cmd->argv[i])
+			{
+				ft_putstr_fd(cmd->argv[i], fd);
+				i++;
+			}
+			ft_putstr_fd("\n", fd);
+			close(fd);
+		}
 	}
-	ft_putstr_fd("\n", 1);
+	else
+	{
+		while (cmd->argv[i])
+		{
+			ft_putstr_fd(cmd->argv[i], 1);
+			i++;
+		}
+		ft_putstr_fd("\n", 1);
+	}
 }
 
 // fucntion cd with opendir and readdir
 void	ft_cd(t_cmd *cmd)
 {
-	DIR		*dir;
 	char	*path;
+	int		fd_cd;
 
+	fd_cd = open("cd", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (cmd->argv[1] == NULL)
 		path = "/Users/aitaouss";
 	else
 		path = cmd->argv[1];
-	dir = opendir(path);
-	if (dir == NULL)
+	if(cmd->argv[1])
+		write(fd_cd, path, ft_strlen(path));
+	else
+		write(fd_cd, path, ft_strlen(path));
+	close(fd_cd);
+	if (access(path, F_OK) == -1)
 	{
-		ft_putstr_fd("msh: ", 2);
-		ft_putstr_fd(cmd->argv[1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd("\n", 2);
 	}
 	else
 	{
 		chdir(path);
-		closedir(dir);
 	}
 }
 //function of pwd command
@@ -62,12 +89,13 @@ void    ft_pwd()
 void	ft_env(t_table *table)
 {
 	int i;
-
+	
 	i = 0;
 	while (table->env[i])
 	{
-		ft_putstr_fd(table->env[i], 1);
-		ft_putstr_fd("\n", 1);
+			ft_putstr_fd("env : ", 1);
+			ft_putstr_fd(table->env[i], 1);
+			ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
@@ -93,12 +121,40 @@ char	**ft_add_env(char **env, char *str)
 	return (new_env);
 }
 
+// function putstr2d_fd
+void	ft_putstr2d_fd(char **str, int fd)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putstr_fd("env : ", fd);
+		ft_putstr_fd(str[i], fd);
+		ft_putstr_fd("\n", fd);
+		i++;
+	}
+}
+
+// ft_strlen 2d
+int	ft_strlen_2d(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 // function export
 void	ft_export(t_cmd *cmd, t_table *table)
 {
 	int		i;
 	char	*str;
+	int		fd_ex;
 
+	fd_ex = open("export", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	i = 1;
 	while (cmd->argv[i])
 	{
@@ -114,18 +170,10 @@ void	ft_export(t_cmd *cmd, t_table *table)
 		}
 		i++;
 	}
+	ft_putstr2d_fd(table->env, fd_ex);
+	close(fd_ex);
 }
 
-// ft_strlen 2d
-int	ft_strlen_2d(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 // function unset
 void ft_unset(t_cmd *cmd, t_table *table)
@@ -165,11 +213,15 @@ void ft_unset(t_cmd *cmd, t_table *table)
 }
 
 // function exit
-void ft_exit(char **line)
+void ft_exit(char *line)
 {
-	if (ft_strcmp(*line, "exit") == 1)
+	if (ft_strcmp(line, "exit") == 1)
 	{
-		free(*line);
+		int fd_out = open("exit", O_CREAT | O_RDWR, 0644);
+		dup2(fd_out, 1);
+		write(fd_out, "1", 1);
+		free(line);
+		// unlink("exit");
 		exit(0);
 	}
 }

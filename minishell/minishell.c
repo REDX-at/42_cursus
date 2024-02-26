@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/26 11:40:16 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:57:59 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_table	*ft_init_table(char **envp)
 void sig_handler(int signum)
 {
 	if (signum == SIGINT)
-		ft_putstr_fd(GREEN"\n➜  "YELLOW""BOLD"minishell "RESET, 1);
+		ft_putstr_fd(GREEN"\n➜  "RED""BOLD"minishell "RESET, 1);
 }
 
 // For free
@@ -77,7 +77,7 @@ void	ft_built_in(t_cmd **cmd, t_table *table)
 	{
 		if (ft_strcmp(tmp->cmd, "cd") || ft_strcmp(tmp->cmd, "pwd") ||
 			ft_strcmp(tmp->cmd, "echo") || ft_strcmp(tmp->cmd, "env") ||
-			ft_strcmp(tmp->cmd, "export") || ft_strcmp(tmp->cmd, "unset"))
+			ft_strcmp(tmp->cmd, "export") || ft_strcmp(tmp->cmd, "unset") || ft_strcmp(tmp->cmd, "exit"))
 			tmp->is_builtin = 1;
 		table->count_cmd++;
 		tmp = tmp->next;
@@ -96,18 +96,19 @@ int main(int argc, char **argv, char **envp)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	table = ft_init_table(envp);
+	table->var = "➜  minishell ";
 	while (1)
 	{
 		rr = rand() % 2;
 		if (rr)		
-			line = readline(GREEN"➜  "YELLOW""BOLD"minishell "RESET);
+			line = readline(GREEN"➜  "RED""BOLD"minishell "RESET);
 		else
-			line = readline(RED"➜  "YELLOW""BOLD"minishell "RESET);
+			line = readline(RED"➜  "RED""BOLD"minishell "RESET);
 		if(line)
 		{
-			ft_exit(&line);
 			add_history(line);
 			ft_tokenizing(line, &cmd);
+			cmd->line = ft_strdup(line);
 			ft_built_in(&cmd, table);
 			if (cmd)
 				execute_for_cmd(cmd, table);

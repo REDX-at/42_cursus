@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/25 04:37:32 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:11:49 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef enum e_state
 // table
 typedef struct s_table
 {
+	char			*var;
 	char			**env;
 	int				count_cmd;
 	char			*name;
@@ -87,6 +88,7 @@ typedef struct s_table
 //askari header
 typedef struct s_cmd
 {
+	char			*line;
 	char			*path;
 	int				count_cmd;
 	bool			pipe;
@@ -117,13 +119,14 @@ void    execute_cmd(t_cmd *cmd, int fd[][2], char **argv, int k);
 void	execute_for_cmd(t_cmd *cmd, t_table *table);
 void	execute_built_in(t_cmd *cmd, int fd[][2], t_table *tale, int k);
 int		check_access(char *command, t_cmd *cmd);
+void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[]);
 
 // function built-in
 void    ft_cd(t_cmd *cmd);
 void    ft_pwd();
 void	ft_env(t_table *table);
 void	ft_echo(t_cmd *cmd);
-void	ft_exit(char **line);
+void	ft_exit(char *line);
 void	ft_export(t_cmd *cmd, t_table *table);
 void	ft_unset(t_cmd *cmd, t_table *table);
 
