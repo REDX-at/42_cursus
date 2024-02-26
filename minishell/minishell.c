@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/25 04:36:48 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:08:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,6 @@ int main(int argc, char **argv, char **envp)
 		if(line)
 		{
 			ft_exit(&line);
-			if (ft_strcmp(line, "clear") == 1)
-			{
-				ft_putstr_fd(CLEAR, 1);
-				continue;
-			}
 			add_history(line);
 			ft_tokenizing(line, &cmd);
 			ft_built_in(&cmd, table);

@@ -6,13 +6,13 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/24 23:04:03 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:06:38 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Function echo with printf
+// Function echo with printf and check redirection
 void	ft_echo(t_cmd *cmd)
 {
 	int i;
@@ -153,7 +153,7 @@ void ft_unset(t_cmd *cmd, t_table *table)
         }
         i++;
     }
-    new_env[j] = NULL; // Moved this line inside the loop
+    new_env[j] = NULL;
     i = 0;
     while (table->env[i])
     {
@@ -162,4 +162,14 @@ void ft_unset(t_cmd *cmd, t_table *table)
     }
     free(table->env);
     table->env = new_env;
+}
+
+// function exit
+void ft_exit(char **line)
+{
+	if (ft_strcmp(*line, "exit") == 1)
+	{
+		free(*line);
+		exit(0);
+	}
 }
