@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/25 12:08:38 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:40:16 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_table	*ft_init_table(char **envp)
 void sig_handler(int signum)
 {
 	if (signum == SIGINT)
-		ft_putstr_fd(GREEN"➜  "YELLOW""BOLD"minishell "RESET, 1);
+		ft_putstr_fd(GREEN"\n➜  "YELLOW""BOLD"minishell "RESET, 1);
 }
 
 // For free
