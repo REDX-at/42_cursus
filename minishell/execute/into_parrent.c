@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:09:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/26 22:54:38 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:07:56 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	max_env(char **env)
 		i++;
 	return (i);
 }
+
 void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[])
 {
 	int bytes;
@@ -67,9 +68,14 @@ void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[])
 		{
 			bytes = read(fd_in, buffer, sizeof(buffer) - 1);
 			buffer[bytes] = '\0';
-			new_env[i] = ft_strdup(buffer);
-			i++;
+			if (bytes)
+			{
+				new_env[i] = ft_strdup(buffer);
+				i++;
+			}
 		}
+		if (new_env[i - 1][ft_strlen(new_env[i - 1]) - 1] == '\n')
+			new_env[i - 1][ft_strlen(new_env[i - 1]) - 1] = '\0';
 		new_env[i] = NULL;
 		table->env = new_env;
 		unlink("export");

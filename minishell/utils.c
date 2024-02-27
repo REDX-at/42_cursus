@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:33:36 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/23 16:13:37 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:25:18 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ int	ft_strcmp(char *str, char *str2)
 	int i;
 
 	i = 0;
+	if(!str || !str2)
+		return (0);
 	while (str[i] && str2[i])
 	{
 		if (str[i] != str2[i])

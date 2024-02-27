@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/26 22:49:12 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:03:39 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,28 @@ void	ft_echo(t_cmd *cmd)
 
 	fd = 1;
 	i = 1;
+	int j = 0;
 	if (cmd->redir)
 	{
-		if (cmd->file)
+		while(cmd->redir[j])
 		{
-			printf("cmd redir = |%s|\n", cmd->redir);
-			if (ft_strncmp(cmd->redir, ">>", 2) == 0)
-				fd = open(cmd->file, O_CREAT | O_RDWR | O_APPEND, 0644);
-			else if (ft_strncmp(cmd->redir, ">", 1) == 0)
-				fd = open(cmd->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			while (cmd->argv[i])
+			if (cmd->file)
 			{
-				ft_putstr_fd(cmd->argv[i], fd);
-				i++;
+				if (ft_strncmp(cmd->redir[j], ">>", 2) == 0)
+					fd = open(cmd->file[j], O_CREAT | O_RDWR | O_APPEND, 0644);
+				else if (ft_strncmp(cmd->redir[j], ">", 1) == 0)
+					fd = open(cmd->file[j], O_CREAT | O_RDWR | O_TRUNC, 0644);
+				// close(fd);
 			}
-			ft_putstr_fd("\n", fd);
-			close(fd);
+			j++;
 		}
+		while (cmd->argv[i])
+		{
+			ft_putstr_fd(cmd->argv[i], fd);
+			i++;
+		}
+		ft_putstr_fd("\n", fd);
+		close(fd);
 	}
 	else
 	{
@@ -93,8 +98,8 @@ void	ft_env(t_table *table)
 	i = 0;
 	while (table->env[i])
 	{
-			ft_putstr_fd("env : ", 1);
-			ft_putstr_fd(table->env[i], 1);
+		ft_putstr_fd(table->env[i], 1);
+		// if (table->env[i + 1] != NULL)
 			ft_putstr_fd("\n", 1);
 		i++;
 	}
@@ -129,9 +134,9 @@ void	ft_putstr2d_fd(char **str, int fd)
 	i = 0;
 	while (str[i])
 	{
-		ft_putstr_fd("env : ", fd);
 		ft_putstr_fd(str[i], fd);
-		ft_putstr_fd("\n", fd);
+		if (str[i + 1] != NULL)
+			ft_putstr_fd("\n", fd);
 		i++;
 	}
 }
@@ -147,11 +152,24 @@ int	ft_strlen_2d(char **str)
 	return (i);
 }
 
+int	ft_strlen_until_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i + 1] == '=')
+			break;
+		i++;
+	}
+	return (i);
+}
+
 // function export
 void	ft_export(t_cmd *cmd, t_table *table)
 {
 	int		i;
-	char	*str;
 	int		fd_ex;
 
 	fd_ex = open("export", O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -160,17 +178,25 @@ void	ft_export(t_cmd *cmd, t_table *table)
 	{
 		if (ft_strchr(cmd->argv[i], '='))
 		{
-			table->env = ft_add_env(table->env, cmd->argv[i]);
-		}
-		else
-		{
-			str = ft_strjoin(cmd->argv[i], "=");
-			table->env = ft_add_env(table->env, str);
-			free(str);
+			if (ft_strncmp(table->env[i], cmd->argv[i], ft_strlen_until_equal(cmd->argv[i])) == 0)
+			{
+				while(table->env[i])
+				{
+					if (ft_strncmp(table->env[i], cmd->argv[i], ft_strlen(cmd->argv[i])) == 0)
+					{
+						table->env[i] = ft_strdup(cmd->argv[i]);
+						break ;
+					}
+					i++;
+				}
+			}
+			else
+				table->env = ft_add_env(table->env, cmd->argv[i]);
 		}
 		i++;
 	}
 	ft_putstr2d_fd(table->env, fd_ex);
+	ft_putstr_fd("\n", fd_ex);
 	close(fd_ex);
 }
 
