@@ -6,57 +6,52 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 18:19:28 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/26 18:50:09 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:33:18 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// write str
-int ft_putstr_fda(char *str, int fd)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-    int i;
+	size_t	i;
 
-    i = 0;
-    while (str[i])
-    {
-        write(fd, &str[i], 1);
-        i++;
-    }
-    return (i);
+	i = 0;
+	while (i < n && (s1[i] || s2[i]))
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char) s2[i]);
+		i++;
+	}
+	return (0);
 }
 
-typedef struct s_test
-{
-    int fd;
-    char *str;
-}   t_test;
 
-void    child_process()
+int	ft_strlen_until_equal(char *str)
 {
-    int pid;
-    t_test cmd;
+	int	i;
 
-    cmd.str = "holla\n";
-    pid = fork();
-    if (pid == 0)
-    {
-        cmd.fd = dup2(1, 0);
-        ft_putstr_fda("from child ", cmd.fd);
-        ft_putstr_fda(cmd.str, cmd.fd);
-        printf("%d\n", cmd.fd);
-    }
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i + 1] == '=')
+			break;
+		i++;
+	}
+	return (i);
+}
+
+void    function_to_dp(void)
+{
+    char str[] = "redxaaaa=alo";
+    char str2[] = "redx";
+    if (ft_strncmp(str, str2, ft_strlen_until_equal(str2)) == 0)
+        printf("yes\n");
     else
-    {
-        cmd.str = "hello\n";
-        ft_putstr_fda(cmd.str, cmd.fd);
-        printf("from parrent : %s\n", cmd.str);
-    }
-    close(cmd.fd);
+        printf("no\n");
+    
 }
-
 int main()
 {
-    child_process();
-    return (0);
+    function_to_dp();
 }

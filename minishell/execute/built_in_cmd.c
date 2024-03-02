@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/27 19:03:39 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/02 23:50:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_echo(t_cmd *cmd)
 					fd = open(cmd->file[j], O_CREAT | O_RDWR | O_APPEND, 0644);
 				else if (ft_strncmp(cmd->redir[j], ">", 1) == 0)
 					fd = open(cmd->file[j], O_CREAT | O_RDWR | O_TRUNC, 0644);
-				// close(fd);
 			}
 			j++;
 		}
@@ -99,31 +98,25 @@ void	ft_env(t_table *table)
 	while (table->env[i])
 	{
 		ft_putstr_fd(table->env[i], 1);
-		// if (table->env[i + 1] != NULL)
-			ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
 
 // add env function
-char	**ft_add_env(char **env, char *str)
+void	ft_add_env(char **env, char *str, int *fd)
 {
 	int		i;
-	char	**new_env;
-
-	i = 0;
-	while (env[i])
-		i++;
-	new_env = (char **)malloc(sizeof(char *) * (i + 2));
+	
 	i = 0;
 	while (env[i])
 	{
-		new_env[i] = ft_strdup(env[i]);
+		ft_putstr_fd(env[i], *fd);
+		ft_putstr_fd("\n", *fd);
 		i++;
 	}
-	new_env[i] = ft_strdup(str);
-	new_env[i + 1] = NULL;
-	return (new_env);
+	ft_putstr_fd(str, *fd);
+	ft_putstr_fd("\n", *fd);
 }
 
 // function putstr2d_fd
@@ -159,11 +152,28 @@ int	ft_strlen_until_equal(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
-		if (str[i + 1] == '=')
-			break;
 		i++;
 	}
 	return (i);
+}
+
+int	check_if_exist(char *str, char **env)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen_until_equal(str);
+	len++;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], str, len) == 0)
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
 }
 
 // function export
@@ -171,32 +181,33 @@ void	ft_export(t_cmd *cmd, t_table *table)
 {
 	int		i;
 	int		fd_ex;
+	int		check;
+	char	**new_env;
 
-	fd_ex = open("export", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	check = 0;
 	i = 1;
+	unlink("export.txt");
+	fd_ex = open("export.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (ft_strlen_2d(cmd->argv) > 2)
+		new_env = (char **)malloc(sizeof(char *) * (ft_strlen_2d(table->env) + ft_strlen_2d(cmd->argv)));
 	while (cmd->argv[i])
 	{
 		if (ft_strchr(cmd->argv[i], '='))
 		{
-			if (ft_strncmp(table->env[i], cmd->argv[i], ft_strlen_until_equal(cmd->argv[i])) == 0)
+			check = check_if_exist(cmd->argv[i], table->env);
+			if (check != -1)
 			{
-				while(table->env[i])
-				{
-					if (ft_strncmp(table->env[i], cmd->argv[i], ft_strlen(cmd->argv[i])) == 0)
-					{
-						table->env[i] = ft_strdup(cmd->argv[i]);
-						break ;
-					}
-					i++;
-				}
+				table->env[check] = ft_strdup(cmd->argv[i]);
+				check = 0;
+				ft_putstr2d_fd(table->env, fd_ex);
 			}
 			else
-				table->env = ft_add_env(table->env, cmd->argv[i]);
+			{
+				ft_add_env(table->env, cmd->argv[i], &fd_ex);
+			}
 		}
 		i++;
 	}
-	ft_putstr2d_fd(table->env, fd_ex);
-	ft_putstr_fd("\n", fd_ex);
 	close(fd_ex);
 }
 

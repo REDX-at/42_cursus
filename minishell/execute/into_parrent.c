@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:09:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/27 16:07:56 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/02 22:37:51 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,33 @@ void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[])
 	if (ft_strncmp(cmd->cmd, "export", 6) == 0)
 	{
 		waitpid(pid[k], NULL, 0);
-		int fd_in = open("export", O_RDONLY);
-		bytes = 1;
-		int i = 0;
-		char    buffer[1000];
-		int		len_double = max_env(table->env);
-		char	**new_env;
-
-		new_env = (char **)malloc(sizeof(char *) * (len_double + 1));
-		while(bytes)
+		if (cmd->argv[1])
 		{
-			bytes = read(fd_in, buffer, sizeof(buffer) - 1);
-			buffer[bytes] = '\0';
-			if (bytes)
+			int fd_in;
+			char    *buffer;
+			char 	*join;
+
+			fd_in = open("export.txt", O_RDONLY);
+			bytes = 1;
+			buffer = (char *)malloc(1000);
+			join = ft_strdup("");
+			while(bytes)
 			{
-				new_env[i] = ft_strdup(buffer);
-				i++;
+				bytes = read(fd_in, buffer, sizeof(buffer) - 1);
+				buffer[bytes] = '\0';
+				if (bytes)
+					join = ft_strjoin(join, buffer);
 			}
+			table->env = ft_split(join, '\n');
 		}
-		if (new_env[i - 1][ft_strlen(new_env[i - 1]) - 1] == '\n')
-			new_env[i - 1][ft_strlen(new_env[i - 1]) - 1] = '\0';
-		new_env[i] = NULL;
-		table->env = new_env;
-		unlink("export");
+		unlink("export.txt");
 	}
+	// if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
+	// {
+	// 	waitpid(pid[k], NULL, 0);
+	// 	if (cmd->argv[1])
+	// 	{
+			
+	// 	}
+	// }
 }

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:24:57 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/27 18:26:05 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/02 22:13:40 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,33 @@ void	ft_built_in(t_cmd **cmd, t_table *table)
 		tmp = tmp->next;
 	} 
 }
+char **the_twode(char **twode)
+{
+	int index = 0;
+	while (twode[index])
+	{
+		twode[index] = ft_strdup(twode[index]);
+		index++;
+	}
+	twode[index] = NULL;
+	return (twode);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_cmd	*cmd;
 	t_table	*table;
 	int		rr;
+	char **allocation;
 
 	(void)argc;
 	(void)argv;
 	cmd = NULL;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	table = ft_init_table(envp);
+	allocation = the_twode(envp);
+	table = ft_init_table(allocation);
 	table->var = "➜  minishell ";
 	while (1)
 	{
@@ -107,7 +121,7 @@ int main(int argc, char **argv, char **envp)
 		if(line)
 		{
 			add_history(line);
-			ft_tokenizing(line, &cmd, envp);
+			ft_tokenizing(line, &cmd, table->env);
 			ft_built_in(&cmd, table);
 			if (cmd)
 				execute_for_cmd(cmd, table);
