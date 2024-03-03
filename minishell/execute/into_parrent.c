@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:09:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/03/02 22:37:51 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/03 02:14:20 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,28 @@ void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[])
 		}
 		unlink("export.txt");
 	}
-	// if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
-	// {
-	// 	waitpid(pid[k], NULL, 0);
-	// 	if (cmd->argv[1])
-	// 	{
+	if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
+	{
+		waitpid(pid[k], NULL, 0);
+		if (cmd->argv[1])
+		{
+			int	fd_in;
+			char *buffer;
+			char *join;
 			
-	// 	}
-	// }
+			fd_in = open("unset.txt", O_RDONLY);
+			bytes = 1;
+			buffer = (char *)malloc(1000);
+			join = ft_strdup("");
+			while(bytes)
+			{
+				bytes = read(fd_in, buffer, sizeof(buffer) - 1);
+				buffer[bytes] = '\0';
+				if (bytes)
+					join = ft_strjoin(join, buffer);
+			}
+			table->env = ft_split(join, '\n');
+		}
+		// unlink("unset.txt");
+	}
 }

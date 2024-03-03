@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/03/02 23:50:51 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/03 02:48:05 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,25 @@ void	ft_add_env(char **env, char *str, int *fd)
 	ft_putstr_fd("\n", *fd);
 }
 
+char	**ft_add_env2(char **env, char *str)
+{
+	int		i;
+	char	**new_env;
+	
+	i = 0;
+	while (env[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	new_env[i] = ft_strdup(str);
+	new_env[i + 1] = NULL;
+	return (new_env);
+}
 // function putstr2d_fd
 void	ft_putstr2d_fd(char **str, int fd)
 {
@@ -186,12 +205,18 @@ void	ft_export(t_cmd *cmd, t_table *table)
 
 	check = 0;
 	i = 1;
-	unlink("export.txt");
-	fd_ex = open("export.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (ft_strlen_2d(cmd->argv) > 2)
 		new_env = (char **)malloc(sizeof(char *) * (ft_strlen_2d(table->env) + ft_strlen_2d(cmd->argv)));
 	while (cmd->argv[i])
 	{
+		printf("argv[%d] = %s\n", i, cmd->argv[i]);
+		fd_ex = open("export.txt", O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
+		if (cmd->argv[i][0] == '=')
+		{
+			ft_putstr_fd("export : not a valid identifier\n", 2);
+			ft_putstr2d_fd(table->env, fd_ex);
+			return ;
+		}
 		if (ft_strchr(cmd->argv[i], '='))
 		{
 			check = check_if_exist(cmd->argv[i], table->env);
@@ -204,13 +229,37 @@ void	ft_export(t_cmd *cmd, t_table *table)
 			else
 			{
 				ft_add_env(table->env, cmd->argv[i], &fd_ex);
+				new_env = ft_add_env2(table->env, cmd->argv[i]);
+				table->env = new_env;
 			}
+		}
+		else
+		{
+			ft_putstr2d_fd(table->env, fd_ex);
 		}
 		i++;
 	}
 	close(fd_ex);
 }
 
+char	**copy_the_env(char **env)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	while (env[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
 
 // function unset
 void ft_unset(t_cmd *cmd, t_table *table)
@@ -219,33 +268,48 @@ void ft_unset(t_cmd *cmd, t_table *table)
     int  j;
     int  len;
     char **new_env;
-
+	int	fd_out;
     i = 0;
     j = 0;
     len = ft_strlen_2d(table->env) + 1;
     new_env = (char **)malloc(sizeof(char *) * len);
 	if (cmd->argv[1] == NULL)
 	{
-		ft_putstr_fd("nset: not enough arguments\n", 2);
+		ft_putstr_fd("unset: not enough arguments\n", 2);
 		return ;
 	}
-    while (table->env[i])
-    {
-        if (ft_strncmp(table->env[i], cmd->argv[1], ft_strlen(cmd->argv[1])) != 0)
-        {
-            new_env[j] = ft_strdup(table->env[i]);
-            j++;
-        }
-        i++;
-    }
+	int d= 1;
+	while(cmd->argv[d])
+	{
+		// printf("argv[%d] = %s\n", d, cmd->argv[d]);
+		fd_out = open("unset.txt", O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
+		i = 0;
+    	while (table->env[i])
+    	{
+    	    if (ft_strncmp(table->env[i], cmd->argv[d], ft_strlen(cmd->argv[d])) != 0)
+    	    {
+    	        new_env[j] = ft_strdup(table->env[i]);
+				if (cmd->argv[d + 1] == NULL)
+				{
+					// printf("cmd->argv[%d] = %s\n", d, cmd->argv[d]);
+					ft_putstr_fd(new_env[j], fd_out);
+					ft_putstr_fd("\n", fd_out);
+				}
+				j++;
+    	    }
+    	    i++;
+    	}
+		table->env = copy_the_env(new_env);
+		d++;
+	}
     new_env[j] = NULL;
-    i = 0;
-    while (table->env[i])
-    {
-        free(table->env[i]);
-        i++;
-    }
-    free(table->env);
+    // i = 0;
+    // while (table->env[i])
+    // {
+    //     free(table->env[i]);
+    //     i++;
+    // }
+    // free(table->env);
     table->env = new_env;
 }
 
