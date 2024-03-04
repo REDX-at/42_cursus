@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:25:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/02/27 18:27:34 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/04 21:39:00 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_cmd
 	char			*diretcory;
 	bool			env;
 	char			*cmd;
+	bool			echo_new_line;
 	char			**argv;
 	char			**file;
 	struct s_cmd	*next;

@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:11:23 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/03/03 02:48:05 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:20:58 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	ft_echo(t_cmd *cmd)
 			ft_putstr_fd(cmd->argv[i], fd);
 			i++;
 		}
-		ft_putstr_fd("\n", fd);
+		if (cmd->echo_new_line == 0)
+			ft_putstr_fd("\n", fd);
 		close(fd);
 	}
 	else
@@ -61,7 +62,7 @@ void	ft_cd(t_cmd *cmd)
 
 	fd_cd = open("cd", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (cmd->argv[1] == NULL)
-		path = "/Users/aitaouss";
+		path = getenv("HOME");
 	else
 		path = cmd->argv[1];
 	if(cmd->argv[1])
@@ -77,7 +78,12 @@ void	ft_cd(t_cmd *cmd)
 	}
 	else
 	{
-		chdir(path);
+		if (chdir(path) == -1)
+		{
+			ft_putstr_fd("cd: permission denied: ", 2);
+			ft_putstr_fd(path, 2);
+			ft_putstr_fd("\n", 2);
+		}
 	}
 }
 //function of pwd command
@@ -207,11 +213,11 @@ void	ft_export(t_cmd *cmd, t_table *table)
 	i = 1;
 	if (ft_strlen_2d(cmd->argv) > 2)
 		new_env = (char **)malloc(sizeof(char *) * (ft_strlen_2d(table->env) + ft_strlen_2d(cmd->argv)));
+	
 	while (cmd->argv[i])
 	{
-		printf("argv[%d] = %s\n", i, cmd->argv[i]);
 		fd_ex = open("export.txt", O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
-		if (cmd->argv[i][0] == '=')
+		if (cmd->argv[i][0] == '=' || !ft_isalpha(cmd->argv[i][0]))
 		{
 			ft_putstr_fd("export : not a valid identifier\n", 2);
 			ft_putstr2d_fd(table->env, fd_ex);
@@ -281,9 +287,9 @@ void ft_unset(t_cmd *cmd, t_table *table)
 	int d= 1;
 	while(cmd->argv[d])
 	{
-		// printf("argv[%d] = %s\n", d, cmd->argv[d]);
 		fd_out = open("unset.txt", O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
 		i = 0;
+		j = 0;
     	while (table->env[i])
     	{
     	    if (ft_strncmp(table->env[i], cmd->argv[d], ft_strlen(cmd->argv[d])) != 0)
@@ -291,7 +297,6 @@ void ft_unset(t_cmd *cmd, t_table *table)
     	        new_env[j] = ft_strdup(table->env[i]);
 				if (cmd->argv[d + 1] == NULL)
 				{
-					// printf("cmd->argv[%d] = %s\n", d, cmd->argv[d]);
 					ft_putstr_fd(new_env[j], fd_out);
 					ft_putstr_fd("\n", fd_out);
 				}
@@ -303,13 +308,13 @@ void ft_unset(t_cmd *cmd, t_table *table)
 		d++;
 	}
     new_env[j] = NULL;
-    // i = 0;
-    // while (table->env[i])
-    // {
-    //     free(table->env[i]);
-    //     i++;
-    // }
-    // free(table->env);
+    i = 0;
+    while (table->env[i])
+    {
+        free(table->env[i]);
+        i++;
+    }
+    free(table->env);
     table->env = new_env;
 }
 

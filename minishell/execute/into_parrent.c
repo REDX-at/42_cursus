@@ -6,7 +6,7 @@
 /*   By: aitaouss <aitaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:09:10 by aitaouss          #+#    #+#             */
-/*   Updated: 2024/03/03 02:14:20 by aitaouss         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:51:44 by aitaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void    into_parrent(t_cmd *cmd, int pid[], int k, t_table *table, char buf[])
 			}
 			table->env = ft_split(join, '\n');
 		}
-		// unlink("unset.txt");
+		unlink("unset.txt");
 	}
 }
